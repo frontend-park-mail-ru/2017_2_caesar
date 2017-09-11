@@ -1,13 +1,64 @@
-.sign-form {
-  width: 300px;
-  margin: 0 auto;
-  padding-top: 100px;
+html, body {
+  background: url(shattered-island.gif);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.button {
+.app-form {
+   align-items: center;
+   justify-content: center;
+   background: grey;
+   border-radius: 10px;
+   width: 480px;
+ }
+
+.app-form h2 {
+  text-align: center;
+  padding: 20px;
+}
+
+.app-form div {
+  width: 80%;
+  margin: 0px auto;
+}
+
+.app-form input[type="text"] {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.app-form input[type="password"] {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.app-form .form-button {
+  width: 90%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.app-form .button-right {
+  float: right;
+}
+
+.app-form table {
   width: 100%;
 }
 
-.menu-button {
-  margin: 10px;
+.app-form table td {
+  width: 50%;
+}
+
+.app-form .menu-button {
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.error {
+    border: 1px solid red;
 }
