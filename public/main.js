@@ -2,15 +2,17 @@
 
 const application = document.querySelector('#application');
 
-const loginForm = document.querySelector('.js-login');
-const signupForm = document.querySelector('.js-signup');
+const loginForm = document.forms.login;
+const signupForm = document.forms.signup;
+
+const signupButtonFromLogin = loginForm.querySelector('.button-signup');
+const loginButtonFromLogin = loginForm.querySelector('.button-login');
+const loginButtonFromSignup = signupForm.querySelector('.button-login');
+const signupButtonFromSignup = signupForm.querySelector('.button-signup');
+
 const menuForm = document.querySelector('.js-menu');
 const profileForm = document.querySelector('.js-profile');
 
-const signupButtonFromLogin = document.querySelector('.js-login .button-signup');
-const loginButtonFromLogin = document.querySelector('.js-login .button-login');
-const loginButtonFromSignup = document.querySelector('.js-signup .button-login');
-const signupButtonFromSignup = document.querySelector('.js-signup .button-signup');
 const loginButtonFromMenu = document.querySelector('.js-menu .button-login');
 const profileButtonFromMenu = document.querySelector('.js-menu .button-profile');
 const menuButtonFromProfile = document.querySelector('.js-profile .button-menu');
@@ -18,36 +20,69 @@ const menuButtonFromProfile = document.querySelector('.js-profile .button-menu')
 signupButtonFromLogin.addEventListener('click', (event) => {
     loginForm.hidden = true;
     signupForm.hidden = false;
+
+    loginForm.reset();
 });
 
 loginButtonFromLogin.addEventListener('click', (event) => {
-    const username = loginForm.querySelector('.input-login');
-    const password = loginForm.querySelector('.input-password');
+    const username = loginForm.elements.username;
+    const password = loginForm.elements.password;
 
-    username.classList.remove('error');
-    password.classList.remove('error');
-    if (validateLogin(username, password)) {
+    if (!username || !password) {
+        alert(`Заполните все поля!`);
+        return;
+    }
+
+    submitForm(username.value, password.value, '/login', function (err, res) {
+        if (+err.status === 400) {
+            return alert(`Пользователь не зарегистрирован!`);
+        }
+
+        if (+err.status === 401) {
+            return alert(`Неверный логин и/или пароль!`);
+        }
+
         loginForm.hidden = true;
         menuForm.hidden = false;
 
-        auth(username.value, password.value, function (err, resp) {
-            if (err) {
-                return alert(`AUTH Error: ${err.status}`);
-            }
-
-            loginForm.reset();
-        });
-    }
+        loginForm.reset();
+    });
 });
 
 loginButtonFromSignup.addEventListener('click', (event) => {
     loginForm.hidden = false;
     signupForm.hidden = true;
+
+    signupForm.reset();
 });
 
 signupButtonFromSignup.addEventListener('click', (event) => {
-    menuForm.hidden = false;
-    signupForm.hidden = true;
+    const username = signupForm.elements.username;
+    const password = signupForm.elements.password;
+    const repeatPassword = signupForm.elements['repeat-password'];
+
+    if (!username || !password || !repeatPassword) {
+        alert(`Заполните все поля!`);
+        return;
+    }
+
+    if (password.value != repeatPassword.value) {
+        alert(`Пароли не совпадают!`);
+        return;
+    }
+
+    submitForm(username.value, password.value, '/signup', function (err, res) {
+        if (+err.status === 400) {
+            return alert(`Пользователь зарегистрирован!`);
+        }
+
+        loginForm.hidden = false;
+        signupForm.hidden = true;
+
+        loginForm.username.value = res.username;
+
+        signupForm.reset();
+    });
 });
 
 loginButtonFromMenu.addEventListener('click', (event) => {
@@ -60,11 +95,11 @@ profileButtonFromMenu.addEventListener('click', (event) => {
     menuForm.hidden = true;
 
     myProfile(function (err, resp) {
-        if (err) {
+        if (+err.status === 401) {
             return alert(`AUTH Error: ${err.status}`);
         }
 
-        document.querySelector('.js-profile .profile-username').textContent = resp.username;
+        document.querySelector('.js-profile .profile-username').innerHTML = resp.username;
     });
 });
 
@@ -73,9 +108,9 @@ menuButtonFromProfile.addEventListener('click', (event) => {
     profileForm.hidden = true;
 });
 
-function auth(username, password, callback) {
+function submitForm(username, password, url, callback) {
     const xhr = new XMLHttpRequest();
-    xhr.open('POST', '/auth', true);
+    xhr.open('POST', url, true);
     xhr.withCredentials = true;
 
     const user = {username, password};
@@ -90,7 +125,7 @@ function auth(username, password, callback) {
         }
 
         const response = JSON.parse(xhr.responseText);
-        callback(null, response);
+        callback(xhr, response);
     };
 
     xhr.send(body);
@@ -98,7 +133,7 @@ function auth(username, password, callback) {
 
 function myProfile(callback) {
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', '/profile', true);
+    xhr.open('POST', '/profile', true);
     xhr.withCredentials = true;
 
     xhr.onreadystatechange = function () {
@@ -108,24 +143,8 @@ function myProfile(callback) {
         }
 
         const response = JSON.parse(xhr.responseText);
-        callback(null, response);
+        callback(xhr, response);
     };
 
     xhr.send();
-}
-
-function validateLogin(username, password) {
-    if (username.value && password.value) {
-        return true;
-    }
-
-    if (!username.value) {
-        loginForm.querySelector('.input-login').classList.add('error');
-    }
-
-    if (!password.value) {
-        loginForm.querySelector('.input-password').classList.add('error');
-    }
-
-    return false;
 }

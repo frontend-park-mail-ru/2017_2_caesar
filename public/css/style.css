@@ -8,11 +8,12 @@ html, body {
 }
 
 .app-form {
-   align-items: center;
-   justify-content: center;
-   background: grey;
-   border-radius: 10px;
-   width: 480px;
+    align-items: center;
+    justify-content: center;
+    background: grey;
+    border-radius: 10px;
+    width: 480px;
+    height: 320px;
  }
 
 .app-form h2 {
@@ -22,23 +23,16 @@ html, body {
 
 .app-form div {
   width: 80%;
-  margin: 0px auto;
+  margin: 0 auto;
 }
 
-.app-form input[type="text"] {
+form input {
   margin-top: 10px;
   margin-bottom: 10px;
 }
 
-.app-form input[type="password"] {
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
-.app-form .form-button {
+form input[type="button"] {
   width: 90%;
-  margin-top: 10px;
-  margin-bottom: 10px;
 }
 
 .app-form .button-right {
