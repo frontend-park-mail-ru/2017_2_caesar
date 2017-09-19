@@ -1,10 +1,10 @@
 html, body {
-  background: url(shattered-island.gif);
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    background: url(shattered-island.gif);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .app-form {
@@ -14,37 +14,37 @@ html, body {
     border-radius: 10px;
     width: 480px;
     height: 320px;
- }
+}
 
 .app-form h2 {
-  text-align: center;
-  padding: 20px;
+    text-align: center;
+    padding: 20px;
 }
 
 .app-form div {
-  width: 80%;
-  margin: 0 auto;
+    width: 80%;
+    margin: 0 auto;
 }
 
 form input {
-  margin-top: 10px;
-  margin-bottom: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 form input[type="button"] {
-  width: 90%;
+    width: 90%;
 }
 
 .app-form .button-right {
-  float: right;
+    float: right;
 }
 
 .app-form table {
-  width: 100%;
+    width: 100%;
 }
 
 .app-form table td {
-  width: 50%;
+    width: 50%;
 }
 
 .app-form .menu-button {

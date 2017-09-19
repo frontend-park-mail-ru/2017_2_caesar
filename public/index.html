@@ -10,76 +10,80 @@
 </head>
 
 <body>
-    <div id="application">
-        <div class="app-form">
+<div id="application">
+    <div class="app-form">
 
-            <form name="login">
-                <h2>Вход</h2>
-                <div>
-                    <input type="text" class="form-control input-login" placeholder="Имя пользователя" name="username">
-                </div>
-                <div>
-                    <input type="password" class="form-control input-password" placeholder="Пароль" name="password">
-                </div>
-                <div>
-                    <table>
-                        <tr>
-                            <td><input type="button" class="btn btn-default button-login button-left" value="Войти"></td>
-                            <td><input type="button" class="btn btn-default button-signup button-right" value="Регистрация"></td>
-                        </tr>
-                    </table>
-                </div>
-            </form>
-
-            <form name="signup" hidden>
-                <h2>Регистрация</h2>
-                <div>
-                    <input type="text" class="form-control input-login" placeholder="Имя пользователя" name="username">
-                </div>
-                <div>
-                    <input type="password" class="form-control input-password" placeholder="Пароль" name="password">
-                </div>
-                <div>
-                    <input type="password" class="form-control input-repeat-password" placeholder="Повторите пароль" name="repeat-password">
-                </div>
-                <div>
-                    <table>
-                        <tr>
-                            <td><input type="button" class="btn btn-default button-signup button-left" value="Подтвердить"></td>
-                            <td><input type="button" class="btn btn-default button-login button-right" value="Вернуться"></td>
-                        </tr>
-                    </table>
-                </div>
-            </form>
-
-            <div class="js-menu" hidden>
-                <h2>Меню</h2>
-                <div>
-                    <input type="button" class="btn btn-default menu-button" value="Играть">
-                </div>
-                <div>
-                    <input type="button" class="btn btn-default button-profile menu-button" value="Профиль">
-                </div>
-                <div>
-                    <input type="button" class="btn btn-default menu-button" value="Рейтинг">
-                </div>
-                <div>
-                    <input type="button" class="btn btn-default button-login menu-button" value="Выйти">
-                </div>
+        <form name="login">
+            <h2>Вход</h2>
+            <div>
+                <input type="text" class="form-control input-login" placeholder="Имя пользователя" name="username">
             </div>
-
-            <div class="js-profile" hidden>
-                <h2>Профиль</h2>
-                <div>
-                    Ваш логин: <span class="profile-username"></span>
-                </div>
-                <div>
-                    <input type="button" class="btn btn-default button-menu" value="Вернуться">
-                </div>
+            <div>
+                <input type="password" class="form-control input-password" placeholder="Пароль" name="password">
             </div>
+            <div>
+                <table>
+                    <tr>
+                        <td><input type="button" class="btn btn-default button-login button-left" value="Войти"></td>
+                        <td><input type="button" class="btn btn-default button-signup button-right" value="Регистрация">
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </form>
 
+        <form name="signup" hidden>
+            <h2>Регистрация</h2>
+            <div>
+                <input type="text" class="form-control input-login" placeholder="Имя пользователя" name="username">
+            </div>
+            <div>
+                <input type="password" class="form-control input-password" placeholder="Пароль" name="password">
+            </div>
+            <div>
+                <input type="password" class="form-control input-repeat-password" placeholder="Повторите пароль"
+                       name="repeat-password">
+            </div>
+            <div>
+                <table>
+                    <tr>
+                        <td><input type="button" class="btn btn-default button-signup button-left" value="Подтвердить">
+                        </td>
+                        <td><input type="button" class="btn btn-default button-login button-right" value="Вернуться">
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </form>
+
+        <div class="js-menu" hidden>
+            <h2>Меню</h2>
+            <div>
+                <input type="button" class="btn btn-default menu-button" value="Играть">
+            </div>
+            <div>
+                <input type="button" class="btn btn-default button-profile menu-button" value="Профиль">
+            </div>
+            <div>
+                <input type="button" class="btn btn-default menu-button" value="Рейтинг">
+            </div>
+            <div>
+                <input type="button" class="btn btn-default button-login menu-button" value="Выйти">
+            </div>
         </div>
+
+        <div class="js-profile" hidden>
+            <h2>Профиль</h2>
+            <div>
+                Ваш логин: <span class="profile-username"></span>
+            </div>
+            <div>
+                <input type="button" class="btn btn-default button-menu" value="Вернуться">
+            </div>
+        </div>
+
     </div>
-    <script src="./main.js"></script>
+</div>
+<script src="dist/bundle.js"></script>
 </body>
 </html>
