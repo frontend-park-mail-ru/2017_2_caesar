@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "npm-run-all --parallel watch start",
     "start": "nodemon server/index.js",
-    "watch": "webpack --colors --watch",
+    "watch": "webpack --watch",
     "eslint": "./node_modules/.bin/eslint ./public/**/*.js",
     "eslint-fix": "./node_modules/.bin/eslint --fix ./public/**/*.js"
   },

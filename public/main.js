@@ -1,22 +1,22 @@
-import Login from './components/login';
+import LoginForm from './components/loginForm';
 
-// eslint-disable-next-line no-unused-vars
-const login = new Login(document);
+const login = new LoginForm();
+document.body.appendChild(login.get());
 
 // const application = document.querySelector('#application');
 //
-// const loginForm = document.forms.login;
+// const loginForm = document.forms.loginForm;
 // const signupForm = document.forms.signup;
 //
 // const signupButtonFromLogin = loginForm.querySelector('.button-signup');
-// const loginButtonFromLogin = loginForm.querySelector('.button-login');
-// const loginButtonFromSignup = signupForm.querySelector('.button-login');
+// const loginButtonFromLogin = loginForm.querySelector('.button-loginForm');
+// const loginButtonFromSignup = signupForm.querySelector('.button-loginForm');
 // const signupButtonFromSignup = signupForm.querySelector('.button-signup');
 //
 // const menuForm = document.querySelector('.js-menu');
 // const profileForm = document.querySelector('.js-profile');
 //
-// const loginButtonFromMenu = document.querySelector('.js-menu .button-login');
+// const loginButtonFromMenu = document.querySelector('.js-menu .button-loginForm');
 // const profileButtonFromMenu = document.querySelector('.js-menu .button-profile');
 // const menuButtonFromProfile = document.querySelector('.js-profile .button-menu');
 //
@@ -37,7 +37,7 @@ const login = new Login(document);
 //   return;
 // }
 //
-// submitForm(username.value, password.value, '/login', function (err, res) {
+// submitForm(username.value, password.value, '/loginForm', function (err, res) {
 //   if (+err.status === 400) {
 //     return alert(`Пользователь не зарегистрирован!`);
 //   }

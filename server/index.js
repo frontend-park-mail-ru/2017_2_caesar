@@ -1,5 +1,3 @@
-'use strict';
-
 const express = require('express');
 const body = require('body-parser');
 const cookie = require('cookie-parser');
@@ -15,47 +13,47 @@ app.use(cookie());
 const users = {};
 const ids = {};
 
-app.post('/login', function (req, res) {
-    const username = req.body.username;
-    const password = req.body.password;
+app.post('/loginForm', function (req, res) {
+  const username = req.body.username;
+  const password = req.body.password;
 
-    if (users[username] !== password) {
-        return res.status(400).end();
-    }
+  if (users[username] !== password) {
+    return res.status(400).end();
+  }
 
-    if (!users[username]) {
-        return res.status(401).end();
-    }
+  if (!users[username]) {
+    return res.status(401).end();
+  }
 
-    const id = uuid();
-    ids[id] = username;
+  const id = uuid();
+  ids[id] = username;
 
-    res.cookie('id', id, {expires: new Date(Date.now() + 1000 * 60 * 10)});
-    res.json({id});
+  res.cookie('id', id, {expires: new Date(Date.now() + 1000 * 60 * 10)});
+  res.json({id});
 });
 
 app.post('/signup', function (req, res) {
-    const username = req.body.username;
-    const password = req.body.password;
+  const username = req.body.username;
+  const password = req.body.password;
 
-    if (users[username]) {
-        return res.status(400).end();
-    }
+  if (users[username]) {
+    return res.status(400).end();
+  }
 
-    users[username] = password;
+  users[username] = password;
 
-    res.json({'username': username});
+  res.json({'username': username});
 });
 
 app.post('/profile', function (req, res) {
-    const id = req.cookies['id'];
-    const username = ids[id];
+  const id = req.cookies['id'];
+  const username = ids[id];
 
-    if (!username || !users[username]) {
-        return res.status(401).end();
-    }
+  if (!username || !users[username]) {
+    return res.status(401).end();
+  }
 
-    res.json({'username': username});
+  res.json({'username': username});
 });
 
 app.listen(process.env.PORT || '8080');
