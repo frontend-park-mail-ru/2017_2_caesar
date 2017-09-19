@@ -1,7 +1,18 @@
 import LoginForm from './components/loginForm';
+import Http from './modules/http.js';
 
 const login = new LoginForm();
+login.onSubmit(body => Http.Post('login', body, (err, res) => {
+  if (err) {
+    if (+err.status === 400) {
+      return alert('Пользователь не зарегистрирован!');
+    }
+  }
+  console.log(res);
+}));
+
 document.body.appendChild(login.get());
+
 
 // const application = document.querySelector('#application');
 //

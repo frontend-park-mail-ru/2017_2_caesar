@@ -10,11 +10,11 @@ class Form extends Block {
       event.preventDefault();
 
       const formData = {};
-      const elements = this.elements;
+      const elements = this.get().elements;
 
-      elements.forEach((name) => {
+      for (const name in elements) {
         formData[name] = elements[name].value;
-      });
+      }
 
       callback(formData);
     });
