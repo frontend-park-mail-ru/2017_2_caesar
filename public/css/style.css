@@ -1,5 +1,5 @@
 html, body {
-    background: url(shattered-island.gif);
+    background: url(../image/shattered-island.gif);
     width: 100%;
     height: 100%;
     display: flex;
@@ -8,46 +8,28 @@ html, body {
 }
 
 .block {
-    align-items: center;
-    justify-content: center;
     background: grey;
     border-radius: 10px;
     width: 480px;
-    height: 320px;
 }
 
-.app-form h2 {
+.app-form {
+    margin: 0 auto;
+    width: 80%;
+}
+
+.app-form-header {
     text-align: center;
     padding: 20px;
 }
 
-form input {
+.app-form-input {
     margin-top: 10px;
     margin-bottom: 10px;
 }
 
-form input[type="button"] {
-    width: 90%;
-}
-
-.app-form .button-right {
-    float: right;
-}
-
-.app-form table {
-    width: 100%;
-}
-
-.app-form table td {
-    width: 50%;
-}
-
-.app-form .menu-button {
-    width: 100%;
+.app-form-button {
     margin-top: 10px;
-    margin-bottom: 10px;
-}
-
-.error {
-    border: 1px solid red;
+    margin-bottom: 20px;
+    width: 40%;
 }

@@ -1,7 +1,7 @@
 class Http {
   static Get(address, callback) {
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', address, true);
+    xhr.open('GET', `http://localhost:8081${address}`, true);
     xhr.withCredentials = true;
 
     xhr.onreadystatechange = () => {
@@ -19,7 +19,7 @@ class Http {
 
   static Post(address, body, callback) {
     const xhr = new XMLHttpRequest();
-    xhr.open('POST', `https://localhost:8081${address}`, true);
+    xhr.open('POST', `http://localhost:8081${address}`, true);
     xhr.withCredentials = true;
     xhr.setRequestHeader('Content-Type', 'application/json; charset=utf8');
 

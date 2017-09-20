@@ -3,39 +3,39 @@ import Form from '../form';
 
 class RegistrationForm extends Form {
   constructor() {
-    super('login', ['app-form']);
+    super('registration', ['app-form']);
 
     this.email = new Block('input', {
       type: 'email',
       name: 'email',
       placeholder: 'Почта',
-      // required: 'required',
+      required: 'required',
     }, ['app-form-input', 'form-control']);
 
     this.username = new Block('input', {
       type: 'text',
       name: 'username',
       placeholder: 'Имя пользователя',
-      // required: 'required',
+      required: 'required',
     }, ['app-form-input', 'form-control']);
 
     this.password = new Block('input', {
       type: 'password',
       name: 'password',
       placeholder: 'Пароль',
-      // required: 'required',
+      required: 'required',
     }, ['app-form-input', 'form-control']);
 
     this.passwordRepeat = new Block('input', {
       type: 'password',
       name: 'passwordRepeat',
       placeholder: 'Повторите пароль',
-      // required: 'required',
+      required: 'required',
     }, ['app-form-input', 'form-control']);
 
     this.submit = new Block('input', {
       type: 'submit',
-    }, ['btn', 'btn-default']);
+    }, ['btn', 'btn-default', 'app-form-button']);
 
     this.render();
   }

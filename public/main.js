@@ -1,13 +1,13 @@
-import LoginForm from './components/loginForm';
-import RegistrationForm from './components/registrationForm';
+import RegistrationView from './views/registration';
 import Http from './modules/http.js';
 
-const registration = new RegistrationForm();
-registration.onSubmit(body => Http.Post('/reg', { email: 'ab@mail.ru', username: 'ab', password: '1830' }, (err, res) => {
+const register = () => Http.Post('/reg', { email: 'seva@mail.ru', username: 'kek', password: '1830' }, (err, res) => {
   if (err) {
     console.log(+err.status);
   }
   console.log(res);
-}));
+});
 
-document.querySelector('.registration-block').appendChild(registration.get());
+const registration = new RegistrationView(register);
+
+document.body.appendChild(registration.get());
