@@ -4,9 +4,10 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "dev": "npm-run-all --parallel watch start",
-    "start": "nodemon server/index.js",
-    "watch": "webpack --watch",
+    "start": "node server/index.js",
+    "dev": "npm-run-all --parallel build-dev start-dev",
+    "start-dev": "nodemon server/index.js",
+    "build-dev": "webpack --watch",
     "eslint": "./node_modules/.bin/eslint ./public/**/*.js",
     "eslint-fix": "./node_modules/.bin/eslint --fix ./public/**/*.js"
   },

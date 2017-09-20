@@ -1,7 +1,7 @@
 class Http {
   static Get(address, callback) {
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', address, true);
+    xhr.open('GET', `https://caesar-server.herokuapp.com${address}`, true);
     xhr.withCredentials = true;
 
     xhr.onreadystatechange = () => {
@@ -19,7 +19,7 @@ class Http {
 
   static Post(address, body, callback) {
     const xhr = new XMLHttpRequest();
-    xhr.open('POST', address, true);
+    xhr.open('POST', `https://caesar-server.herokuapp.com${address}`, true);
     xhr.withCredentials = true;
     xhr.setRequestHeader('Content-Type', 'application/json; charset=utf8');
 
