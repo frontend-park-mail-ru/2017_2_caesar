@@ -1,4 +1,3 @@
-import LoginForm from './components/loginForm';
 import RegistrationForm from './components/registrationForm';
 import Http from './modules/http.js';
 
