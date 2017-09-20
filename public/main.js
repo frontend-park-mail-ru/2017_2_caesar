@@ -10,4 +10,4 @@ registration.onSubmit(body => Http.Post('/reg', { email: 'ab@mail.ru', username:
   console.log(res);
 }));
 
-document.body.appendChild(registration.get());
+document.querySelector('.registration-block').appendChild(registration.get());
