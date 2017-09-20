@@ -19,7 +19,7 @@ class Http {
 
   static Post(address, body, callback) {
     const xhr = new XMLHttpRequest();
-    xhr.open('POST', `http://localhost:8081${address}`, true);
+    xhr.open('POST', `https://localhost:8081${address}`, true);
     xhr.withCredentials = true;
     xhr.setRequestHeader('Content-Type', 'application/json; charset=utf8');
 
