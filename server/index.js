@@ -32,7 +32,7 @@ app.post('/login', function (req, res) {
   res.json({id});
 });
 
-app.post('/signup', function (req, res) {
+app.post('/reg', function (req, res) {
   const username = req.body.username;
   const password = req.body.password;
 

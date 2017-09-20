@@ -1,7 +1,7 @@
 class Http {
   static Get(address, callback) {
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', `https://caesar-server.herokuapp.com${address}`, true);
+    xhr.open('GET', address, true);
     xhr.withCredentials = true;
 
     xhr.onreadystatechange = () => {

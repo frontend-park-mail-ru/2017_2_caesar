@@ -7,7 +7,7 @@ html, body {
     justify-content: center;
 }
 
-.app-form {
+.block {
     align-items: center;
     justify-content: center;
     background: grey;
@@ -19,11 +19,6 @@ html, body {
 .app-form h2 {
     text-align: center;
     padding: 20px;
-}
-
-.app-form div {
-    width: 80%;
-    margin: 0 auto;
 }
 
 form input {
