@@ -1,5 +1,5 @@
 class Http {
-  static Get(address, callback) {
+  static get(address, callback) {
     const xhr = new XMLHttpRequest();
     xhr.open('GET', address, true);
     xhr.withCredentials = true;
@@ -17,7 +17,7 @@ class Http {
     xhr.send();
   }
 
-  static Post(address, body, callback) {
+  static post(address, body, callback) {
     const xhr = new XMLHttpRequest();
     xhr.open('POST', address, true);
     xhr.withCredentials = true;

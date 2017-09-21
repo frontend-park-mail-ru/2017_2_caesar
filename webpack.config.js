@@ -1,12 +1,12 @@
 const path = require('path');
 
 module.exports = {
-  entry: './public/main.js',
+  entry: './src/main.js',
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, './public/dist/'),
   },
-  devtool: 'cheap-module-eval-source-map',
+  devtool: 'eval-source-map',
   module: {
     rules: [
       {

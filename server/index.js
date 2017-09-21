@@ -3,6 +3,7 @@ const body = require('body-parser');
 const cookie = require('cookie-parser');
 const morgan = require('morgan');
 const uuid = require('uuid/v4');
+
 const app = express();
 
 app.use(morgan('dev'));
@@ -13,7 +14,7 @@ app.use(cookie());
 const users = {};
 const ids = {};
 
-app.post('/auth', function (req, res) {
+app.post('/auth', (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
 
@@ -28,11 +29,11 @@ app.post('/auth', function (req, res) {
   const id = uuid();
   ids[id] = username;
 
-  res.cookie('id', id, {expires: new Date(Date.now() + 1000 * 60 * 10)});
-  res.json({id});
+  res.cookie('id', id, { expires: new Date(Date.now() + 1000 * 60 * 10) });
+  res.json({ id });
 });
 
-app.post('/reg', function (req, res) {
+app.post('/reg', (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
 
@@ -42,18 +43,18 @@ app.post('/reg', function (req, res) {
 
   users[username] = password;
 
-  res.json({'username': username});
+  res.json({ username });
 });
 
-app.post('/profile', function (req, res) {
-  const id = req.cookies['id'];
+app.post('/profile', (req, res) => {
+  const id = req.cookies.id;
   const username = ids[id];
 
-  if (!username || !users[username]) {
+  if (!users[username]) {
     return res.status(401).end();
   }
 
-  res.json({'username': username});
+  res.json({ username });
 });
 
 app.listen(process.env.PORT || '8080');

@@ -1,16 +1,9 @@
-import Block from '../block';
-import Form from '../form';
+import Block from '../block/index';
+import Form from '../form/index';
 
-class RegistrationForm extends Form {
+class LoginForm extends Form {
   constructor() {
-    super('registration', ['app-form']);
-
-    this.email = new Block('input', {
-      type: 'email',
-      name: 'email',
-      placeholder: 'Почта',
-      required: 'required',
-    }, ['app-form-input', 'form-control']);
+    super('login', ['app-form']);
 
     this.username = new Block('input', {
       type: 'text',
@@ -26,13 +19,6 @@ class RegistrationForm extends Form {
       required: 'required',
     }, ['app-form-input', 'form-control']);
 
-    this.passwordRepeat = new Block('input', {
-      type: 'password',
-      name: 'passwordRepeat',
-      placeholder: 'Повторите пароль',
-      required: 'required',
-    }, ['app-form-input', 'form-control']);
-
     this.submit = new Block('input', {
       type: 'submit',
     }, ['btn', 'btn-default', 'app-form-button']);
@@ -41,12 +27,10 @@ class RegistrationForm extends Form {
   }
 
   render() {
-    this.append(this.email);
     this.append(this.username);
     this.append(this.password);
-    this.append(this.passwordRepeat);
     this.append(this.submit);
   }
 }
 
-export default RegistrationForm;
+export default LoginForm;

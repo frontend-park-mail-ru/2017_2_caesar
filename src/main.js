@@ -1,7 +1,7 @@
 import Http from './modules/http.js';
-import Block from './components/block';
-import RegistrationForm from './components/registrationForm';
-import LoginForm from './components/loginForm';
+import Block from './components/block/index';
+import RegistrationForm from './components/registrationForm/index';
+import LoginForm from './components/loginForm/index';
 
 const registration = new Block('div', { hidden: 'hidden' }, ['block', 'registration-block']);
 const registrationHeader = new Block('h2', {}, ['app-form-header'], 'Регистрация');
@@ -11,7 +11,7 @@ registration.append(registrationHeader);
 registration.append(registrationForm);
 
 const login = new Block('div', { hidden: 'hidden' }, ['block', 'login-block']);
-const loginHeader = new Block('h2', {}, ['app-form-header'], 'Регистрация');
+const loginHeader = new Block('h2', {}, ['app-form-header'], 'Авторизация');
 const loginForm = new LoginForm();
 
 login.append(loginHeader);
@@ -22,7 +22,7 @@ document.body.appendChild(login.get());
 
 registration.show();
 
-const register = body => Http.Post('/reg', { email: 'seva@mail.ru', username: 'kek', password: '1830' }, (err, res) => {
+const register = body => Http.post('https://game23242.herokuapp.com/reg', { email: 'ab@mail.ru', username: 'ab', password: '1830' }, (err, res) => {
   if (err) {
     console.log(+err.status);
   } else {
@@ -34,7 +34,7 @@ const register = body => Http.Post('/reg', { email: 'seva@mail.ru', username: 'k
   console.log(res);
 });
 
-const auth = body => Http.Post('/auth', { username: 'kek', password: '1830' }, (err, res) => {
+const auth = body => Http.post('https://game23242.herokuapp.com/auth', { username: 'ab', password: '1830' }, (err, res) => {
   if (err) {
     console.log(+err.status);
   } else {
