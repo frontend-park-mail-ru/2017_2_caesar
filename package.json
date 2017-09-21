@@ -4,8 +4,13 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "start": "node server/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "npm run build & node server/index.js",
+    "build": "webpack -p",
+    "dev": "npm-run-all --parallel build-dev start-dev",
+    "start-dev": "nodemon server/index.js",
+    "build-dev": "webpack --watch",
+    "eslint": "./node_modules/.bin/eslint ./public/**/*.js",
+    "eslint-fix": "./node_modules/.bin/eslint --fix ./public/**/*.js"
   },
   "keywords": [],
   "author": "",
@@ -16,5 +21,18 @@
     "express": "^4.15.4",
     "morgan": "^1.8.2",
     "uuid": "^3.1.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.0",
+    "eslint": "^4.7.1",
+    "eslint-config-airbnb": "^15.1.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-jsx-a11y": "^6.0.2",
+    "eslint-plugin-react": "^7.3.0",
+    "nodemon": "^1.12.1",
+    "npm-run-all": "^4.1.1",
+    "webpack": "^3.6.0"
   }
 }

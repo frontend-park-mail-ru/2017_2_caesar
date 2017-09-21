@@ -1,10 +1,9 @@
-'use strict';
-
 const express = require('express');
 const body = require('body-parser');
 const cookie = require('cookie-parser');
 const morgan = require('morgan');
 const uuid = require('uuid/v4');
+
 const app = express();
 
 app.use(morgan('dev'));
@@ -15,37 +14,47 @@ app.use(cookie());
 const users = {};
 const ids = {};
 
-app.post('/auth', function (req, res) {
-    const username = req.body.username;
-    const password = req.body.password;
+app.post('/auth', (req, res) => {
+  const username = req.body.username;
+  const password = req.body.password;
 
-    if (!username || !password) {
-        return res.status(400).end();
-    }
+  if (users[username] !== password) {
+    return res.status(400).end();
+  }
 
-    if (!users[username]) {
-        users[username] = {
-            username,
-            password,
-        };
-    }
+  if (!users[username]) {
+    return res.status(401).end();
+  }
 
-    const id = uuid();
-    ids[id] = username;
+  const id = uuid();
+  ids[id] = username;
 
-    res.cookie('id', id, {expires: new Date(Date.now() + 1000 * 60 * 10)});
-    res.json({id});
+  res.cookie('id', id, { expires: new Date(Date.now() + 1000 * 60 * 10) });
+  res.json({ id });
 });
 
-app.get('/profile', function (req, res) {
-    const id = req.cookies['id'];
-    const username = ids[id];
+app.post('/reg', (req, res) => {
+  const username = req.body.username;
+  const password = req.body.password;
 
-    if (!username || !users[username]) {
-        return res.status(401).end();
-    }
+  if (users[username]) {
+    return res.status(400).end();
+  }
 
-    res.json(users[username]);
+  users[username] = password;
+
+  res.json({ username });
+});
+
+app.post('/profile', (req, res) => {
+  const id = req.cookies.id;
+  const username = ids[id];
+
+  if (!users[username]) {
+    return res.status(401).end();
+  }
+
+  res.json({ username });
 });
 
 app.listen(process.env.PORT || '8080');
