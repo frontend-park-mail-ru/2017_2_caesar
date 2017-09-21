@@ -21,15 +21,15 @@ class LoginForm extends Form {
 
     this.submit = new Block('input', {
       type: 'submit',
-    }, ['btn', 'btn-default']);
+    }, ['btn', 'btn-default', 'app-form-button']);
 
     this.render();
   }
 
   render() {
-    this.get().appendChild(this.username.get());
-    this.get().appendChild(this.password.get());
-    this.get().appendChild(this.submit.get());
+    this.append(this.username);
+    this.append(this.password);
+    this.append(this.submit);
   }
 }
 

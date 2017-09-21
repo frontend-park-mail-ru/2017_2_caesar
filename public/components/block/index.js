@@ -1,8 +1,9 @@
 class Block {
-  constructor(tag, attrs = {}, classes = []) {
+  constructor(tag, attrs = {}, classes = [], text = '') {
     this.element = document.createElement(tag);
     this.setAttrs(attrs);
     this.setClasses(classes);
+    this.setText(text);
   }
 
   setAttrs(attrs = {}) {
@@ -15,6 +16,10 @@ class Block {
     classes.forEach(item => this.element.classList.add(item));
   }
 
+  setText(text) {
+    this.element.textContent = text;
+  }
+
   removeClasses(classes = []) {
     classes.forEach(item => this.element.classList.remove(item));
   }
@@ -25,6 +30,11 @@ class Block {
 
   show() {
     this.element.removeAttribute('hidden');
+  }
+
+  append(block) {
+    this.element.appendChild(block.element);
+    return this;
   }
 
   on(name, callback) {

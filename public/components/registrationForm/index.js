@@ -41,11 +41,11 @@ class RegistrationForm extends Form {
   }
 
   render() {
-    this.get().appendChild(this.email.get());
-    this.get().appendChild(this.username.get());
-    this.get().appendChild(this.password.get());
-    this.get().appendChild(this.passwordRepeat.get());
-    this.get().appendChild(this.submit.get());
+    this.append(this.email);
+    this.append(this.username);
+    this.append(this.password);
+    this.append(this.passwordRepeat);
+    this.append(this.submit);
   }
 }
 

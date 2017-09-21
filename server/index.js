@@ -13,7 +13,7 @@ app.use(cookie());
 const users = {};
 const ids = {};
 
-app.post('/login', function (req, res) {
+app.post('/auth', function (req, res) {
   const username = req.body.username;
   const password = req.body.password;
 

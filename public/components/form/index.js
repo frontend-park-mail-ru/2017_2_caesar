@@ -10,7 +10,7 @@ class Form extends Block {
       event.preventDefault();
 
       const formData = {};
-      const elements = this.get().elements;
+      const elements = this.element.elements;
 
       for (const name in elements) {
         formData[name] = elements[name].value;
@@ -21,7 +21,7 @@ class Form extends Block {
   }
 
   reset() {
-    this.reset();
+    this.element.reset();
   }
 }
 
