@@ -9,8 +9,8 @@
     "dev": "npm-run-all --parallel build-dev start-dev",
     "start-dev": "nodemon server/index.js",
     "build-dev": "webpack --watch",
-    "eslint": "./node_modules/.bin/eslint ./public/**/*.js",
-    "eslint-fix": "./node_modules/.bin/eslint --fix ./public/**/*.js"
+    "eslint": "./node_modules/.bin/eslint ./src/**/*.js",
+    "eslint-fix": "./node_modules/.bin/eslint --fix ./src/**/*.js"
   },
   "keywords": [],
   "author": "",

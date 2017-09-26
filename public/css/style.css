@@ -33,3 +33,19 @@ html, body {
     margin-bottom: 20px;
     width: 40%;
 }
+
+.app-menu-header {
+    text-align: center;
+    padding: 20px;
+}
+
+.app-menu-button {
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-bottom: 20px;
+    width: 80%;
+}
+
+.error {
+    border: 1px solid red;
+}

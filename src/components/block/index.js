@@ -1,9 +1,22 @@
 class Block {
-  constructor(tag, attrs = {}, classes = [], text = '') {
-    this.element = document.createElement(tag);
-    this.setAttrs(attrs);
-    this.setClasses(classes);
-    this.setText(text);
+  constructor(element) {
+    this.element = element;
+  }
+
+  static create(tag, attrs = {}, classes = [], text = '') {
+    const element = document.createElement(tag);
+
+    Object.keys(attrs).forEach((name) => {
+      element.setAttribute(name, attrs[name]);
+    });
+
+    classes.forEach(item => element.classList.add(item));
+
+    if (text) {
+      element.textContent = text;
+    }
+
+    return new Block(element);
   }
 
   setAttrs(attrs = {}) {
@@ -12,16 +25,20 @@ class Block {
     });
   }
 
-  setClasses(classes = []) {
+  addClasses(classes = []) {
     classes.forEach(item => this.element.classList.add(item));
+  }
+
+  removeClasses(classes = []) {
+    classes.forEach(item => this.element.classList.remove(item));
   }
 
   setText(text) {
     this.element.textContent = text;
   }
 
-  removeClasses(classes = []) {
-    classes.forEach(item => this.element.classList.remove(item));
+  clear() {
+    this.element.innerHTML = '';
   }
 
   hide() {
@@ -39,10 +56,6 @@ class Block {
 
   on(name, callback) {
     this.element.addEventListener(name, callback);
-  }
-
-  get() {
-    return this.element;
   }
 }
 
