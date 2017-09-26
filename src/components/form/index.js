@@ -2,20 +2,20 @@ import Block from '../block/index';
 
 class Form extends Block {
   constructor(name, classes = []) {
-    super('form', { name }, classes);
+    const form = document.createElement('form');
+    super(form);
+
+    this.setAttrs({ name });
+    this.addClasses(classes);
   }
 
-  onSubmit(callback, fields = []) {
-    this.on('submit', (event) => {
-      event.preventDefault();
+  getFields(fields = []) {
+    const formData = {};
+    const elements = this.element.elements;
 
-      const formData = {};
-      const elements = this.element.elements;
+    fields.forEach(name => formData[name] = elements[name].value);
 
-      fields.forEach(name => formData[name] = elements[name].value);
-
-      callback(formData);
-    });
+    return formData;
   }
 
   reset() {

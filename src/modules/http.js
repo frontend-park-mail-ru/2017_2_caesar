@@ -1,39 +1,38 @@
 class Http {
-  static get(address, callback) {
-    const xhr = new XMLHttpRequest();
-    xhr.open('GET', address, true);
-    xhr.withCredentials = true;
+  static get(address) {
+    const url = `http://localhost:8081${address}`;
+    return fetch(url, {
+      method: 'GET',
+      mode: 'cors',
+      credentials: 'include',
+    })
+      .then((response) => {
+        if (response.status >= 400) {
+          throw response;
+        }
 
-    xhr.onreadystatechange = () => {
-      if (xhr.readyState !== 4) return;
-      if (+xhr.status >= 400) {
-        return callback(xhr, null);
-      }
-
-      const response = JSON.parse(xhr.responseText);
-      callback(null, response);
-    };
-
-    xhr.send();
+        return response.json();
+      });
   }
 
-  static post(address, body, callback) {
-    const xhr = new XMLHttpRequest();
-    xhr.open('POST', address, true);
-    xhr.withCredentials = true;
-    xhr.setRequestHeader('Content-Type', 'application/json; charset=utf8');
+  static post(address, body) {
+    const url = `http://localhost:8081${address}`;
+    return fetch(url, {
+      method: 'POST',
+      mode: 'cors',
+      credentials: 'include',
+      body: JSON.stringify(body),
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+      },
+    })
+      .then((response) => {
+        if (response.status >= 400) {
+          throw response;
+        }
 
-    xhr.onreadystatechange = () => {
-      if (xhr.readyState !== 4) return;
-      if (+xhr.status >= 400) {
-        return callback(xhr, null);
-      }
-
-      const response = JSON.parse(xhr.responseText);
-      callback(null, response);
-    };
-
-    xhr.send(JSON.stringify(body));
+        return response.json();
+      });
   }
 }
 
