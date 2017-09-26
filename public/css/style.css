@@ -34,6 +34,11 @@ html, body {
     width: 40%;
 }
 
+.app-menu {
+    margin: 0 auto;
+    width: 80%;
+}
+
 .app-menu-header {
     text-align: center;
     padding: 20px;

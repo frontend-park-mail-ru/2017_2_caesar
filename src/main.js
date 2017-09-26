@@ -2,6 +2,7 @@ import UserService from './services/user-service';
 import Block from './components/block/';
 import RegistrationForm from './components/registrationForm/';
 import LoginForm from './components/loginForm/';
+import Scoreboard from './components/scoreboard/';
 
 const registration = Block.create('div', { hidden: 'hidden' }, ['block', 'registration-block']);
 registration.header = Block.create('h2', {}, ['app-form-header'], 'Регистрация');
@@ -51,12 +52,16 @@ menu
   .append(menu.rating)
   .append(menu.logout);
 
+const scoreboard = new Scoreboard();
+scoreboard.hide();
+
 const app = new Block(document.querySelector('.app'));
 
 app
   .append(registration)
   .append(login)
-  .append(menu);
+  .append(menu)
+  .append(scoreboard);
 
 const userService = new UserService();
 
@@ -107,6 +112,9 @@ function openMenu() {
       userService.loadUsersList()
         .then((res) => {
           console.log(res);
+          scoreboard.update(res);
+          menu.hide();
+          scoreboard.show();
         })
         .catch(err => console.log(err));
     });
