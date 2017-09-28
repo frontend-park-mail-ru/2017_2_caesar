@@ -55,15 +55,15 @@ class UserService {
    */
 
   loadUserData() {
-    if (this.isLoggedIn() ) {
+    if (this.isLoggedIn()) {
       return Promise.resolve(this.user);
     }
 
     return Http.get('/api/auth/info')
-      .then(function (userData) {
+      .then((userData) => {
         this.user = userData;
         return userData;
-      }.bind(this));
+      });
   }
 
   /**
@@ -73,10 +73,10 @@ class UserService {
 
   loadUsersList() {
     return Http.get('/api/user/rating')
-      .then(function (usersList) {
+      .then((usersList) => {
         this.users = usersList;
         return usersList;
-      }.bind(this));
+      });
   }
 }
 

@@ -5,7 +5,7 @@ import LoginForm from './components/loginForm/';
 import Profile from './components/profile/';
 import Scoreboard from './components/scoreboard/';
 
-const formBlock = Block.create('div', {hidden: 'hidden'}, ['block-form']);
+const formBlock = Block.create('div', { hidden: 'hidden' }, ['block-form']);
 formBlock.header = Block.create('div', {}, ['block-form-header']);
 formBlock.content = Block.create('div', {}, ['block-form-content']);
 
@@ -36,7 +36,7 @@ formBlock
   .append(formBlock.header)
   .append(formBlock.content);
 
-const menu = Block.create('div', {hidden: 'hidden'}, ['app-menu']);
+const menu = Block.create('div', { hidden: 'hidden' }, ['app-menu']);
 menu.header = Block.create('h2', {}, ['app-menu-header'], 'Меню');
 menu.play = Block.create('input', {
   type: 'button',
@@ -62,7 +62,7 @@ menu
   .append(menu.rating)
   .append(menu.logout);
 
-const profile = Block.create('div', {hidden: 'hidden'});
+const profile = Block.create('div', { hidden: 'hidden' });
 profile.content = new Profile();
 profile.back = Block.create('input', {
   type: 'button',
@@ -77,7 +77,7 @@ profile
   .append(profile.content)
   .append(profile.back);
 
-const scoreboard = Block.create('div', {hidden: 'hidden'});
+const scoreboard = Block.create('div', { hidden: 'hidden' });
 scoreboard.content = new Scoreboard();
 scoreboard.back = Block.create('input', {
   type: 'button',
@@ -121,7 +121,7 @@ function openLogin() {
   formBlock.content.login.show();
   if (!formBlock.content.login.ready) {
     formBlock.content.login.onSubmit(body => userService.login(body)
-      .then((res) => {
+      .then(() => {
         formBlock.hide();
         formBlock.content.login.reset();
         openMenu();
