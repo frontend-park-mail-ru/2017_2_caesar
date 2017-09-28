@@ -12,6 +12,7 @@ class Http {
 
   static get(address) {
     const url = `https://tp-2017-2-caesar-server.herokuapp.com${address}`;
+
     return fetch(url, {
       method: 'GET',
       mode: 'cors',
@@ -35,6 +36,7 @@ class Http {
 
   static post(address, body) {
     const url = `https://tp-2017-2-caesar-server.herokuapp.com${address}`;
+
     return fetch(url, {
       method: 'POST',
       mode: 'cors',
