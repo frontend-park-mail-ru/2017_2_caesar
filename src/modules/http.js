@@ -1,4 +1,15 @@
+/**
+ * Модуль, предоставляющий методы для выполнения HTTP-запросов
+ * @module Http
+ */
+
 class Http {
+  /**
+   * Выполняет GET запрос по указанному адресу
+   * @param {string} address - адрес запроса
+   * @return {Promise}
+   */
+
   static get(address) {
     const url = `http://localhost:8081${address}`;
     return fetch(url, {
@@ -14,6 +25,13 @@ class Http {
         return response.json();
       });
   }
+
+  /**
+   * Выполняет POST запрос по указанному адресу
+   * @param {string} address - адрес запроса
+   * @param {*} body - тело запроса
+   * @return {Promise}
+   */
 
   static post(address, body) {
     const url = `http://localhost:8081${address}`;
