@@ -46,6 +46,8 @@ class UserService {
    */
 
   logout() {
+    this.user = null;
+
     return Http.get('/api/auth/logout');
   }
 

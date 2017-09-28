@@ -171,4 +171,10 @@ function openAuth() {
   openLogin();
 }
 
-openAuth();
+userService.loadUserData()
+  .then(() => {
+    openMenu();
+  })
+  .catch(() => {
+    openAuth();
+  });
