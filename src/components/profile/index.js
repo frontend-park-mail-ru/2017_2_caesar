@@ -5,12 +5,13 @@ class Profile extends Block {
   constructor() {
     const element = document.createElement('div');
     super(element);
+
+    this.addClasses(['block-form']);
   }
 
   update(user) {
     this.clear();
-
-    this.element.innerHTML = ProfileTemplate({ user });
+    this.setHTML(ProfileTemplate({ user }));
   }
 }
 

@@ -1,9 +1,10 @@
 import UserService from './services/user-service';
 import Block from './components/block/';
-import RegistrationForm from './components/registrationForm/';
-import LoginForm from './components/loginForm/';
+import RegistrationForm from './components/form/registration/';
+import LoginForm from './components/form/login/';
 import Profile from './components/profile/';
 import Scoreboard from './components/scoreboard/';
+import Header from './components/header';
 
 const formBlock = Block.create('div', { hidden: 'hidden' }, ['block-form']);
 formBlock.header = Block.create('div', {}, ['block-form-header']);
@@ -12,13 +13,13 @@ formBlock.content = Block.create('div', {}, ['block-form-content']);
 formBlock.content.login = new LoginForm();
 formBlock.content.registration = new RegistrationForm();
 
-formBlock.header.login = Block.create('button', {}, ['btn', 'btn-default'], 'Авторизация');
+formBlock.header.login = Block.create('button', {}, ['btn', 'btn-default', 'block-form-header-button'], 'Авторизация');
 formBlock.header.login.on('click', () => {
   formBlock.content.registration.hide();
   openLogin();
 });
 
-formBlock.header.registration = Block.create('button', {}, ['btn', 'btn-default'], 'Регистрация');
+formBlock.header.registration = Block.create('button', {}, ['btn', 'btn-default', 'block-form-header-button'], 'Регистрация');
 formBlock.header.registration.on('click', () => {
   formBlock.content.login.hide();
   openRegistration();
@@ -63,34 +64,28 @@ menu
   .append(menu.logout);
 
 const profile = Block.create('div', { hidden: 'hidden' });
-profile.content = new Profile();
-profile.back = Block.create('input', {
-  type: 'button',
-  value: 'Вернуться',
-}, ['btn', 'btn-default']);
-profile.on('click', () => {
+profile.header = new Header('Профиль');
+profile.header.onBack(() => {
   profile.hide();
   openMenu();
 });
+profile.content = new Profile();
 
 profile
-  .append(profile.content)
-  .append(profile.back);
+  .append(profile.header)
+  .append(profile.content);
 
 const scoreboard = Block.create('div', { hidden: 'hidden' });
-scoreboard.content = new Scoreboard();
-scoreboard.back = Block.create('input', {
-  type: 'button',
-  value: 'Вернуться',
-}, ['btn', 'btn-default']);
-scoreboard.on('click', () => {
+scoreboard.header = new Header('Рейтинг');
+scoreboard.header.onBack(() => {
   scoreboard.hide();
   openMenu();
 });
+scoreboard.content = new Scoreboard();
 
 scoreboard
-  .append(scoreboard.content)
-  .append(scoreboard.back);
+  .append(scoreboard.header)
+  .append(scoreboard.content);
 
 const app = new Block(document.querySelector('.block'));
 app
@@ -111,7 +106,10 @@ function openRegistration() {
         openMenu();
       })
       .catch((err) => {
-        console.log(+err.status);
+        switch (+err.status) {
+          case 400: alert('Email уже зарегистрирован!'); break;
+          default: console.log('Unknown error!'); break;
+        }
       }));
     formBlock.content.registration.ready = true;
   }
@@ -127,7 +125,12 @@ function openLogin() {
         openMenu();
       })
       .catch((err) => {
-        console.log(+err.status);
+        switch (+err.status) {
+          case 400: alert('Вы не зарегистрированы!'); break;
+          case 403: alert('Неверный пароль!'); break;
+          case 418: alert('Вы уже авторизованы!'); break;
+          default: console.log('Unknown error!'); break;
+        }
       }));
     formBlock.content.login.ready = true;
   }

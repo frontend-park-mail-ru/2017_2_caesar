@@ -1,5 +1,5 @@
-import Block from '../block/index';
-import Form from '../form/index';
+import Block from '../../block/index';
+import Form from '../base/index';
 
 class LoginForm extends Form {
   constructor() {

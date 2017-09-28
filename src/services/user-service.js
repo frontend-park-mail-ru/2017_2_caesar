@@ -6,20 +6,6 @@ import Http from '../modules/http.js';
  */
 
 class UserService {
-  constructor() {
-    this.user = null;
-    this.users = [];
-  }
-
-  /**
-   * Проверка, авторизован ли пользователь
-   * @return {boolean}
-   */
-
-  isLoggedIn() {
-    return !!this.user;
-  }
-
   /**
    * Регистрация нового пользователя
    * @param {*} userData - данные пользователя
@@ -46,8 +32,6 @@ class UserService {
    */
 
   logout() {
-    this.user = null;
-
     return Http.get('/api/auth/logout');
   }
 
@@ -57,15 +41,7 @@ class UserService {
    */
 
   loadUserData() {
-    if (this.isLoggedIn()) {
-      return Promise.resolve(this.user);
-    }
-
-    return Http.get('/api/auth/info')
-      .then((userData) => {
-        this.user = userData;
-        return userData;
-      });
+    return Http.get('/api/auth/info');
   }
 
   /**
@@ -74,11 +50,7 @@ class UserService {
    */
 
   loadUsersList() {
-    return Http.get('/api/user/rating')
-      .then((usersList) => {
-        this.users = usersList;
-        return usersList;
-      });
+    return Http.get('/api/user/rating');
   }
 }
 

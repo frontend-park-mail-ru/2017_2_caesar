@@ -53,3 +53,31 @@ html, body {
 .error {
     border: 1px solid red;
 }
+
+.header-text {
+    font-size: 20px;
+    display: inline;
+    height: 100%;
+}
+
+.block-form-header-button {
+    width: 50%;
+    height: 100%;
+}
+
+.app-scoreboard-table {
+    padding: 10px;
+    width: 100%;
+}
+
+.app-scoreboard-table th {
+    width: 40%;
+}
+
+.profile {
+    font-size: 20px;
+}
+
+.profile span {
+    float: right;
+}

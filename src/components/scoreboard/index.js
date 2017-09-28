@@ -3,14 +3,15 @@ import ScoreboardTemplate from '../template/scoreboard.pug';
 
 class Scoreboard extends Block {
   constructor() {
-    const element = document.createElement('table');
+    const element = document.createElement('div');
     super(element);
+
+    this.addClasses(['block-form']);
   }
 
   update(users = []) {
     this.clear();
-
-    this.element.innerHTML = ScoreboardTemplate({ users });
+    this.setHTML(ScoreboardTemplate({ users }));
   }
 }
 
