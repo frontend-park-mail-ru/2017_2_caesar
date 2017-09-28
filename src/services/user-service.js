@@ -2,23 +2,23 @@ import Http from '../modules/http.js';
 
 class UserService {
   signup(userData) {
-    return Http.post('/reg', userData);
+    return Http.post('/api/auth/signup', userData);
   }
 
   login(userData) {
-    return Http.post('/auth', userData);
+    return Http.post('/api/auth/login', userData);
   }
 
   logout() {
-    return Http.post('/logout', {});
+    return Http.get('/api/auth/logout');
   }
 
-  getData() {
-    return Http.post('/info', {});
+  loadUserData() {
+    return Http.get('/api/auth/info');
   }
 
   loadUsersList() {
-    return Http.post('/allUsers');
+    return Http.get('/api/user/rating');
   }
 }
 

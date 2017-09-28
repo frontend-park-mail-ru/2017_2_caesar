@@ -3,7 +3,7 @@ import Form from '../form/index';
 
 class LoginForm extends Form {
   constructor() {
-    super('login', ['app-form']);
+    super('login');
 
     this.username = Block.create('input', {
       type: 'text',

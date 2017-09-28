@@ -3,7 +3,7 @@ import Form from '../form/index';
 
 class RegistrationForm extends Form {
   constructor() {
-    super('registration', ['app-form']);
+    super('registration');
 
     this.email = Block.create('input', {
       type: 'email',
