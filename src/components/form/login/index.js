@@ -46,6 +46,13 @@ class LoginForm extends Form {
     this.append(this.password);
     this.append(this.submit);
   }
+
+  reset() {
+    this.errorMessage.clear();
+    this.errorMessage.hide();
+
+    super.reset();
+  }
 }
 
 export default LoginForm;
