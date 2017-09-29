@@ -1,9 +1,9 @@
-import Block from '../block/index';
-import Form from '../form/index';
+import Block from 'Components/block/index';
+import Form from 'Components/form/base/index';
 
 class RegistrationForm extends Form {
   constructor() {
-    super('registration', ['app-form']);
+    super('registration');
 
     this.email = Block.create('input', {
       type: 'email',
@@ -44,6 +44,9 @@ class RegistrationForm extends Form {
     this.on('submit', (event) => {
       event.preventDefault();
 
+      this.errorMessage.clear();
+      this.errorMessage.hide();
+
       this.password.removeClasses(['error']);
       this.passwordRepeat.removeClasses(['error']);
 
@@ -52,6 +55,7 @@ class RegistrationForm extends Form {
       if (formData) {
         callback(formData);
       } else {
+        this.errorMessage.setText('Пароли не совпадают!');
         this.password.addClasses(['error']);
         this.passwordRepeat.addClasses(['error']);
       }

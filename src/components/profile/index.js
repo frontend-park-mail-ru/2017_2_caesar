@@ -1,7 +1,7 @@
 import Block from 'Components/block/index';
-import ScoreboardTemplate from 'Components/template/scoreboard.pug';
+import ProfileTemplate from 'Components/template/profile.pug';
 
-class Scoreboard extends Block {
+class Profile extends Block {
   constructor() {
     const element = document.createElement('div');
     super(element);
@@ -9,10 +9,10 @@ class Scoreboard extends Block {
     this.addClasses(['block-form']);
   }
 
-  update(users = []) {
+  update(user) {
     this.clear();
-    this.setHTML(ScoreboardTemplate({ users }));
+    this.setHTML(ProfileTemplate({ user }));
   }
 }
 
-export default Scoreboard;
+export default Profile;

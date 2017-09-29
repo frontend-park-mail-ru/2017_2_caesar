@@ -1,24 +1,56 @@
-import Http from '../modules/http.js';
+import Http from 'Modules/http.js';
+
+/**
+ * Сервис для работы с API
+ * @module UserService
+ */
 
 class UserService {
+  /**
+   * Регистрация нового пользователя
+   * @param {*} userData - данные пользователя
+   * @return {Promise}
+   */
+
   signup(userData) {
-    return Http.post('/reg', userData);
+    return Http.post('/api/auth/signup', userData);
   }
+
+  /**
+   * Авторзация пользователя
+   * @param {*} userData - данные пользователя
+   * @return {Promise}
+   */
 
   login(userData) {
-    return Http.post('/auth', userData);
+    return Http.post('/api/auth/login', userData);
   }
+
+  /**
+   * Выход из системы
+   * @return {Promise}
+   */
 
   logout() {
-    return Http.post('/logout', {});
+    return Http.get('/api/auth/logout');
   }
 
-  getData() {
-    return Http.post('/info', {});
+  /**
+   * Загрузка данных пользователя
+   * @return {Promise}
+   */
+
+  loadUserData() {
+    return Http.get('/api/auth/info');
   }
+
+  /**
+   * Загрузка списка пользователей
+   * @return {Promise}
+   */
 
   loadUsersList() {
-    return Http.post('/allUsers');
+    return Http.get('/api/user/rating');
   }
 }
 

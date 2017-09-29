@@ -33,6 +33,10 @@ class Block {
     classes.forEach(item => this.element.classList.remove(item));
   }
 
+  setHTML(text) {
+    this.element.innerHTML = text;
+  }
+
   setText(text) {
     this.element.textContent = text;
   }
@@ -56,6 +60,10 @@ class Block {
 
   on(name, callback) {
     this.element.addEventListener(name, callback);
+  }
+
+  get() {
+    return this.element;
   }
 }
 

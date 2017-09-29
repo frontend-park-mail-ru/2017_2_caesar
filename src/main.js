@@ -1,32 +1,43 @@
-import UserService from './services/user-service';
-import Block from './components/block/';
-import RegistrationForm from './components/registrationForm/';
-import LoginForm from './components/loginForm/';
-import Scoreboard from './components/scoreboard/';
+import UserService from 'Services/user-service';
+import Block from 'Components/block/';
+import RegistrationForm from 'Components/form/registration/';
+import LoginForm from 'Components/form/login/';
+import Profile from 'Components/profile/';
+import Scoreboard from 'Components/scoreboard/';
+import Header from 'Components/header';
 
-const registration = Block.create('div', { hidden: 'hidden' }, ['block', 'registration-block']);
-registration.header = Block.create('h2', {}, ['app-form-header'], 'Регистрация');
-registration.form = new RegistrationForm();
+const formBlock = Block.create('div', { hidden: 'hidden' }, ['block-form']);
+formBlock.header = Block.create('div', {}, ['block-form-header']);
+formBlock.content = Block.create('div', {}, ['block-form-content']);
 
-registration
-  .append(registration.header)
-  .append(registration.form);
+formBlock.content.login = new LoginForm();
+formBlock.content.registration = new RegistrationForm();
 
-const login = Block.create('div', { hidden: 'hidden' }, ['block', 'login-block']);
-login.header = Block.create('h2', {}, ['app-form-header'], 'Авторизация');
-login.form = new LoginForm();
-login.button = Block.create('button', {}, ['btn', 'btn-default'], 'Регистрация');
-login.button.on('click', () => {
-  login.hide();
+formBlock.header.login = Block.create('button', {}, ['btn', 'btn-default', 'block-form-header-button'], 'Авторизация');
+formBlock.header.login.on('click', () => {
+  formBlock.content.registration.hide();
+  openLogin();
+});
+
+formBlock.header.registration = Block.create('button', {}, ['btn', 'btn-default', 'block-form-header-button'], 'Регистрация');
+formBlock.header.registration.on('click', () => {
+  formBlock.content.login.hide();
   openRegistration();
 });
 
-login
-  .append(login.header)
-  .append(login.form)
-  .append(login.button);
+formBlock.header
+  .append(formBlock.header.login)
+  .append(formBlock.header.registration);
 
-const menu = Block.create('div', { hidden: 'hidden' }, ['block', 'app-menu']);
+formBlock.content
+  .append(formBlock.content.login)
+  .append(formBlock.content.registration);
+
+formBlock
+  .append(formBlock.header)
+  .append(formBlock.content);
+
+const menu = Block.create('div', { hidden: 'hidden' }, ['app-menu']);
 menu.header = Block.create('h2', {}, ['app-menu-header'], 'Меню');
 menu.play = Block.create('input', {
   type: 'button',
@@ -52,49 +63,78 @@ menu
   .append(menu.rating)
   .append(menu.logout);
 
-const scoreboard = new Scoreboard();
-scoreboard.hide();
+const profile = Block.create('div', { hidden: 'hidden' });
+profile.header = new Header('Профиль');
+profile.header.onBack(() => {
+  profile.hide();
+  openMenu();
+});
+profile.content = new Profile();
 
-const app = new Block(document.querySelector('.app'));
+profile
+  .append(profile.header)
+  .append(profile.content);
 
+const scoreboard = Block.create('div', { hidden: 'hidden' });
+scoreboard.header = new Header('Рейтинг');
+scoreboard.header.onBack(() => {
+  scoreboard.hide();
+  openMenu();
+});
+scoreboard.content = new Scoreboard();
+
+scoreboard
+  .append(scoreboard.header)
+  .append(scoreboard.content);
+
+const app = new Block(document.querySelector('.block'));
 app
-  .append(registration)
-  .append(login)
+  .append(formBlock)
   .append(menu)
+  .append(profile)
   .append(scoreboard);
 
 const userService = new UserService();
 
 function openRegistration() {
-  registration.show();
-  if (!registration.ready) {
-    registration.form.onSubmit(body => userService.signup(body)
-      .then((res) => {
-        console.log(res);
-        registration.hide();
-        registration.form.reset();
+  formBlock.content.login.reset();
+  formBlock.content.registration.show();
+  if (!formBlock.content.registration.ready) {
+    formBlock.content.registration.onSubmit(body => userService.signup(body)
+      .then(() => {
+        formBlock.hide();
+        formBlock.content.registration.reset();
         openMenu();
       })
       .catch((err) => {
-        console.log(+err.status);
+        switch (+err.status) {
+          case 400: formBlock.content.registration.setErrorMessage('Email уже зарегистрирован!'); break;
+          default: console.log('Unknown error!'); break;
+        }
       }));
-    registration.ready = true;
+    formBlock.content.registration.ready = true;
   }
 }
 
 function openLogin() {
-  login.show();
-  if (!login.ready) {
-    login.form.onSubmit(body => userService.login(body)
+  formBlock.content.registration.reset();
+  formBlock.content.login.show();
+  if (!formBlock.content.login.ready) {
+    formBlock.content.login.onSubmit(body => userService.login(body)
       .then(() => {
-        login.hide();
-        login.form.reset();
+        formBlock.hide();
+        formBlock.content.login.reset();
         openMenu();
       })
       .catch((err) => {
-        console.log(+err.status);
+        switch (+err.status) {
+          case 400: formBlock.content.login.setErrorMessage('Вы не зарегистрированы!'); break;
+          case 403: formBlock.content.login.setErrorMessage('Неверный пароль!'); break;
+          case 418: formBlock.content.login.setErrorMessage('Вы уже авторизованы!'); break;
+          default: console.log('Unknown error!'); break;
+        }
       }));
-    login.ready = true;
+    formBlock.content.login.ready = true;
   }
 }
 
@@ -102,17 +142,18 @@ function openMenu() {
   menu.show();
   if (!menu.ready) {
     menu.profile.on('click', () => {
-      userService.getData()
+      userService.loadUserData()
         .then((res) => {
-          console.log(res);
+          profile.content.update(res);
+          menu.hide();
+          profile.show();
         })
         .catch(err => console.log(err));
     });
     menu.rating.on('click', () => {
       userService.loadUsersList()
         .then((res) => {
-          console.log(res);
-          scoreboard.update(res);
+          scoreboard.content.update(res);
           menu.hide();
           scoreboard.show();
         })
@@ -122,13 +163,23 @@ function openMenu() {
       userService.logout()
         .then(() => {
           menu.hide();
-          openLogin();
+          openAuth();
         });
     });
   }
+  menu.ready = true;
 }
 
-function openProfile() {
+function openAuth() {
+  formBlock.content.registration.hide();
+  formBlock.show();
+  openLogin();
 }
 
-openLogin();
+userService.loadUserData()
+  .then(() => {
+    openMenu();
+  })
+  .catch(() => {
+    openAuth();
+  });

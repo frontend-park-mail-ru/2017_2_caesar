@@ -1,6 +1,20 @@
+/**
+ * Модуль, предоставляющий методы для выполнения HTTP-запросов
+ * @module Http
+ */
+
+const baseUrl = 'https://tp-2017-2-caesar-server.herokuapp.com';
+
 class Http {
+  /**
+   * Выполняет GET запрос по указанному адресу
+   * @param {string} address - адрес запроса
+   * @return {Promise}
+   */
+
   static get(address) {
-    const url = `http://localhost:8081${address}`;
+    const url = baseUrl + address;
+
     return fetch(url, {
       method: 'GET',
       mode: 'cors',
@@ -15,8 +29,16 @@ class Http {
       });
   }
 
+  /**
+   * Выполняет POST запрос по указанному адресу
+   * @param {string} address - адрес запроса
+   * @param {*} body - тело запроса
+   * @return {Promise}
+   */
+
   static post(address, body) {
-    const url = `http://localhost:8081${address}`;
+    const url = baseUrl + address;
+
     return fetch(url, {
       method: 'POST',
       mode: 'cors',

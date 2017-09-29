@@ -1,9 +1,9 @@
-import Block from '../block/index';
-import Form from '../form/index';
+import Block from 'Components/block/index';
+import Form from 'Components/form/base/index';
 
 class LoginForm extends Form {
   constructor() {
-    super('login', ['app-form']);
+    super('login');
 
     this.username = Block.create('input', {
       type: 'text',
@@ -29,6 +29,9 @@ class LoginForm extends Form {
   onSubmit(callback) {
     this.on('submit', (event) => {
       event.preventDefault();
+
+      this.errorMessage.clear();
+      this.errorMessage.hide();
 
       const formData = this.getFields(['username', 'password']);
 
