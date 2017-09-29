@@ -1,0 +1,88 @@
+import Block from 'Components/block/index';
+import Form from 'Components/form/base/index';
+
+class RegistrationForm extends Form {
+  constructor() {
+    super('registration');
+
+    this.email = Block.create('input', {
+      type: 'email',
+      name: 'email',
+      placeholder: 'Почта',
+      required: 'required',
+    }, ['app-form-input', 'form-control']);
+
+    this.username = Block.create('input', {
+      type: 'text',
+      name: 'username',
+      placeholder: 'Имя пользователя',
+      required: 'required',
+    }, ['app-form-input', 'form-control']);
+
+    this.password = Block.create('input', {
+      type: 'password',
+      name: 'password',
+      placeholder: 'Пароль',
+      required: 'required',
+    }, ['app-form-input', 'form-control']);
+
+    this.passwordRepeat = Block.create('input', {
+      type: 'password',
+      name: 'passwordRepeat',
+      placeholder: 'Повторите пароль',
+      required: 'required',
+    }, ['app-form-input', 'form-control']);
+
+    this.submit = Block.create('input', {
+      type: 'submit',
+    }, ['btn', 'btn-default', 'app-form-button']);
+
+    this.render();
+  }
+
+  onSubmit(callback) {
+    this.on('submit', (event) => {
+      event.preventDefault();
+
+      const formData = this.checkFields();
+
+      if (formData) {
+        callback(formData);
+      } else {
+        this.setErrorMessage('Пароли не совпадают!');
+        this.password.addClasses(['error']);
+        this.passwordRepeat.addClasses(['error']);
+      }
+    });
+  }
+
+  checkFields() {
+    const fields = this.getFields(['email', 'username', 'password', 'passwordRepeat']);
+
+    if (fields.password === fields.passwordRepeat) {
+      return { email: fields.email, username: fields.username, password: fields.password };
+    }
+
+    return null;
+  }
+
+  render() {
+    this.append(this.email);
+    this.append(this.username);
+    this.append(this.password);
+    this.append(this.passwordRepeat);
+    this.append(this.submit);
+  }
+
+  reset() {
+    this.errorMessage.clear();
+    this.errorMessage.hide();
+
+    this.password.removeClasses(['error']);
+    this.passwordRepeat.removeClasses(['error']);
+
+    super.reset();
+  }
+}
+
+export default RegistrationForm;
