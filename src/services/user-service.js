@@ -6,6 +6,14 @@ import Http from 'Modules/http.js';
  */
 
 class UserService {
+  constructor() {
+    if (UserService.instance) {
+      return UserService.instance;
+    }
+
+    UserService.instance = this;
+  }
+
   /**
    * Регистрация нового пользователя
    * @param {*} userData - данные пользователя

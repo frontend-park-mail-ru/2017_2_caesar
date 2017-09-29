@@ -58,12 +58,12 @@ class Block {
     return this;
   }
 
-  on(name, callback) {
-    this.element.addEventListener(name, callback);
+  remove(block) {
+    this.element.removeChild(block.element);
   }
 
-  get() {
-    return this.element;
+  on(name, callback) {
+    this.element.addEventListener(name, callback);
   }
 }
 
