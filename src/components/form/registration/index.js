@@ -44,18 +44,12 @@ class RegistrationForm extends Form {
     this.on('submit', (event) => {
       event.preventDefault();
 
-      this.errorMessage.clear();
-      this.errorMessage.hide();
-
-      this.password.removeClasses(['error']);
-      this.passwordRepeat.removeClasses(['error']);
-
       const formData = this.checkFields();
 
       if (formData) {
         callback(formData);
       } else {
-        this.errorMessage.setText('Пароли не совпадают!');
+        this.setErrorMessage('Пароли не совпадают!');
         this.password.addClasses(['error']);
         this.passwordRepeat.addClasses(['error']);
       }
@@ -78,6 +72,16 @@ class RegistrationForm extends Form {
     this.append(this.password);
     this.append(this.passwordRepeat);
     this.append(this.submit);
+  }
+
+  reset() {
+    this.errorMessage.clear();
+    this.errorMessage.hide();
+
+    this.password.removeClasses(['error']);
+    this.passwordRepeat.removeClasses(['error']);
+
+    super.reset();
   }
 }
 
