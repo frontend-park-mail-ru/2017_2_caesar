@@ -5,7 +5,7 @@ class Form extends Block {
     const form = document.createElement('form');
     super(form);
 
-    this.errorMessage = Block.create('div');
+    this.errorMessage = Block.create('div', { hidden: 'hidden' }, ['form-error-message']);
     this.append(this.errorMessage);
 
     this.setAttrs({ name });
@@ -23,6 +23,7 @@ class Form extends Block {
 
   setErrorMessage(text) {
     this.errorMessage.setText(text);
+    this.errorMessage.show();
   }
 
   reset() {

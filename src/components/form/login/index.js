@@ -31,6 +31,7 @@ class LoginForm extends Form {
       event.preventDefault();
 
       this.errorMessage.clear();
+      this.errorMessage.hide();
 
       const formData = this.getFields(['username', 'password']);
 

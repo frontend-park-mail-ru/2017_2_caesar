@@ -45,6 +45,7 @@ class RegistrationForm extends Form {
       event.preventDefault();
 
       this.errorMessage.clear();
+      this.errorMessage.hide();
 
       this.password.removeClasses(['error']);
       this.passwordRepeat.removeClasses(['error']);

@@ -78,6 +78,10 @@ html, body {
     font-size: 20px;
 }
 
-.profile span {
-    float: right;
+.form-error-message {
+    border: 1px solid red;
+    border-radius: 10px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    padding: 5px;
 }
