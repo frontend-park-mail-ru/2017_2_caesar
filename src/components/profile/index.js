@@ -1,5 +1,5 @@
-import Block from '../block/index';
-import ProfileTemplate from '../template/profile.pug';
+import Block from 'Components/block/index';
+import ProfileTemplate from 'Components/template/profile.pug';
 
 class Profile extends Block {
   constructor() {

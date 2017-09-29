@@ -1,10 +1,10 @@
-import UserService from './services/user-service';
-import Block from './components/block/';
-import RegistrationForm from './components/form/registration/';
-import LoginForm from './components/form/login/';
-import Profile from './components/profile/';
-import Scoreboard from './components/scoreboard/';
-import Header from './components/header';
+import UserService from 'Services/user-service';
+import Block from 'Components/block/';
+import RegistrationForm from 'Components/form/registration/';
+import LoginForm from 'Components/form/login/';
+import Profile from 'Components/profile/';
+import Scoreboard from 'Components/scoreboard/';
+import Header from 'Components/header';
 
 const formBlock = Block.create('div', { hidden: 'hidden' }, ['block-form']);
 formBlock.header = Block.create('div', {}, ['block-form-header']);

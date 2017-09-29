@@ -34,4 +34,11 @@ module.exports = {
       template: './public/index.pug',
     }),
   ],
+  resolve: {
+    alias: {
+      Components: path.resolve(__dirname, 'src/components/'),
+      Modules: path.resolve(__dirname, 'src/modules/'),
+      Services: path.resolve(__dirname, 'src/services/'),
+    },
+  },
 };

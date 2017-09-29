@@ -1,5 +1,5 @@
-import Block from '../block/index';
-import ScoreboardTemplate from '../template/scoreboard.pug';
+import Block from 'Components/block/index';
+import ScoreboardTemplate from 'Components/template/scoreboard.pug';
 
 class Scoreboard extends Block {
   constructor() {

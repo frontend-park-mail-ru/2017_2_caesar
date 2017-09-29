@@ -1,4 +1,4 @@
-import Block from '../block/index';
+import Block from 'Components/block/index';
 
 class BackButton extends Block {
   constructor() {

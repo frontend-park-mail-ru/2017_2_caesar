@@ -1,4 +1,4 @@
-import Http from '../modules/http.js';
+import Http from 'Modules/http.js';
 
 /**
  * Сервис для работы с API

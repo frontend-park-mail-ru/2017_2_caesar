@@ -1,5 +1,5 @@
-import Block from '../block/index';
-import BackButton from '..//button/back';
+import Block from 'Components/block/index';
+import BackButton from 'Components/button/back';
 
 class Header extends Block {
   constructor(text) {

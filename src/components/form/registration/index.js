@@ -1,5 +1,5 @@
-import Block from '../../block/index';
-import Form from '../base/index';
+import Block from 'Components/block/index';
+import Form from 'Components/form/base/index';
 
 class RegistrationForm extends Form {
   constructor() {
