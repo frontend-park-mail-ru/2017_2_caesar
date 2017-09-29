@@ -97,6 +97,7 @@ app
 const userService = new UserService();
 
 function openRegistration() {
+  formBlock.content.login.reset();
   formBlock.content.registration.show();
   if (!formBlock.content.registration.ready) {
     formBlock.content.registration.onSubmit(body => userService.signup(body)
@@ -116,6 +117,7 @@ function openRegistration() {
 }
 
 function openLogin() {
+  formBlock.content.registration.reset();
   formBlock.content.login.show();
   if (!formBlock.content.login.ready) {
     formBlock.content.login.onSubmit(body => userService.login(body)

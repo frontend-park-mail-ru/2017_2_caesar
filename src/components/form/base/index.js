@@ -27,6 +27,8 @@ class Form extends Block {
   }
 
   reset() {
+    this.errorMessage.hide();
+
     this.element.reset();
   }
 }
