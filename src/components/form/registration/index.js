@@ -44,6 +44,8 @@ class RegistrationForm extends Form {
     this.on('submit', (event) => {
       event.preventDefault();
 
+      this.errorMessage.clear();
+
       this.password.removeClasses(['error']);
       this.passwordRepeat.removeClasses(['error']);
 
@@ -52,6 +54,7 @@ class RegistrationForm extends Form {
       if (formData) {
         callback(formData);
       } else {
+        this.errorMessage.setText('Пароли не совпадают!');
         this.password.addClasses(['error']);
         this.passwordRepeat.addClasses(['error']);
       }

@@ -107,7 +107,7 @@ function openRegistration() {
       })
       .catch((err) => {
         switch (+err.status) {
-          case 400: alert('Email уже зарегистрирован!'); break;
+          case 400: formBlock.content.registration.setErrorMessage('Email уже зарегистрирован!'); break;
           default: console.log('Unknown error!'); break;
         }
       }));
@@ -126,9 +126,9 @@ function openLogin() {
       })
       .catch((err) => {
         switch (+err.status) {
-          case 400: alert('Вы не зарегистрированы!'); break;
-          case 403: alert('Неверный пароль!'); break;
-          case 418: alert('Вы уже авторизованы!'); break;
+          case 400: formBlock.content.login.setErrorMessage('Вы не зарегистрированы!'); break;
+          case 403: formBlock.content.login.setErrorMessage('Неверный пароль!'); break;
+          case 418: formBlock.content.login.setErrorMessage('Вы уже авторизованы!'); break;
           default: console.log('Unknown error!'); break;
         }
       }));

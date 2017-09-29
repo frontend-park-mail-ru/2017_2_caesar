@@ -5,6 +5,9 @@ class Form extends Block {
     const form = document.createElement('form');
     super(form);
 
+    this.errorMessage = Block.create('div');
+    this.append(this.errorMessage);
+
     this.setAttrs({ name });
     this.addClasses(classes);
   }
@@ -16,6 +19,10 @@ class Form extends Block {
     fields.forEach(name => formData[name] = elements[name].value);
 
     return formData;
+  }
+
+  setErrorMessage(text) {
+    this.errorMessage.setText(text);
   }
 
   reset() {

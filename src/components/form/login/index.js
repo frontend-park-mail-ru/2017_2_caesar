@@ -30,6 +30,8 @@ class LoginForm extends Form {
     this.on('submit', (event) => {
       event.preventDefault();
 
+      this.errorMessage.clear();
+
       const formData = this.getFields(['username', 'password']);
 
       if (formData) {
