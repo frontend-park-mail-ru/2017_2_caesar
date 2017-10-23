@@ -85,3 +85,9 @@ html, body {
     margin-bottom: 5px;
     padding: 5px;
 }
+
+canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+}

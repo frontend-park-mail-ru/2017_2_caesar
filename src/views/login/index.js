@@ -6,7 +6,7 @@ import UserService from 'Services/user-service';
 
 class LoginView extends BaseView {
   constructor() {
-    super('div');
+    super('block', 'div');
 
     this.addClasses(['block-form']);
 
@@ -46,13 +46,16 @@ class LoginView extends BaseView {
     this.content.login.onSubmit((userData) => {
       userService.login(userData)
         .then(() => {
+          router.login();
           router.go('/');
         })
         .catch((err) => {
           switch (+err.status) {
-            case 400: this.content.login.setErrorMessage('Вы не зарегистрированы!'); break;
             case 403:
               this.content.login.setErrorMessage('Неверный пароль!');
+              break;
+            case 404:
+              this.content.login.setErrorMessage('Вы не зарегистрированы!');
               break;
             case 418:
               this.content.login.setErrorMessage('Вы уже авторизованы!');

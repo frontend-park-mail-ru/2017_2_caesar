@@ -31,12 +31,13 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './public/index.pug',
+      template: './public/index.html',
     }),
   ],
   resolve: {
     alias: {
       Components: path.resolve(__dirname, 'src/components/'),
+      Game: path.resolve(__dirname, 'src/games/'),
       Modules: path.resolve(__dirname, 'src/modules/'),
       Services: path.resolve(__dirname, 'src/services/'),
       Views: path.resolve(__dirname, 'src/views/'),

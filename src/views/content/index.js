@@ -3,7 +3,7 @@ import Router from 'Modules/router';
 
 class ContentView extends BaseView {
   constructor(header, content) {
-    super('div');
+    super('block', 'div');
 
     this.header = header;
     this.content = content;

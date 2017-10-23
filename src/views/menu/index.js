@@ -5,7 +5,7 @@ import UserService from 'Services/user-service';
 
 class MenuView extends BaseView {
   constructor() {
-    super('div');
+    super('block', 'div');
 
     this.addClasses(['app-menu']);
 
@@ -49,6 +49,9 @@ class MenuView extends BaseView {
     const router = new Router();
     const userService = new UserService();
 
+    this.play.on('click', () => {
+      router.go('/singleplayer/');
+    });
     this.profile.on('click', () => {
       router.go('/profile/');
     });
@@ -56,6 +59,7 @@ class MenuView extends BaseView {
       router.go('/rating/');
     });
     this.logout.on('click', () => {
+      router.unlogin();
       router.go('/login/');
       userService.logout();
     });
