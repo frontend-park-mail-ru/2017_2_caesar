@@ -7,7 +7,7 @@ html, body {
     justify-content: center;
 }
 
-.block {
+#block {
     background: grey;
     border-radius: 10px;
     width: 480px;

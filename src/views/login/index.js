@@ -6,7 +6,7 @@ import UserService from 'Services/user-service';
 
 class LoginView extends BaseView {
   constructor() {
-    super('block', 'div');
+    super('div');
 
     this.addClasses(['block-form']);
 

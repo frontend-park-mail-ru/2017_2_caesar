@@ -27,6 +27,27 @@ module.exports = {
           pretty: true,
         },
       },
+      {
+        test: /pixi\.js/,
+        use: [{
+          loader: 'expose-loader',
+          options: 'PIXI',
+        }],
+      },
+      {
+        test: /phaser-split\.js$/,
+        use: [{
+          loader: 'expose-loader',
+          options: 'Phaser',
+        }],
+      },
+      {
+        test: /p2\.js/,
+        use: [{
+          loader: 'expose-loader',
+          options: 'p2',
+        }],
+      },
     ],
   },
   plugins: [
@@ -37,10 +58,13 @@ module.exports = {
   resolve: {
     alias: {
       Components: path.resolve(__dirname, 'src/components/'),
-      Game: path.resolve(__dirname, 'src/games/'),
       Modules: path.resolve(__dirname, 'src/modules/'),
       Services: path.resolve(__dirname, 'src/services/'),
       Views: path.resolve(__dirname, 'src/views/'),
+      Game: path.resolve(__dirname, 'src/games/'),
+      phaser: path.resolve(__dirname, 'node_modules/phaser/build/custom/phaser-split.js'),
+      pixi: path.resolve(__dirname, 'node_modules/phaser/build/custom/pixi.js'),
+      p2: path.resolve(__dirname, 'node_modules/phaser/build/custom/p2.js'),
     },
   },
 };

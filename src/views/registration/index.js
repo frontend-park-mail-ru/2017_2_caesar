@@ -6,7 +6,7 @@ import UserService from 'Services/user-service';
 
 class RegistrationView extends BaseView {
   constructor() {
-    super('block', 'div');
+    super('div');
 
     this.addClasses(['block-form']);
 
