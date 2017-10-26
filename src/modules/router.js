@@ -38,6 +38,7 @@ class Router {
       if (path !== '/login/' && path !== '/signup/') {
         // eslint-disable-next-line no-param-reassign
         path = '/login/';
+        window.history.pushState({}, '', path);
       }
     }
 
