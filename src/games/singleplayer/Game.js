@@ -172,6 +172,11 @@ class Game {
 
     this.showCoins = () => {
       this.game.world.bringToTop(this.platforms);
+      this.game.world.bringToTop(this.home);
+      this.game.world.bringToTop(this.textCoin);
+      this.game.world.bringToTop(this.iconCoin);
+      this.game.world.bringToTop(this.textEnergy);
+      this.game.world.bringToTop(this.iconEnergy);
     };
 
     this.search = () => {
