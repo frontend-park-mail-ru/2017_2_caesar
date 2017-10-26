@@ -45,6 +45,9 @@ const COINS_ICON_Y = 0;
 const ICON_WIDTH = 64;
 const ICON_HEIGHT = 64;
 
+const MENU_WIDTH = 320;
+const MENU_HEIGHT = 320;
+
 class Game {
   constructor() {
     if (Game.instance && Game.isPlayed) {
@@ -57,20 +60,26 @@ class Game {
       update: this.update,
     });
 
-    this.pause = (event) => {
-      if (Game.isPlayed && event.keyCode === 27) {
-        this.game.paused = !this.game.paused;
-      }
-    };
-
-    window.addEventListener('keydown', this.pause);
-
     Game.isPlayed = true;
 
     Game.instance = this;
   }
 
   preload() {
+    this.pause = (event) => {
+      if (Game.isPlayed && event.keyCode === 27) {
+        if (!this.pause) {
+          this.showMenu();
+          this.pause = true;
+        } else {
+          this.hideMenu();
+          this.pause = false;
+        }
+      }
+    };
+
+    window.addEventListener('keydown', this.pause);
+
     this.game.load.image('sky', 'sprites/BG.png');
     this.game.load.image('free', 'sprites/free.png');
     this.game.load.image('ground', 'sprites/ground.png');
@@ -80,9 +89,12 @@ class Game {
     this.game.load.image('coin', 'sprites/coin.png');
     this.game.load.image('energy', 'sprites/energy.png');
     this.game.load.image('home', 'sprites/home.png');
+    this.game.load.image('menu', 'sprites/menu.png');
   }
 
   create() {
+    this.pause = false;
+
     this.game.world.setBounds(0, 0, this.game.world.width, WORLD_DEEP);
 
     this.state = new State();
@@ -140,7 +152,7 @@ class Game {
 
     this.cursors = this.game.input.keyboard.createCursorKeys();
 
-    this.styleText = { font: 'bold 32px Arial', fill: '#fff', boundsAlignH: 'center', boundsAlignV: 'middle' };
+    this.styleText = {font: 'bold 32px Arial', fill: '#fff', boundsAlignH: 'center', boundsAlignV: 'middle'};
 
     this.textCoin = this.game.add.text(TEXT_COINS_X, TEXT_COINS_Y,
       this.state.coins, this.styleText);
@@ -160,34 +172,82 @@ class Game {
     this.iconEnergy.height = TEXT_ENERGY_ICON_HEIGHT;
     this.iconEnergy.fixedToCamera = true;
 
-    this.home = this.game.add.sprite(COINS_ICON_X, COINS_ICON_Y, 'home');
-    this.home.width = ICON_WIDTH;
-    this.home.height = ICON_HEIGHT;
+    this.menu = this.game.add.sprite(window.innerWidth / 2 - MENU_WIDTH / 2, window.innerHeight / 2 - MENU_HEIGHT / 2, 'menu');
+    this.menu.width = MENU_WIDTH;
+    this.menu.height = MENU_HEIGHT;
+    this.menu.inputEnabled = true;
+    this.menu.visible = false;
+
+    this.showMenu = () => {
+      this.menu.visible = true;
+      this.home.visible = true;
+      this.play.visible = true;
+      this.menu.x = window.innerWidth / 2 - MENU_WIDTH / 2;
+      this.menu.y = window.innerHeight / 2 - MENU_HEIGHT / 2;
+      this.home.x = window.innerWidth / 2 - 100;
+      this.home.y = window.innerHeight / 2 + 80;
+      this.play.x = window.innerWidth / 2 + 60;
+      this.play.y = window.innerHeight / 2 + 80;
+    };
+
+    this.hideMenu = () => {
+      this.menu.visible = false;
+      this.home.visible = false;
+      this.play.visible = false;
+    };
+
+    this.menuButton = this.game.add.sprite(COINS_ICON_X, COINS_ICON_Y, 'home');
+    this.menuButton.width = ICON_WIDTH;
+    this.menuButton.height = ICON_HEIGHT;
+    this.menuButton.inputEnabled = true;
+    this.menuButton.fixedToCamera = true;
+    this.menuButton.events.onInputDown.add(() => {
+      this.showMenu();
+      this.pause = true;
+    }, this);
+
+    this.home = this.game.add.text(0, 0, 'home', this.styleText);
+    this.home.visible = false;
     this.home.inputEnabled = true;
-    this.home.fixedToCamera = true;
+
     this.home.events.onInputDown.add(() => {
       const router = new Router();
       router.go('/');
     }, this);
 
-    this.showCoins = () => {
-      this.game.world.bringToTop(this.platforms);
+    this.play = this.game.add.text(0, 0, 'play', this.styleText);
+    this.play.visible = false;
+    this.play.inputEnabled = true;
+
+    this.play.events.onInputDown.add(() => {
+      this.hideMenu();
+      this.pause = false;
+    }, this);
+
+    this.toTopInfo = () => {
+      this.game.world.bringToTop(this.menu);
       this.game.world.bringToTop(this.home);
+      this.game.world.bringToTop(this.play);
+      this.game.world.bringToTop(this.menuButton);
       this.game.world.bringToTop(this.textCoin);
       this.game.world.bringToTop(this.iconCoin);
       this.game.world.bringToTop(this.textEnergy);
       this.game.world.bringToTop(this.iconEnergy);
     };
 
+    this.showCoins = () => {
+      this.game.world.bringToTop(this.platforms);
+      this.toTopInfo();
+    };
+
     this.search = () => {
       this.game.world.bringToTop(this.coins);
+      this.toTopInfo();
       this.game.time.events.add(Phaser.Timer.SECOND, this.showCoins, this);
     };
 
     this.keySearch = this.game.input.keyboard.addKey(Phaser.Keyboard.E);
     this.keySearch.onDown.add(this.search, this);
-
-    console.log(this.textCoin);
   }
 
   update() {
@@ -196,9 +256,9 @@ class Game {
 
     this.player.body.velocity.x = 0;
 
-    if (Game.isPlayed) {
-      this.hitPlatform = this.game.physics.arcade.collide(this.player, this.platforms);
+    this.hitPlatform = this.game.physics.arcade.collide(this.player, this.platforms);
 
+    if (!this.pause) {
       this.game.physics.arcade.overlap(this.player, this.coins, (player, coin) => {
         coin.kill();
         this.state.increaseCoins();
