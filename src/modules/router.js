@@ -6,6 +6,8 @@ class Router {
 
     this.routes = {};
 
+    this.loginned = false;
+
     Router.instance = this;
   }
 
@@ -18,10 +20,28 @@ class Router {
   }
 
   start() {
-    this.go(window.location.pathname);
+    window.onpopstate = () => {
+      this.onRoute(window.location.pathname);
+    };
+
+    this.onRoute(window.location.pathname);
   }
 
   go(path) {
+    if (this.onRoute(path)) {
+      window.history.pushState({}, '', path);
+    }
+  }
+
+  onRoute(path) {
+    if (!this.loginned) {
+      if (path !== '/login/' && path !== '/signup/') {
+        // eslint-disable-next-line no-param-reassign
+        path = '/login/';
+        window.history.pushState({}, '', path);
+      }
+    }
+
     const view = this.getViewByRoute(path);
 
     if (!view) {
@@ -40,6 +60,14 @@ class Router {
     this.currentView.show();
 
     return true;
+  }
+
+  login() {
+    this.loginned = true;
+  }
+
+  unlogin() {
+    this.loginned = false;
   }
 }
 

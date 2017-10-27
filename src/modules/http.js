@@ -3,7 +3,7 @@
  * @module Http
  */
 
-const baseUrl = 'https://tp-2017-2-caesar-server.herokuapp.com';
+const baseUrl = 'https://tp-2017-2-caesar-backend.herokuapp.com';
 
 class Http {
   /**

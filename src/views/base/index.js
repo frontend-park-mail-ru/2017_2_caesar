@@ -7,7 +7,7 @@ class BaseView extends Block {
 
     this.addClasses(classes);
 
-    this.parent = new Block(document.querySelector('.block'));
+    this.parent = new Block(document.getElementById('block'));
   }
 
   show() {
