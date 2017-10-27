@@ -129,7 +129,8 @@ class Game {
         this.ground.inputEnabled = true;
         this.ground.input.useHandCursor = true;
         this.ground.events.onInputDown.add((sprite) => {
-          if (sprite.centerX - this.player.centerX < 2 * PLAYER_ITEM_WIDTH && sprite.centerY - this.player.centerY < 2 * PLAYER_ITEM_HEIGHT) {
+          if (Math.abs(sprite.centerX - this.player.centerX) < 2 * PLAYER_ITEM_WIDTH &&
+            Math.abs(sprite.centerY - this.player.centerY) < 2 * PLAYER_ITEM_HEIGHT) {
             sprite.destroy();
             this.state.decreaseEnergy();
           }
@@ -152,7 +153,7 @@ class Game {
 
     this.cursors = this.game.input.keyboard.createCursorKeys();
 
-    this.styleText = {font: 'bold 32px Arial', fill: '#fff', boundsAlignH: 'center', boundsAlignV: 'middle'};
+    this.styleText = { font: 'bold 32px Arial', fill: '#fff', boundsAlignH: 'center', boundsAlignV: 'middle' };
 
     this.textCoin = this.game.add.text(TEXT_COINS_X, TEXT_COINS_Y,
       this.state.coins, this.styleText);
@@ -196,6 +197,18 @@ class Game {
       this.play.visible = false;
     };
 
+    this.showMenuReset = () => {
+      this.menu.visible = true;
+      this.home.visible = true;
+      this.reset.visible = true;
+      this.menu.x = window.innerWidth / 2 - MENU_WIDTH / 2;
+      this.menu.y = window.innerHeight / 2 - MENU_HEIGHT / 2;
+      this.home.x = window.innerWidth / 2 - 100;
+      this.home.y = window.innerHeight / 2 + 80;
+      this.reset.x = window.innerWidth / 2 + 60;
+      this.reset.y = window.innerHeight / 2 + 80;
+    };
+
     this.menuButton = this.game.add.sprite(COINS_ICON_X, COINS_ICON_Y, 'home');
     this.menuButton.width = ICON_WIDTH;
     this.menuButton.height = ICON_HEIGHT;
@@ -222,6 +235,14 @@ class Game {
     this.play.events.onInputDown.add(() => {
       this.hideMenu();
       this.pause = false;
+    }, this);
+
+    this.reset = this.game.add.text(0, 0, 'reset', this.styleText);
+    this.reset.visible = false;
+    this.reset.inputEnabled = true;
+
+    this.reset.events.onInputDown.add(() => {
+      this.game.state.restart(true, false);
     }, this);
 
     this.toTopInfo = () => {
@@ -251,6 +272,14 @@ class Game {
   }
 
   update() {
+    if (this.state.counterCoins === COINS) {
+      this.showMenuReset();
+    }
+
+    if (this.state.energy === 92) {
+      this.showMenuReset();
+    }
+
     this.textEnergy.setText(this.state.energy);
     this.textCoin.setText(this.state.coins);
 

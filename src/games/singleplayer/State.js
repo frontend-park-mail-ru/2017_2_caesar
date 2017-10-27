@@ -4,11 +4,13 @@ const ENERGY = 1;
 class State {
   constructor() {
     this.coins = 0;
+    this.counterCoins = 0;
     this.energy = 100;
   }
 
   increaseCoins() {
     this.coins += COIN;
+    this.counterCoins++;
   }
 
   decreaseEnergy() {
