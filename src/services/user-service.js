@@ -49,7 +49,7 @@ class UserService {
    */
 
   loadUserData() {
-    return Http.get('/api/auth/info');
+    return Http.get('/api/auth/me');
   }
 
   /**

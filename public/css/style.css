@@ -7,7 +7,7 @@ html, body {
     justify-content: center;
 }
 
-.block {
+#block {
     background: grey;
     border-radius: 10px;
     width: 480px;
@@ -84,4 +84,10 @@ html, body {
     margin-top: 10px;
     margin-bottom: 5px;
     padding: 5px;
+}
+
+canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
 }

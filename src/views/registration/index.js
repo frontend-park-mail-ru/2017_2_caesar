@@ -46,11 +46,12 @@ class RegistrationView extends BaseView {
     this.content.registration.onSubmit((userData) => {
       userService.signup(userData)
         .then(() => {
+          router.login();
           router.go('/');
         })
         .catch((err) => {
           switch (+err.status) {
-            case 400:
+            case 409:
               this.content.registration.setErrorMessage('Email уже зарегистрирован!');
               break;
             default:
