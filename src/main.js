@@ -21,6 +21,7 @@ const ws = new WebSocket('https://tp-2017-2-caesar-backend.herokuapp.com/game');
 
 ws.onopen = () => {
   alert('Connection opened...');
+  ws.send('seva');
 };
 
 userService.loadUserData()
