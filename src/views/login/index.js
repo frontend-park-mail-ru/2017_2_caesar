@@ -48,17 +48,6 @@ class LoginView extends BaseView {
         .then(() => {
           router.login();
           router.go('/');
-
-          const ws = new WebSocket('ws://localhost:8081/game');
-
-          ws.onopen = () => {
-            console.log('Connection opened...');
-            setTimeout(() => ws.send('seva'), 1000);
-          };
-
-          ws.onmessage = (event) => {
-            console.log(event);
-          };
         })
         .catch((err) => {
           switch (+err.status) {
