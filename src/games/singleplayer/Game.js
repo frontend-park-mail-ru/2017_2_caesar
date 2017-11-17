@@ -14,6 +14,17 @@ class Game {
       return Game.instance;
     }
 
+    this.ws = new WebSocket('ws://localhost:8081/game');
+
+    this.ws.onopen = () => {
+      console.log('Connection opened...');
+      setTimeout(() => this.ws.send('seva'), 1000);
+    };
+
+    this.ws.onmessage = (event) => {
+      console.log(event);
+    };
+
     this.game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.AUTO, 'game', {
       preload: this.preload,
       create: this.create,
