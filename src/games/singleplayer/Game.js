@@ -18,7 +18,7 @@ class Game {
 
     this.ws.onopen = () => {
       console.log('Connection opened...');
-      setTimeout(() => this.ws.send('seva'), 1000);
+      setTimeout(() => this.ws.send({ seva: 'seva' }), 1000);
     };
 
     this.ws.onmessage = (event) => {
@@ -81,6 +81,8 @@ class Game {
   }
 
   update() {
+    console.log(this.game.input.mousePointer);
+
     this.info.update(this.state.coins, this.state.energy);
 
     this.player.body.velocity.x = 0;
