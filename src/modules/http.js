@@ -3,7 +3,7 @@
  * @module Http
  */
 
-const baseUrl = 'ws://localhost:8081';
+const baseUrl = 'http://localhost:8081';
 
 class Http {
   /**
