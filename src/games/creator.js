@@ -67,7 +67,8 @@ class Creator {
         this.ground.body.immovable = true;
         this.ground.inputEnabled = true;
         this.ground.input.useHandCursor = true;
-        this.ground.events.onInputDown.add((sprite) => {
+        this.ground.events.onInputDown.add((sprite, event) => {
+          console.log(event);
           if (Math.abs(sprite.centerX - this.player.centerX) < 2 * constants.PLAYER_ITEM_WIDTH &&
             Math.abs(sprite.centerY - this.player.centerY) < 2 * constants.PLAYER_ITEM_HEIGHT) {
             sprite.destroy();
