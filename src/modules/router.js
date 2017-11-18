@@ -1,3 +1,5 @@
+import Ws from 'Modules/ws';
+
 class Router {
   constructor() {
     if (Router.instance) {
@@ -63,6 +65,8 @@ class Router {
   }
 
   login() {
+    this.ws = new Ws();
+
     this.loginned = true;
   }
 
