@@ -2,11 +2,11 @@ import 'pixi';
 import 'p2';
 import 'phaser';
 
-import Creator from 'Game/creator';
-import Info from 'Game/info';
+import Creator from 'Game/Creator';
+import Info from 'Game/Info';
 import * as constants from 'Game/constants';
 
-import State from './State';
+import State from '../State';
 
 class Game {
   constructor() {
@@ -14,43 +14,20 @@ class Game {
       return Game.instance;
     }
 
-    this.ws = new WebSocket('ws://localhost:8081/game');
-
-    this.ws.onopen = () => {
-      console.log('Connection opened...');
-      setTimeout(() => this.ws.send({ seva: 'seva' }), 1000);
-    };
-
-    this.ws.onmessage = (event) => {
-      console.log(event);
-    };
-
     this.game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.AUTO, 'game', {
-      preload: this.preload,
-      create: this.create,
-      update: this.update,
+      preload: this.preload.bind(this),
+      create: this.create.bind(this),
+      update: this.update.bind(this),
     });
+
+    this.state = new State();
+    this.creator = new Creator(this.game, this.state);
 
     Game.instance = this;
   }
 
   preload() {
-    window.onresize = () => {
-      this.game.width = window.innerWidth;
-      this.game.height = window.innerHeight;
-    };
-
-    this.state = new State();
-
-    this.creator = new Creator(this.game, this.state);
-
-    this.game.load.image('sky', 'sprites/BG.png');
-    this.game.load.image('free', 'sprites/free.png');
-    this.game.load.image('ground', 'sprites/ground.png');
-    this.game.load.image('ground-top', 'sprites/ground-top.png');
-    this.game.load.spritesheet('dude', 'sprites/dude.png', 32, 48);
-    this.game.load.image('coin', 'sprites/coin.png');
-    this.game.load.image('energy', 'sprites/energy.png');
+    this.creator.load();
   }
 
   create() {

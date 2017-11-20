@@ -35,6 +35,15 @@ class UserService {
   }
 
   /**
+   * Проверка авторизации
+   * @return {Promise}
+   */
+
+  check() {
+    return Http.get('/api//auth/check');
+  }
+
+  /**
    * Выход из системы
    * @return {Promise}
    */

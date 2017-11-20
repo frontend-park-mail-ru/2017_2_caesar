@@ -17,10 +17,12 @@ class Ws {
     };
 
     this.ws.onmessage = (message) => {
-      console.log('on: ');
-      console.log(message);
+      const data = JSON.parse(message.data);
 
-      this.mediator.emit(message.class, message);
+      console.log('on: ');
+      console.log(data);
+
+      this.mediator.emit(data.class, data);
     };
 
     Ws.instance = this;
