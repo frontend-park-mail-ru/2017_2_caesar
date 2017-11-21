@@ -16,10 +16,10 @@ class State {
     this.startMoney = initData.startMoney;
     this.worldHeight = initData.worldHeight;
     this.worldWidth = initData.worldWidth;
+    this.positionGround = initData.positionGround;
+    this.bonusPosition = initData.bonusPosition;
 
     this.gravity = constants.PLAYER_GRAVITY;
-    this.groundX = constants.GROUND_X;
-    this.groundY = constants.GROUND_Y;
   }
 
   change(state) {

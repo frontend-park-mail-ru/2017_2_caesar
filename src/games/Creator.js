@@ -23,19 +23,18 @@ class Creator {
     this.bg.width = this.state.worldWidth;
     this.bg.height = this.state.worldHeight;
 
-    // this.free = this.game.add.sprite(constants.GROUND_X, constants.GROUND_Y, 'free');
-    // this.free.width = this.game.world.width - constants.GROUND_X;
-    // this.free.height = constants.WORLD_HEIGHT - constants.GROUND_Y;
+    this.free = this.game.add.sprite(0, this.state.positionGround, 'free');
+    this.free.width = this.game.world.width;
+    this.free.height = this.game.world.height - this.state.positionGround;
   }
 
   createPlayer(x, y) {
-    this.player = this.game.add.sprite(x, y, 'dude');
+    this.player = this.game.add.sprite(x + this.state.playerWidth / 2, y - this.state.playerHeight / 2, 'dude');
     this.player.width = this.state.playerWidth;
     this.player.height = this.state.playerHeight;
     this.game.camera.follow(this.player);
     this.game.physics.arcade.enable(this.player);
 
-    // this.player.body.gravity.y = this.state.gravity;
     this.player.body.collideWorldBounds = true;
 
     this.player.animations.add('left', [0, 1, 2, 3], 10, true);
@@ -44,12 +43,11 @@ class Creator {
     return this.player;
   }
 
-  createCoins(countOfBonuses) {
+  createCoins() {
     this.coins = this.game.add.group();
-    for (let i = 0; i < countOfBonuses; i++) {
-      this.coin = this.game.add.sprite(
-        this.game.rnd.integerInRange(this.state.groundX, this.state.worldWidth),
-        this.game.rnd.integerInRange(this.state.groundY, this.state.worldHeight), 'coin');
+    for (let i = 0; i < this.state.countOfBonuses; i++) {
+      this.coin = this.game.add.sprite(this.state.bonusPosition[i].x + this.state.coinWidth / 2,
+        this.state.bonusPosition[i].y - this.state.coinHeight / 2, 'coin');
       this.coin.width = this.state.coinWidth;
       this.coin.height = this.state.coinHeight;
       this.game.physics.arcade.enable(this.coin);
@@ -59,34 +57,29 @@ class Creator {
     return this.coins;
   }
 
-  // createPlatforms() {
-  //   this.platforms = this.game.add.group();
-  //   this.platforms.enableBody = true;
-  //
-  //   for (let i = constants.GROUND_X; i < this.game.world.width; i += constants.GROUND_ITEM_WIDTH) {
-  //     for (let j = constants.GROUND_Y; j < this.game.world.height; j += constants.GROUND_ITEM_HEIGHT) {
-  //       j === constants.GROUND_Y ?
-  //         this.ground = this.platforms.create(i, j, 'ground-top') :
-  //         this.ground = this.platforms.create(i, j, 'ground');
-  //
-  //       this.ground.width = constants.GROUND_ITEM_WIDTH;
-  //       this.ground.height = constants.GROUND_ITEM_HEIGHT;
-  //       this.ground.body.immovable = true;
-  //       this.ground.inputEnabled = true;
-  //       this.ground.input.useHandCursor = true;
-  //       this.ground.events.onInputDown.add((sprite, event) => {
-  //         console.log(event);
-  //         if (Math.abs(sprite.centerX - this.player.centerX) < 2 * constants.PLAYER_ITEM_WIDTH &&
-  //           Math.abs(sprite.centerY - this.player.centerY) < 2 * constants.PLAYER_ITEM_HEIGHT) {
-  //           sprite.destroy();
-  //           this.state.decreaseEnergy();
-  //         }
-  //       }, this);
-  //     }
-  //   }
-  //
-  //   return this.platforms;
-  // }
+  createPlatforms() {
+    this.platforms = this.game.add.group();
+    this.platforms.enableBody = true;
+
+    for (let i = 0; i < this.game.world.width; i += this.state.groundWidth) {
+      for (let j = this.state.positionGround; j < this.game.world.height; j += this.state.groundHeight) {
+        j === this.state.positionGround ?
+          this.ground = this.platforms.create(i, j, 'ground-top') :
+          this.ground = this.platforms.create(i, j, 'ground');
+
+        this.ground.width = this.state.groundWidth;
+        this.ground.height = this.state.groundHeight;
+        this.ground.body.immovable = true;
+        this.ground.inputEnabled = true;
+        this.ground.input.useHandCursor = true;
+        this.ground.events.onInputDown.add((sprite, event) => {
+          console.log(event);
+        }, this);
+      }
+    }
+
+    return this.platforms;
+  }
 }
 
 export default Creator;

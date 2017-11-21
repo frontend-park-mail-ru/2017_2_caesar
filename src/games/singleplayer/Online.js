@@ -42,26 +42,26 @@ class Game {
     this.creator.createBg();
 
     this.coins = this.creator.createCoins(this.state.countOfBonuses);
-    // this.platforms = this.creator.createPlatforms();
+    this.platforms = this.creator.createPlatforms();
     this.player = this.creator.createPlayer(this.state.playerX, this.state.playerY);
 
     this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
     this.cursors = this.game.input.keyboard.createCursorKeys();
 
-    // this.showCoins = () => {
-    //   this.game.world.bringToTop(this.platforms);
-    // };
-    //
-    // this.search = () => {
-    //   this.game.world.bringToTop(this.coins);
-    //   this.game.time.events.add(Phaser.Timer.SECOND, this.showCoins, this);
-    // };
-    //
-    // this.keySearch = this.game.input.keyboard.addKey(Phaser.Keyboard.E);
-    // this.keySearch.onDown.add(this.search, this);
-    //
-    // this.info = new Info(this.game, this.state.coins, this.state.energy);
+    this.showCoins = () => {
+      this.game.world.bringToTop(this.platforms);
+    };
+
+    this.search = () => {
+      this.game.world.bringToTop(this.coins);
+      this.game.time.events.add(Phaser.Timer.SECOND, this.showCoins, this);
+    };
+
+    this.keySearch = this.game.input.keyboard.addKey(Phaser.Keyboard.E);
+    this.keySearch.onDown.add(this.search, this);
+
+    this.info = new Info(this.game, this.state.startMoney, this.state.startEnergy);
   }
 
   update() {
