@@ -61,10 +61,37 @@ class Game {
     this.keySearch = this.game.input.keyboard.addKey(Phaser.Keyboard.E);
     this.keySearch.onDown.add(this.search, this);
 
-    this.info = new Info(this.game, this.state.startMoney, this.state.startEnergy);
+    this.info = new Info(this.game, this.state.money, this.state.energy);
   }
 
   update() {
+    this.player.centerX = this.state.playerX;
+    this.player.centerY = this.state.playerY;
+
+    this.info.update(this.state.money, this.state.energy);
+
+    if (this.cursors.left.isDown) {
+      this.ws.send('ClientSnap', {
+        mouse: {
+          x: 0,
+          y: 0,
+        },
+        move: {
+          keyDown: 'LEFT',
+        },
+        bonus: {
+          bonus: 'NOTHING',
+        },
+        isDrill: false,
+        isBonus: false,
+        frameTime: 50,
+      });
+      this.player.animations.play('left');
+    } else if (this.cursors.right.isDown) {
+      this.player.animations.play('right');
+    } else if (this.cursors.up.isDown) {
+    } else if (this.cursors.down.isDown) {
+    }
   }
 
   destructor() {
