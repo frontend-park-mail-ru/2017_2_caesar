@@ -12,12 +12,15 @@ class GameView {
     });
 
     this.mediator.on('InitGameSinglePlayer$Response', (data) => {
+      this.ws.userId = data.userId;
       this.game = new Online(data);
     });
   }
 
   hide() {
-    this.ws.send('FinishGame$Request', {});
+    this.ws.send('FinishGame$Request', {
+      userId: this.ws.userId,
+    });
 
     this.game.destructor();
   }

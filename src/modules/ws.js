@@ -19,8 +19,8 @@ class Ws {
     this.ws.onmessage = (message) => {
       const data = JSON.parse(message.data);
 
-      // console.log('on: ');
-      // console.log(data.mapSnap ? data.mapSnap.destroyedTiles : '');
+      console.log('on: ');
+      console.log(data);
 
       this.mediator.emit(data.class, data);
     };
