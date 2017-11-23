@@ -10,22 +10,28 @@ class Ws {
 
     this.mediator = new Mediator();
 
-    this.ws = new WebSocket(baseUrl);
+    this.data = {};
 
-    this.ws.onopen = () => {
-      console.log('Connection opened...');
-    };
+    Ws.instance = this;
+  }
+
+  connect() {
+    this.ws = new WebSocket(baseUrl);
 
     this.ws.onmessage = (message) => {
       const data = JSON.parse(message.data);
 
-      console.log('on: ');
-      console.log(data);
+      if (data.mapSnap && this.data.mapSnap && this.data.mapSnap.destroyedTiles[0] !== data.mapSnap.destroyedTiles[0]) {
+        console.log('on: ');
+        console.log(data.mapSnap ? data.mapSnap.destroyedTiles : '');
+
+        this.data = data;
+      }
 
       this.mediator.emit(data.class, data);
     };
 
-    Ws.instance = this;
+    return this.ws;
   }
 
   send(type, payload) {
