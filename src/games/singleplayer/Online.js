@@ -116,23 +116,15 @@ class Game {
         isBonus: false,
         frameTime: 50,
       });
-    } else if (this.cursors.down.isDown) {
-      this.ws.send('ClientSnap', {
-        mouse: {
-          x: 0,
-          y: 0,
-        },
-        move: {
-          keyDown: 'DOWN',
-        },
-        isDrill: false,
-        isBonus: false,
-        frameTime: 50,
-      });
+    } else {
+      this.player.animations.stop();
+      this.player.frame = 4;
     }
   }
 
   destructor() {
+    delete Game.instance;
+
     this.game.destroy();
   }
 }

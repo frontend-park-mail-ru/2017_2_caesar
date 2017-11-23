@@ -2,10 +2,14 @@ import 'pixi';
 import 'p2';
 import 'phaser';
 
+import Ws from 'Modules/ws';
+
 class Creator {
   constructor(game, state) {
     this.game = game;
     this.state = state;
+
+    this.ws = new Ws();
   }
 
   load() {
@@ -73,7 +77,18 @@ class Creator {
         this.ground.inputEnabled = true;
         this.ground.input.useHandCursor = true;
         this.ground.events.onInputDown.add((sprite, event) => {
-          console.log(event);
+          this.ws.send('ClientSnap', {
+            mouse: {
+              x: event.x,
+              y: event.y,
+            },
+            move: {
+              keyDown: 'NOTHING',
+            },
+            isDrill: true,
+            isBonus: false,
+            frameTime: 50,
+          });
         }, this);
       }
     }
