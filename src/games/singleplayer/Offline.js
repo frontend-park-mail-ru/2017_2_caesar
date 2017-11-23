@@ -2,6 +2,8 @@ import 'pixi';
 import 'p2';
 import 'phaser';
 
+import Router from 'Modules/router';
+
 import Creator from 'Game/Creator';
 import Info from 'Game/Info';
 import * as constants from 'Game/constants';
@@ -10,10 +12,6 @@ import State from '../State';
 
 class Game {
   constructor() {
-    if (Game.instance) {
-      return Game.instance;
-    }
-
     this.game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.AUTO, 'game', {
       preload: this.preload.bind(this),
       create: this.create.bind(this),
@@ -23,7 +21,19 @@ class Game {
     this.state = new State();
     this.creator = new Creator(this.game, this.state);
 
-    Game.instance = this;
+    this.router = new Router();
+
+    window.onresize = () => {
+      this.game.scale.setGameSize(window.innerWidth, window.innerHeight);
+    };
+
+    this.exit = (event) => {
+      if (event.keyCode === 27) {
+        this.router.go('/');
+      }
+    };
+
+    window.addEventListener('keydown', this.exit);
   }
 
   preload() {
@@ -88,6 +98,10 @@ class Game {
   }
 
   destructor() {
+    window.removeEventListener('keydown', this.exit);
+
+    window.onresize = null;
+
     this.game.destroy();
   }
 }

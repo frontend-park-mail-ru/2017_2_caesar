@@ -2,15 +2,15 @@ export const WORLD_WIDTH = 1280;
 export const WORLD_HEIGHT = 2000;
 
 export const COINS = 40;
-export const TEXT_COINS_X = window.innerWidth - 120;
+export const TEXT_COINS_X = 64;
 export const TEXT_COINS_Y = 0;
-export const TEXT_COINS_ICON_X = window.innerWidth - 40;
+export const TEXT_COINS_ICON_X = 8;
 export const TEXT_COINS_ICON_WIDTH = 32;
 export const TEXT_COINS_ICON_HEIGHT = 32;
 
-export const TEXT_ENERGY_X = window.innerWidth - 120;
+export const TEXT_ENERGY_X = 64;
 export const TEXT_ENERGY_Y = 40;
-export const TEXT_ENERGY_ICON_X = window.innerWidth - 40;
+export const TEXT_ENERGY_ICON_X = 8;
 export const TEXT_ENERGY_ICON_WIDTH = 32;
 export const TEXT_ENERGY_ICON_HEIGHT = 32;
 
