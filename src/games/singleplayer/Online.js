@@ -24,6 +24,11 @@ class Game {
     this.ws = new Ws();
     this.mediator = new Mediator();
 
+    this.mediator.on('ServerSnap', (data) => {
+      this.state.playerX = data.mapSnap.userPosition[0].x;
+      this.state.playerY = data.mapSnap.userPosition[0].y;
+    });
+
     this.state = new State();
     this.creator = new Creator(this.game, this.state);
 
@@ -79,18 +84,51 @@ class Game {
         move: {
           keyDown: 'LEFT',
         },
-        bonus: {
-          bonus: 'NOTHING',
-        },
         isDrill: false,
         isBonus: false,
         frameTime: 50,
       });
       this.player.animations.play('left');
     } else if (this.cursors.right.isDown) {
+      this.ws.send('ClientSnap', {
+        mouse: {
+          x: 0,
+          y: 0,
+        },
+        move: {
+          keyDown: 'RIGHT',
+        },
+        isDrill: false,
+        isBonus: false,
+        frameTime: 50,
+      });
       this.player.animations.play('right');
     } else if (this.cursors.up.isDown) {
+      this.ws.send('ClientSnap', {
+        mouse: {
+          x: 0,
+          y: 0,
+        },
+        move: {
+          keyDown: 'UP',
+        },
+        isDrill: false,
+        isBonus: false,
+        frameTime: 50,
+      });
     } else if (this.cursors.down.isDown) {
+      this.ws.send('ClientSnap', {
+        mouse: {
+          x: 0,
+          y: 0,
+        },
+        move: {
+          keyDown: 'DOWN',
+        },
+        isDrill: false,
+        isBonus: false,
+        frameTime: 50,
+      });
     }
   }
 
