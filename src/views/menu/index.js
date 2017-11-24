@@ -1,68 +1,27 @@
-import Block from 'Components/block/';
-import BaseView from 'Views/base/';
+import AnonymousMenuView from 'Views/menu/anonymous';
+import PlayerMenuView from 'Views/menu/player';
 import Router from 'Modules/router';
-import UserService from 'Services/user-service';
 
-class MenuView extends BaseView {
+class MenuView {
   constructor() {
-    super('div');
-
-    this.addClasses(['app-menu']);
-
-    this.header = Block.create('h2', {}, ['app-menu-header'], 'Меню');
-
-    this.play = Block.create('input', {
-      type: 'button',
-      value: 'Играть',
-    }, ['btn', 'btn-default', 'app-menu-button', 'menu-button-play']);
-
-    this.profile = Block.create('input', {
-      type: 'button',
-      value: 'Профиль',
-    }, ['btn', 'btn-default', 'app-menu-button', 'menu-button-profile']);
-
-    this.rating = Block.create('input', {
-      type: 'button',
-      value: 'Рейтинг',
-    }, ['btn', 'btn-default', 'app-menu-button', 'menu-button-rating']);
-
-    this.logout = Block.create('input', {
-      type: 'button',
-      value: 'Выйти',
-    }, ['btn', 'btn-default', 'app-menu-button', 'menu-button-logout']);
-
-    this.render();
-
-    this.addListener();
+    this.player = new PlayerMenuView();
+    this.anonymous = new AnonymousMenuView();
+    
+    this.router = new Router();
   }
 
-  render() {
-    this
-      .append(this.header)
-      .append(this.play)
-      .append(this.profile)
-      .append(this.rating)
-      .append(this.logout);
+  show() {
+    if (this.router.isLoginned()) {
+      this.current = this.player;
+      this.player.show();
+    } else {
+      this.current = this.anonymous;
+      this.anonymous.show();
+    }
   }
 
-  addListener() {
-    const router = new Router();
-    const userService = new UserService();
-
-    this.play.on('click', () => {
-      router.go('/singleplayer/');
-    });
-    this.profile.on('click', () => {
-      router.go('/profile/');
-    });
-    this.rating.on('click', () => {
-      router.go('/rating/');
-    });
-    this.logout.on('click', () => {
-      router.unlogin();
-      router.go('/login/');
-      userService.logout();
-    });
+  hide() {
+    this.current.hide();
   }
 }
 

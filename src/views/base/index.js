@@ -1,13 +1,13 @@
 import Block from 'Components/block/';
 
 class BaseView extends Block {
-  constructor(tag, classes) {
+  constructor(tag, classes, parent) {
     const element = document.createElement(tag);
     super(element);
 
     this.addClasses(classes);
 
-    this.parent = new Block(document.getElementById('block'));
+    this.parent = new Block(document.getElementById(parent || 'block'));
   }
 
   show() {

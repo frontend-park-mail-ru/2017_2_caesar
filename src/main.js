@@ -16,13 +16,15 @@ router.register('/signup/', new RegistrationView());
 router.register('/profile/', new ProfileView());
 router.register('/rating/', new ScoreboardView());
 router.register('/singleplayer/', new GameView());
+router.register('/multiplayer/', new GameView());
 
-userService.loadUserData()
-  .then(() => {
-    router.login();
-    router.start();
-  })
-  .catch(() => {
-    router.unlogin();
+userService.check()
+  .then((answer) => {
+    if (answer.status === 'authorized') {
+      router.login();
+    } else {
+      router.unlogin();
+    }
+
     router.start();
   });

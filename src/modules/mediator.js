@@ -49,4 +49,4 @@ class Mediator {
   }
 }
 
-export default new Mediator();
+export default Mediator;
