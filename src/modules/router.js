@@ -1,3 +1,5 @@
+import Ws from 'Modules/ws';
+
 class Router {
   constructor() {
     if (Router.instance) {
@@ -34,13 +36,12 @@ class Router {
   }
 
   onRoute(path) {
-    if (!this.loginned) {
-      if (path !== '/login/' && path !== '/signup/') {
-        // eslint-disable-next-line no-param-reassign
-        path = '/login/';
-        window.history.pushState({}, '', path);
-      }
-    }
+    // if (!this.loginned) {
+    //   if (path !== '/login/' && path !== '/signup/') {
+    //     path = '/login/';
+    //     window.history.pushState({}, '', path);
+    //   }
+    // }
 
     const view = this.getViewByRoute(path);
 
@@ -63,11 +64,17 @@ class Router {
   }
 
   login() {
+    this.ws = new Ws();
+
     this.loginned = true;
   }
 
   unlogin() {
     this.loginned = false;
+  }
+
+  isLoginned() {
+    return this.loginned;
   }
 }
 
