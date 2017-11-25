@@ -20,14 +20,10 @@ class Ws {
 
     this.ws.onmessage = (message) => {
       const data = JSON.parse(message.data);
-
-      if (data.mapSnap && this.data.mapSnap && this.data.mapSnap.destroyedTiles[0] !== data.mapSnap.destroyedTiles[0]) {
-        console.log('on: ');
-        console.log(data.mapSnap ? data.mapSnap.destroyedTiles : '');
-
-        this.data = data;
+      if (data.class !== 'InitGameSinglePlayer$Response' && data.mapSnap.destroyedTiles[0] !== null) {
+        console.log('ServerSnap', data);  
       }
-
+      this.data = data;
       this.mediator.emit(data.class, data);
     };
 
@@ -35,9 +31,7 @@ class Ws {
   }
 
   send(type, payload) {
-    console.log('send: ');
-    console.log(type);
-    console.log(payload);
+    console.log(type, payload);
 
     this.ws.send(JSON.stringify(Object.assign({}, {
       class: type,

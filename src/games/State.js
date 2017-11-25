@@ -20,6 +20,9 @@ class State {
 
     this.positionGround = initData.positionGround;
     this.bonusPosition = initData.bonusPosition;
+
+    this.userId = initData.userId;
+    this.radiusRadar = initData.radiusRadar;
   }
 
   change(state) {

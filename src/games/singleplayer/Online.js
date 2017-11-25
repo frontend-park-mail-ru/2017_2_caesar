@@ -84,52 +84,39 @@ class Game {
     this.player.centerY = this.state.playerY;
 
     this.info.update(this.state.money, this.state.energy);
-
-    if (this.cursors.left.isDown) {
-      this.ws.send('ClientSnap', {
-        mouse: {
+    
+    const sendData = {
+    	mouse: {
           x: 0,
           y: 0,
         },
-        move: {
-          keyDown: 'LEFT',
+        moveTo: {
+          keyDown: 'NOTHING',
         },
         isDrill: false,
-        isBonus: false,
+        isJump: false,
+        isMove: false,
         frameTime: 50,
-      });
+    };
+    if (this.cursors.left.isDown) {
+    	sendData.isMove = true;
+    	sendData.moveTo.keyDown = 'LEFT';
+      this.ws.send('ClientSnap', sendData);
       this.player.animations.play('left');
     } else if (this.cursors.right.isDown) {
-      this.ws.send('ClientSnap', {
-        mouse: {
-          x: 0,
-          y: 0,
-        },
-        move: {
-          keyDown: 'RIGHT',
-        },
-        isDrill: false,
-        isBonus: false,
-        frameTime: 50,
-      });
+    	sendData.isMove = true;
+    	sendData.moveTo.keyDown = 'RIGHT';
+      this.ws.send('ClientSnap', sendData);
       this.player.animations.play('right');
-    } else if (this.cursors.up.isDown) {
-      this.ws.send('ClientSnap', {
-        mouse: {
-          x: 0,
-          y: 0,
-        },
-        move: {
-          keyDown: 'UP',
-        },
-        isDrill: false,
-        isBonus: false,
-        frameTime: 50,
-      });
     } else {
       this.player.animations.stop();
       this.player.frame = 4;
     }
+
+    if (this.cursors.up.isDown) {
+    	sendData.isJump = true;
+      this.ws.send('ClientSnap', sendData);
+    } 
   }
 
   destructor() {

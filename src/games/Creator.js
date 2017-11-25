@@ -82,11 +82,12 @@ class Creator {
               x: event.x,
               y: event.y,
             },
-            move: {
+            moveTo: {
               keyDown: 'NOTHING',
             },
             isDrill: true,
-            isBonus: false,
+            isJump: false,
+            isMove: false,
             frameTime: 50,
           });
         }, this);
