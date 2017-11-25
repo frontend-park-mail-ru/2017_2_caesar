@@ -20,8 +20,9 @@ class Ws {
 
     this.ws.onmessage = (message) => {
       const data = JSON.parse(message.data);
+      
       if (data.class !== 'InitGameSinglePlayer$Response' && data.mapSnap.destroyedTiles[0] !== null) {
-        console.log('ServerSnap', data);  
+         console.log('ServerSnap', data); 
       }
       this.data = data;
       this.mediator.emit(data.class, data);

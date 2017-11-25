@@ -23,8 +23,8 @@ class Game {
     this.mediator = new Mediator();
 
     this.mediator.on('ServerSnap', (data) => {
-      this.state.playerX = data.mapSnap.userPosition[0].x;
-      this.state.playerY = data.mapSnap.userPosition[0].y;
+      this.state.playerX = data.firstUser.positionPartSnap.position.x;
+      this.state.playerY = data.firstUser.positionPartSnap.position.y;
     });
 
     this.state = new State();
@@ -84,7 +84,7 @@ class Game {
     this.player.centerY = this.state.playerY;
 
     this.info.update(this.state.money, this.state.energy);
-    
+
     const sendData = {
     	mouse: {
           x: 0,
