@@ -5,7 +5,8 @@ import LoginView from 'Views/login/';
 import RegistrationView from 'Views/registration/';
 import ProfileView from 'Views/profile/';
 import ScoreboardView from 'Views/scoreboard/';
-import GameView from 'Views/game/';
+import GameViewSO from 'Views/game/singleplayerOnline';
+import GameViewMO from 'Views/game/multiplayerOnline';
 
 const router = new Router();
 const userService = new UserService();
@@ -15,8 +16,8 @@ router.register('/login/', new LoginView());
 router.register('/signup/', new RegistrationView());
 router.register('/profile/', new ProfileView());
 router.register('/rating/', new ScoreboardView());
-router.register('/singleplayer/', new GameView());
-router.register('/multiplayer/', new GameView());
+router.register('/singleplayer/', new GameViewSO());
+router.register('/multiplayer/', new GameViewMO());
 
 userService.check()
   .then((answer) => {
