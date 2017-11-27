@@ -25,6 +25,10 @@ class Game {
     this.mediator.on('ServerSnap', (data) => {
       this.state.playerX = data.firstUser.positionPartSnap.position.x;
       this.state.playerY = data.firstUser.positionPartSnap.position.y;
+
+      if (data.mapSnap.destroyedTiles[0] !== null) {
+        console.log(data);
+      }
     });
 
     this.state = new State();
@@ -86,26 +90,26 @@ class Game {
     this.info.update(this.state.money, this.state.energy);
 
     const sendData = {
-    	mouse: {
-          x: 0,
-          y: 0,
-        },
-        moveTo: {
-          keyDown: 'NOTHING',
-        },
-        isDrill: false,
-        isJump: false,
-        isMove: false,
-        frameTime: 50,
+      mouse: {
+        x: 0,
+        y: 0,
+      },
+      moveTo: {
+        keyDown: 'NOTHING',
+      },
+      isDrill: false,
+      isJump: false,
+      isMove: false,
+      frameTime: 50,
     };
     if (this.cursors.left.isDown) {
-    	sendData.isMove = true;
-    	sendData.moveTo.keyDown = 'LEFT';
+      sendData.isMove = true;
+      sendData.moveTo.keyDown = 'LEFT';
       this.ws.send('ClientSnap', sendData);
       this.player.animations.play('left');
     } else if (this.cursors.right.isDown) {
-    	sendData.isMove = true;
-    	sendData.moveTo.keyDown = 'RIGHT';
+      sendData.isMove = true;
+      sendData.moveTo.keyDown = 'RIGHT';
       this.ws.send('ClientSnap', sendData);
       this.player.animations.play('right');
     } else {
@@ -114,9 +118,9 @@ class Game {
     }
 
     if (this.cursors.up.isDown) {
-    	sendData.isJump = true;
+      sendData.isJump = true;
       this.ws.send('ClientSnap', sendData);
-    } 
+    }
   }
 
   destructor() {

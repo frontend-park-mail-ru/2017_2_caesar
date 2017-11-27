@@ -76,11 +76,12 @@ class Creator {
         this.ground.body.immovable = true;
         this.ground.inputEnabled = true;
         this.ground.input.useHandCursor = true;
-        this.ground.events.onInputDown.add((sprite, event) => {
+        this.ground.events.onInputDown.add((sprite) => {
+          console.log(sprite);
           this.ws.send('ClientSnap', {
             mouse: {
-              x: event.x,
-              y: event.y,
+              x: sprite.world.x,
+              y: sprite.world.y,
             },
             moveTo: {
               keyDown: 'NOTHING',
