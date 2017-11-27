@@ -13,8 +13,10 @@ class Ws {
     Ws.instance = this;
   }
 
-  connect() {
+  connect(callback) {
     this.ws = new WebSocket(baseUrl);
+
+    this.ws.onopen = callback;
 
     this.ws.onmessage = (message) => {
       const data = JSON.parse(message.data);

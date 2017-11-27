@@ -7,11 +7,11 @@ class GameView {
     this.ws = new Ws();
     this.mediator = new Mediator();
 
-    this.ws.connect().onopen = () => {
+    this.ws.connect(() => {
       this.ws.send('JoinGame', {
         typeOfGame: 'single',
       });
-    };
+    });
 
     this.mediator.on('InitGameSinglePlayer$Response', (data) => {
       this.ws.userId = data.userId;
