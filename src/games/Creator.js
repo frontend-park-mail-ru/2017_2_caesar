@@ -77,7 +77,7 @@ class Creator {
         this.ground.inputEnabled = true;
         this.ground.input.useHandCursor = true;
         this.ground.events.onInputDown.add((sprite) => {
-          console.log(sprite);
+          sprite.kill();
           this.ws.send('ClientSnap', {
             mouse: {
               x: sprite.world.x,

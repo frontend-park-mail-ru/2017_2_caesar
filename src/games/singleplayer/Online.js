@@ -25,7 +25,7 @@ class Game {
     this.mediator.on('ServerSnap', (data) => {
       this.state.playerX = data.firstUser.positionPartSnap.position.x;
       this.state.playerY = data.firstUser.positionPartSnap.position.y;
-
+      console.log(data);
       if (data.mapSnap.destroyedTiles[0] !== null) {
         console.log(data);
       }
