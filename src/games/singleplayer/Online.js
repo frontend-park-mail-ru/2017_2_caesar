@@ -33,8 +33,6 @@ class Game {
         this.free = this.creator.createFree(data.mapSnap.destroyedTiles[0].x,
           data.mapSnap.destroyedTiles[0].y);
         this.game.physics.arcade.overlap(this.free, this.platforms, (free, platforms) => {
-          console.log(free);
-          console.log(platforms);
           free.kill();
           platforms.kill();
         });
@@ -94,8 +92,8 @@ class Game {
   }
 
   update() {
-    this.player.centerX = this.state.playerX;
-    this.player.centerY = this.state.playerY;
+    this.player.world.x = this.state.playerX;
+    this.player.world.y = this.state.playerY;
 
     this.info.update(this.state.money, this.state.energy);
 
