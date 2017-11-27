@@ -27,9 +27,19 @@ class Creator {
     this.bg.width = this.state.worldWidth;
     this.bg.height = this.state.worldHeight;
 
-    this.free = this.game.add.sprite(0, this.state.positionGround, 'free');
-    this.free.width = this.game.world.width;
-    this.free.height = this.game.world.height - this.state.positionGround;
+    this.frees = this.game.add.sprite(0, this.state.positionGround, 'free');
+    this.frees.width = this.game.world.width;
+    this.frees.height = this.game.world.height - this.state.positionGround;
+  }
+
+  createFree(x, y) {
+    this.free = this.game.add.sprite(x, y, 'free');
+    this.free.width = this.state.groundWidth;
+    this.free.height = this.state.groundHeight;
+    this.game.physics.arcade.enable(this.free);
+    this.free.body.collideWorldBounds = true;
+
+    return this.free;
   }
 
   createPlayer(x, y) {
@@ -71,13 +81,13 @@ class Creator {
           this.ground = this.platforms.create(i, j, 'ground-top') :
           this.ground = this.platforms.create(i, j, 'ground');
 
+        this.game.physics.arcade.enable(this.ground);
         this.ground.width = this.state.groundWidth;
         this.ground.height = this.state.groundHeight;
         this.ground.body.immovable = true;
         this.ground.inputEnabled = true;
         this.ground.input.useHandCursor = true;
         this.ground.events.onInputDown.add((sprite) => {
-          sprite.kill();
           this.ws.send('ClientSnap', {
             mouse: {
               x: sprite.world.x,
@@ -95,6 +105,7 @@ class Creator {
       }
     }
 
+    console.log(this.platforms);
     return this.platforms;
   }
 }

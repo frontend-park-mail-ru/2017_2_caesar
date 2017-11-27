@@ -25,9 +25,19 @@ class Game {
     this.mediator.on('ServerSnap', (data) => {
       this.state.playerX = data.firstUser.positionPartSnap.position.x;
       this.state.playerY = data.firstUser.positionPartSnap.position.y;
-      console.log(data);
+
+      this.state.money = data.firstUser.mechanicPartSnap.money;
+      this.state.energy = data.firstUser.mechanicPartSnap.energy;
+
       if (data.mapSnap.destroyedTiles[0] !== null) {
-        console.log(data);
+        this.free = this.creator.createFree(data.mapSnap.destroyedTiles[0].x,
+          data.mapSnap.destroyedTiles[0].y);
+        this.game.physics.arcade.overlap(this.free, this.platforms, (free, platforms) => {
+          console.log(free);
+          console.log(platforms);
+          free.kill();
+          platforms.kill();
+        });
       }
     });
 
