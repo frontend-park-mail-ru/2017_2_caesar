@@ -1,4 +1,4 @@
-import Online from 'Game/singleplayer/Online';
+import Game from 'Game/multiplayer/';
 import Ws from 'Modules/ws';
 import Mediator from 'Modules/mediator';
 
@@ -16,7 +16,7 @@ class GameView {
     this.mediator.on('InitGameMultiPlayer$Response', (data) => {
       console.log(data)
       this.ws.userId = data.userId;
-      //this.game = new Online(data);
+      //this.game = new Game(data);
     });
   }
 
