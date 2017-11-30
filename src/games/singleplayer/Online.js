@@ -89,11 +89,13 @@ class Game {
     this.keySearch.onDown.add(this.search, this);
 
     this.info = new Info(this.game, this.state.money, this.state.energy);
+
+    console.log(this.player);
   }
 
   update() {
-    this.player.world.x = this.state.playerX;
-    this.player.world.y = this.state.playerY;
+    this.player.x = this.state.playerX;
+    this.player.y = this.state.playerY;
 
     this.info.update(this.state.money, this.state.energy);
 

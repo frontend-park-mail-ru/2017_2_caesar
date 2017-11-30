@@ -105,7 +105,6 @@ class Creator {
       }
     }
 
-    console.log(this.platforms);
     return this.platforms;
   }
 }
