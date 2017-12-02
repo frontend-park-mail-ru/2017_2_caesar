@@ -8,6 +8,7 @@ class GameView {
     this.mediator = new Mediator();
 
     this.ws.connect(() => {
+      console.log('connect opened');
       this.ws.send('JoinGame', {
         typeOfGame: 'single',
       });

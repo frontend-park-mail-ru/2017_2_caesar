@@ -23,19 +23,25 @@ class Game {
     this.mediator = new Mediator();
 
     this.mediator.on('ServerSnap', (data) => {
+      if (data.mapSnap.destroyedBonus.length !== 0) {
+      	console.log(data);
+  	  }
       this.state.playerX = data.firstUser.positionPartSnap.position.x;
       this.state.playerY = data.firstUser.positionPartSnap.position.y;
 
       this.state.money = data.firstUser.mechanicPartSnap.money;
       this.state.energy = data.firstUser.mechanicPartSnap.energy;
 
-      if (data.mapSnap.destroyedTiles[0] !== null) {
-        this.free = this.creator.createFree(data.mapSnap.destroyedTiles[0].x,
-          data.mapSnap.destroyedTiles[0].y);
-        this.game.physics.arcade.overlap(this.free, this.platforms, (free, platforms) => {
-          free.kill();
-          platforms.kill();
-        });
+      for (let i = 0; i < data.mapSnap.destroyedTiles.length; i++) {
+	        this.free = this.creator.createFree(data.mapSnap.destroyedTiles[i].x,
+	          data.mapSnap.destroyedTiles[i].y);
+	        this.game.physics.arcade.overlap(this.free, this.platforms, (free, platforms) => {
+	          free.kill();
+	          platforms.kill();
+	        });
+      }
+      for (let i = 0; i < data.mapSnap.destroyedBonus.length; i++) {
+	        
       }
     });
 
@@ -60,10 +66,12 @@ class Game {
   }
 
   preload() {
+  	 console.log('preload');
     this.creator.load();
   }
 
   create() {
+  	 console.log('create');
     this.game.world.setBounds(0, 0, this.state.worldWidth, this.state.worldHeight);
 
     this.creator.createBg();

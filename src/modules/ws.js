@@ -20,7 +20,6 @@ class Ws {
 
     this.ws.onmessage = (message) => {
       const data = JSON.parse(message.data);
-      // console.log(data)
       this.mediator.emit(data.class, data);
     };
 
@@ -28,7 +27,7 @@ class Ws {
   }
 
   send(type, payload) {
-    console.log(type, payload);
+    // console.log(type, payload);
 
     this.ws.send(JSON.stringify(Object.assign({}, {
       class: type,
