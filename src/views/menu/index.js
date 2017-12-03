@@ -6,7 +6,7 @@ class MenuView {
   constructor() {
     this.player = new PlayerMenuView();
     this.anonymous = new AnonymousMenuView();
-    
+
     this.router = new Router();
   }
 

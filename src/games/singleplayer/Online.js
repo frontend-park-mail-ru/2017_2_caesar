@@ -97,8 +97,6 @@ class Game {
     this.keySearch.onDown.add(this.search, this);
 
     this.info = new Info(this.game, this.state.money, this.state.energy);
-
-    console.log(this.player);
   }
 
   update() {

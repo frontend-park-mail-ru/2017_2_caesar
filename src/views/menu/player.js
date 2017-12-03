@@ -56,7 +56,7 @@ class PlayerMenuView extends BaseView {
     const userService = new UserService();
 
     this.single.on('click', () => {
-      router.go('/singleplayer/');
+      router.go('/singleplayer-online/');
     });
     this.multi.on('click', () => {
       router.go('/multiplayer/');

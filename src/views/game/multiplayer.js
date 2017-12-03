@@ -14,9 +14,8 @@ class GameView {
     });
 
     this.mediator.on('InitGameMultiPlayer$Response', (data) => {
-      console.log(data)
       this.ws.userId = data.userId;
-      //this.game = new Game(data);
+      this.game = new Game(data);
     });
   }
 

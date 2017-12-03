@@ -23,12 +23,9 @@ class State {
 
     this.userId = initData.userId;
     this.radiusRadar = initData.radiusRadar;
-  }
 
-  change(state) {
-    for (const key in state) {
-      this[key] = state[key];
-    }
+    this.otherPlayerX = initData.playerX;
+    this.otherPlayerY = initData.playerY;
   }
 }
 

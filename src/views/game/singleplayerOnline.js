@@ -15,8 +15,8 @@ class GameView {
     });
 
     this.mediator.on('InitGameSinglePlayer$Response', (data) => {
-      this.ws.userId = data.userId;
       console.log(data);
+      this.ws.userId = data.userId;
       this.game = new Online(data);
     });
   }

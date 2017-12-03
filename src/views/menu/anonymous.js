@@ -49,7 +49,7 @@ class AnonymousMenuView extends BaseView {
     const router = new Router();
 
     this.single.on('click', () => {
-      router.go('/singleplayer/');
+      router.go('/singleplayer-offline/');
     });
     this.rating.on('click', () => {
       router.go('/rating/');
