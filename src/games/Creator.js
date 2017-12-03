@@ -60,8 +60,8 @@ class Creator {
   createCoins() {
     this.coins = this.game.add.group();
     for (let i = 0; i < this.state.countOfBonuses; i++) {
-      this.coin = this.game.add.sprite(this.state.bonusPosition[i].x + this.state.coinWidth / 2,
-        this.state.bonusPosition[i].y - this.state.coinHeight / 2, 'coin');
+      this.coin = this.game.add.sprite(this.state.bonusPosition[i].x,
+        this.state.bonusPosition[i].y, 'coin');
       this.coin.width = this.state.coinWidth;
       this.coin.height = this.state.coinHeight;
       this.game.physics.arcade.enable(this.coin);
