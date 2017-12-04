@@ -22,25 +22,41 @@ class Game {
     this.ws = new Ws();
     this.mediator = new Mediator();
 
+    this.userId = initData.userId;
+
     this.mediator.on('ServerSnap', (data) => {
-      console.log(data);
+      const users = data.firstUser.userId === this.userId ? { first: 'firstUser', second: 'secondUser' } : { first: 'secondUser', second: 'firstUser' } ;
+      this.state.playerX = data[users.first].positionPartSnap.position.x;
+      this.state.playerY = data[users.first].positionPartSnap.position.y;
 
-      this.state.playerX = data.firstUser.positionPartSnap.position.x;
-      this.state.playerY = data.firstUser.positionPartSnap.position.y;
+      this.state.money = data[users.first].mechanicPartSnap.money;
+      this.state.energy = data[users.first].mechanicPartSnap.energy;
 
-      this.state.money = data.firstUser.mechanicPartSnap.money;
-      this.state.energy = data.firstUser.mechanicPartSnap.energy;
+      this.state.otherPlayerX = data[users.second].positionPartSnap.position.x;
+      this.state.otherPlayerY = data[users.second].positionPartSnap.position.y;
 
-      this.state.otherPlayerX = data.secondUser.positionPartSnap.position.x;
-      this.state.otherPlayerY = data.secondUser.positionPartSnap.position.y;
+      this.state.otherMoney = data[users.second].positionPartSnap.position.x;
+      this.state.otherEnergy = data[users.second].positionPartSnap.position.y;
 
       if (data.mapSnap.destroyedTiles[0] !== null) {
-        this.free = this.creator.createFree(data.mapSnap.destroyedTiles[0].x,
-          data.mapSnap.destroyedTiles[0].y);
-        this.game.physics.arcade.overlap(this.free, this.platforms, (free, platforms) => {
-          free.kill();
-          platforms.kill();
-        });
+        for (let i = 0; i < data.mapSnap.destroyedTiles.length; i++) {
+          this.free = this.creator.createFree(data.mapSnap.destroyedTiles[i].x,
+            data.mapSnap.destroyedTiles[i].y);
+          this.game.physics.arcade.overlap(this.free, this.platforms, (free, platform) => {
+            free.kill();
+            platform.kill();
+          });
+        }
+      }
+      if (data.mapSnap.destroyedTiles[0] !== null) {
+        for (let i = 0; i < data.mapSnap.destroyedBonus.length; i++) {
+          this.free = this.creator.createFree(data.mapSnap.destroyedBonus[i].x,
+            data.mapSnap.destroyedBonus[i].y);
+          this.game.physics.arcade.overlap(this.free, this.coins, (free, coin) => {
+            free.kill();
+            coin.kill();
+          });
+        }
       }
     });
 
@@ -75,7 +91,7 @@ class Game {
 
     this.coins = this.creator.createCoins(this.state.countOfBonuses);
     this.platforms = this.creator.createPlatforms();
-    this.player = this.creator.createPlayer(this.state.playerX, this.state.playerY);
+    this.player = this.creator.createPlayer(this.state.playerX, this.state.playerY, true);
     this.otherPlayer = this.creator.createPlayer(this.state.playerX, this.state.playerY);
 
     this.game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -125,12 +141,12 @@ class Game {
       sendData.isMove = true;
       sendData.moveTo.keyDown = 'LEFT';
       this.ws.send('ClientSnap', sendData);
-      this.player.animations.play('left');
+      // this.player.animations.play('left');
     } else if (this.cursors.right.isDown) {
       sendData.isMove = true;
       sendData.moveTo.keyDown = 'RIGHT';
       this.ws.send('ClientSnap', sendData);
-      this.player.animations.play('right');
+      // this.player.animations.play('right');
     } else {
       this.player.animations.stop();
       this.player.frame = 4;

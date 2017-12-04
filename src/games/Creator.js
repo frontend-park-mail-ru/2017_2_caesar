@@ -42,11 +42,13 @@ class Creator {
     return this.free;
   }
 
-  createPlayer(x, y) {
+  createPlayer(x, y, flag) {
     this.player = this.game.add.sprite(x + this.state.playerWidth / 2, y - this.state.playerHeight / 2, 'dude');
     this.player.width = this.state.playerWidth;
     this.player.height = this.state.playerHeight;
-    this.game.camera.follow(this.player);
+    if (flag) {
+      this.game.camera.follow(this.player);
+    }
     this.game.physics.arcade.enable(this.player);
 
     this.player.body.collideWorldBounds = true;

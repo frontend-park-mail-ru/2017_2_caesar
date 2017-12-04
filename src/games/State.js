@@ -26,6 +26,9 @@ class State {
 
     this.otherPlayerX = initData.playerX;
     this.otherPlayerY = initData.playerY;
+
+    this.otherEnergy = initData.otherEnergy;
+    this.otherMoney = initData.otherMoney;
   }
 }
 
