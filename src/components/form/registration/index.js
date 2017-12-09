@@ -1,6 +1,9 @@
 import Block from 'Components/block/index';
 import Form from 'Components/form/base/index';
 
+const LENGTH_MIN_LOGIN = 8;
+const LENGTH_MIN_PASSWORD = 8;
+
 class RegistrationForm extends Form {
   constructor() {
     super('registration');
@@ -38,6 +41,7 @@ class RegistrationForm extends Form {
     }, ['btn', 'btn-default', 'app-form-button']);
 
     this.render();
+    this.addListener();
   }
 
   onSubmit(callback) {
@@ -46,7 +50,7 @@ class RegistrationForm extends Form {
 
       const formData = this.checkFields();
 
-      if (formData) {
+      if (formData !== null) {
         callback(formData);
       } else {
         this.setErrorMessage('Пароли не совпадают!');
@@ -82,6 +86,59 @@ class RegistrationForm extends Form {
     this.passwordRepeat.removeClasses(['error']);
 
     super.reset();
+  }
+
+  addListener() {
+    const r = /^\w+@\w+\.\w{2,4}$/i;
+
+    this.email.on('input', () => {
+      console.log(!r.test(this.email.element.value))
+      if (!r.test(this.email.element.value)) {
+        this.setErrorMessage('Неверный формат email!');
+        this.email.addClasses(['error']);
+      } else {
+        this.errorMessage.clear();
+        this.errorMessage.hide();
+
+        this.email.removeClasses(['error']);
+      }
+    });
+
+    this.username.on('input', () => {
+      if (this.username.element.value.length < LENGTH_MIN_LOGIN) {
+        this.setErrorMessage(`Имя пользователя должно быть не менее ${LENGTH_MIN_LOGIN}`);
+        this.username.addClasses(['error']);
+      } else {
+        this.errorMessage.clear();
+        this.errorMessage.hide();
+
+        this.username.removeClasses(['error']);
+      }
+    });
+
+    this.password.on('input', () => {
+      if (this.password.element.value.length < LENGTH_MIN_PASSWORD) {
+        this.setErrorMessage(`Пароль должен быть не менее ${LENGTH_MIN_PASSWORD}`);
+        this.password.addClasses(['error']);
+      } else {
+        this.errorMessage.clear();
+        this.errorMessage.hide();
+
+        this.password.removeClasses(['error']);
+      }
+    });
+
+    this.passwordRepeat.on('input', () => {
+      if (this.passwordRepeat.element.value !== this.password.element.value) {
+        this.setErrorMessage('Пароли не совпадают!');
+        this.passwordRepeat.addClasses(['error']);
+      } else {
+        this.errorMessage.clear();
+        this.errorMessage.hide();
+
+        this.passwordRepeat.removeClasses(['error']);
+      }
+    });
   }
 }
 

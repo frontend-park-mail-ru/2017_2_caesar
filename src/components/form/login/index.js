@@ -1,9 +1,6 @@
 import Block from 'Components/block/index';
 import Form from 'Components/form/base/index';
 
-const LENGTH_MIN_LOGIN = 8;
-const LENGTH_MIN_PASSWORD = 8;
-
 class LoginForm extends Form {
   constructor() {
     super('login');
@@ -26,7 +23,6 @@ class LoginForm extends Form {
       type: 'submit',
     }, ['btn', 'btn-default', 'app-form-button']);
 
-    this.addListener();
     this.render();
   }
 
@@ -56,24 +52,6 @@ class LoginForm extends Form {
     this.errorMessage.hide();
 
     super.reset();
-  }
-
-  addListener() {
-    this.username.on('input', () => {
-      if (this.username.element.value.length < LENGTH_MIN_LOGIN) {
-        console.log(`Имя пользователя должно быть не менее ${LENGTH_MIN_LOGIN}`);
-      } else {
-        console.log(`+`);
-      }
-    });
-
-    this.password.on('input', () => {
-      if (this.password.element.value.length < LENGTH_MIN_PASSWORD) {
-        console.log(`Пароль должен быть не менее ${LENGTH_MIN_PASSWORD}`);
-      } else {
-        console.log(`+`);
-      }
-    });
   }
 }
 
