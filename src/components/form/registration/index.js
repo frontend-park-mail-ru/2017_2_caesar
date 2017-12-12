@@ -9,31 +9,27 @@ class RegistrationForm extends Form {
     super('registration');
 
     this.email = Block.create('input', {
-      type: 'email',
+      type: 'text',
       name: 'email',
       placeholder: 'Почта',
-      required: 'required',
     }, ['app-form-input', 'form-control']);
 
     this.username = Block.create('input', {
       type: 'text',
       name: 'username',
       placeholder: 'Имя пользователя',
-      required: 'required',
     }, ['app-form-input', 'form-control']);
 
     this.password = Block.create('input', {
       type: 'password',
       name: 'password',
       placeholder: 'Пароль',
-      required: 'required',
     }, ['app-form-input', 'form-control']);
 
     this.passwordRepeat = Block.create('input', {
       type: 'password',
       name: 'passwordRepeat',
       placeholder: 'Повторите пароль',
-      required: 'required',
     }, ['app-form-input', 'form-control']);
 
     this.submit = Block.create('input', {
@@ -50,12 +46,13 @@ class RegistrationForm extends Form {
 
       const formData = this.checkFields();
 
-      if (formData !== null) {
+      console.log(formData);
+
+      if (formData.error === null) {
+        delete formData.error;
         callback(formData);
       } else {
-        this.setErrorMessage('Пароли не совпадают!');
-        this.password.addClasses(['error']);
-        this.passwordRepeat.addClasses(['error']);
+        this.setErrorMessage('Неправильно заполнена форма!');
       }
     });
   }
@@ -63,11 +60,32 @@ class RegistrationForm extends Form {
   checkFields() {
     const fields = this.getFields(['email', 'username', 'password', 'passwordRepeat']);
 
-    if (fields.password === fields.passwordRepeat) {
-      return { email: fields.email, username: fields.username, password: fields.password };
+    const checkEmail = /^\w+@\w+\.\w{2,4}$/i;
+
+    let error = [];
+
+    if (!checkEmail.test(fields.email)) {
+      error.push('EMAIL');
     }
 
-    return null;
+    if (!checkEmail.test(fields.username)) {
+      error.push('USERNAME');
+    }
+
+    if (fields.password < LENGTH_MIN_PASSWORD) {
+      error.push('PASSWORD');
+    }
+
+    if (fields.password !== fields.passwordRepeat) {
+      error.push('REPEAT_PASSWORD');
+    }
+
+    if (!error.length) {
+      error = null;
+    }
+
+    return Object.assign({}, { error },
+      { email: fields.email, username: fields.username, password: fields.password });
   }
 
   render() {
@@ -82,6 +100,8 @@ class RegistrationForm extends Form {
     this.errorMessage.clear();
     this.errorMessage.hide();
 
+    this.email.removeClasses(['error']);
+    this.username.removeClasses(['error']);
     this.password.removeClasses(['error']);
     this.passwordRepeat.removeClasses(['error']);
 
@@ -92,7 +112,6 @@ class RegistrationForm extends Form {
     const r = /^\w+@\w+\.\w{2,4}$/i;
 
     this.email.on('input', () => {
-      console.log(!r.test(this.email.element.value))
       if (!r.test(this.email.element.value)) {
         this.setErrorMessage('Неверный формат email!');
         this.email.addClasses(['error']);
