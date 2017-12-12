@@ -7,34 +7,34 @@ class PlayerMenuView extends BaseView {
   constructor() {
     super('div');
 
-    this.addClasses(['app-menu']);
+    this.addClasses(['menu']);
 
-    this.header = Block.create('h2', {}, ['app-menu-header'], 'Меню');
+    this.header = Block.create('h2', {}, ['menu__header'], 'Меню');
 
     this.single = Block.create('input', {
       type: 'button',
       value: 'Singleplayer',
-    }, ['btn', 'btn-default', 'app-menu-button', 'menu-button-play']);
+    }, ['btn', 'btn-default', 'menu__button']);
 
     this.multi = Block.create('input', {
       type: 'button',
       value: 'Multiplayer',
-    }, ['btn', 'btn-default', 'app-menu-button', 'menu-button-play']);
+    }, ['btn', 'btn-default', 'menu__button']);
 
     this.profile = Block.create('input', {
       type: 'button',
       value: 'Профиль',
-    }, ['btn', 'btn-default', 'app-menu-button', 'menu-button-profile']);
+    }, ['btn', 'btn-default', 'menu__button']);
 
     this.rating = Block.create('input', {
       type: 'button',
       value: 'Рейтинг',
-    }, ['btn', 'btn-default', 'app-menu-button', 'menu-button-rating']);
+    }, ['btn', 'btn-default', 'menu__button']);
 
     this.logout = Block.create('input', {
       type: 'button',
       value: 'Выйти',
-    }, ['btn', 'btn-default', 'app-menu-button', 'menu-button-logout']);
+    }, ['btn', 'btn-default', 'menu__button']);
 
     this.render();
 

@@ -6,10 +6,8 @@ class Header extends Block {
     const element = document.createElement('div');
     super(element);
 
-    this.addClasses(['block-form-header']);
-
     this.button = new BackButton();
-    this.text = Block.create('div', {}, ['header-text'], text);
+    this.text = Block.create('div', {}, ['header__text'], text);
 
     this.render();
   }

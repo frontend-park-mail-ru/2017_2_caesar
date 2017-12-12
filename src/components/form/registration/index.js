@@ -12,29 +12,29 @@ class RegistrationForm extends Form {
       type: 'text',
       name: 'email',
       placeholder: 'Почта',
-    }, ['app-form-input', 'form-control']);
+    }, ['form__input', 'form-control']);
 
     this.username = Block.create('input', {
       type: 'text',
       name: 'username',
       placeholder: 'Имя пользователя',
-    }, ['app-form-input', 'form-control']);
+    }, ['form__input', 'form-control']);
 
     this.password = Block.create('input', {
       type: 'password',
       name: 'password',
       placeholder: 'Пароль',
-    }, ['app-form-input', 'form-control']);
+    }, ['form__input', 'form-control']);
 
     this.passwordRepeat = Block.create('input', {
       type: 'password',
       name: 'passwordRepeat',
       placeholder: 'Повторите пароль',
-    }, ['app-form-input', 'form-control']);
+    }, ['form__input', 'form-control']);
 
     this.submit = Block.create('input', {
       type: 'submit',
-    }, ['btn', 'btn-default', 'app-form-button']);
+    }, ['btn', 'btn-default', 'form__button']);
 
     this.render();
     this.addListener();

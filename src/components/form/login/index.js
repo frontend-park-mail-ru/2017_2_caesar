@@ -10,18 +10,18 @@ class LoginForm extends Form {
       name: 'username',
       placeholder: 'Имя пользователя',
       required: 'required',
-    }, ['app-form-input', 'form-control']);
+    }, ['form__input', 'form-control']);
 
     this.password = Block.create('input', {
       type: 'password',
       name: 'password',
       placeholder: 'Пароль',
       required: 'required',
-    }, ['app-form-input', 'form-control']);
+    }, ['form__input', 'form-control']);
 
     this.submit = Block.create('input', {
       type: 'submit',
-    }, ['btn', 'btn-default', 'app-form-button']);
+    }, ['btn', 'btn-default', 'form__button']);
 
     this.render();
   }

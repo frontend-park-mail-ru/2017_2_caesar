@@ -13,37 +13,53 @@ html, body {
     width: 480px;
 }
 
-.block-form {
+.form {
     padding: 40px;
 }
 
-.app-form-header {
-    text-align: center;
-    padding: 20px;
+.form__header-button {
+    width: 50%;
+    height: 100%;
 }
 
-.app-form-input {
+.form__input {
     margin-top: 10px;
     margin-bottom: 10px;
 }
 
-.app-form-button {
+.form__button {
     margin-top: 10px;
     margin-bottom: 20px;
     width: 40%;
 }
 
-.app-menu {
+.form__error-message {
+    color: white;
+    background-color: red;
+    border: 1px solid red;
+    border-radius: 10px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    padding: 5px;
+}
+
+.header__text {
+    font-size: 20px;
+    display: inline;
+    height: 100%;
+}
+
+.menu {
     margin: 0 auto;
     width: 80%;
 }
 
-.app-menu-header {
+.menu__header {
     text-align: center;
     padding: 20px;
 }
 
-.app-menu-button {
+.menu__button {
     margin-left: 10%;
     margin-right: 10%;
     margin-bottom: 20px;
@@ -54,23 +70,12 @@ html, body {
     border: 1px solid red;
 }
 
-.header-text {
-    font-size: 20px;
-    display: inline;
-    height: 100%;
-}
-
-.block-form-header-button {
-    width: 50%;
-    height: 100%;
-}
-
-.app-scoreboard-table {
+.scoreboard-table {
     padding: 10px;
     width: 100%;
 }
 
-.app-scoreboard-table th {
+.scoreboard-table th {
     width: 40%;
 }
 
@@ -78,62 +83,8 @@ html, body {
     font-size: 20px;
 }
 
-.form-error-message {
-    border: 1px solid red;
-    background-color: red;
-    color: white;
-    border-radius: 10px;
-    margin-top: 10px;
-    margin-bottom: 5px;
-    padding: 5px;
-}
-
 canvas {
     position: absolute;
     top: 0;
     left: 0;
-}
-
-.game-menu {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    left: 0;
-    top: 0;
-}
-
-.game-menu__left-block {
-    position: absolute;
-    margin: 16px;
-    left: 0;
-    top: 0;
-}
-
-.game-menu__right-block {
-    float: right;
-}
-
-.game-menu__button {
-    width: 64px;
-    height: 64px;
-}
-
-.info-block {
-    line-height: 32px;
-    width: 128px;
-    height: 48px;
-    margin: 16px;
-}
-
-.info-block__text {
-    display: inline-block;
-    color: white;
-    font-size: 24px;
-}
-
-.info-block__icon {
-    display: inline-block;
-    float: right;
-    width: 32px;
-    height: 32px;
 }
