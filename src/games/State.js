@@ -29,6 +29,8 @@ class State {
 
     this.otherEnergy = initData.otherEnergy;
     this.otherMoney = initData.otherMoney;
+
+    this.radarRadius = 400;
   }
 }
 

@@ -23,7 +23,7 @@ class Game {
     this.mediator = new Mediator();
 
     this.mediator.on('ServerSnap', (data) => {
-      console.log(data);
+      // console.log(data);
       this.state.playerX = data.firstUser.positionPartSnap.position.x;
       this.state.playerY = data.firstUser.positionPartSnap.position.y;
 
@@ -45,6 +45,7 @@ class Game {
           this.free = this.creator.createFree(data.mapSnap.destroyedBonus[i].x,
             data.mapSnap.destroyedBonus[i].y);
           this.game.physics.arcade.overlap(this.free, this.coins, (free, coin) => {
+            console.log(coin);
             free.kill();
             coin.kill();
           });
@@ -83,7 +84,7 @@ class Game {
 
     this.coins = this.creator.createCoins(this.state.countOfBonuses);
     this.platforms = this.creator.createPlatforms();
-    this.player = this.creator.createPlayer(this.state.playerX, this.state.playerY);
+    this.player = this.creator.createPlayer(this.state.playerX, this.state.playerY, true);
 
     this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
@@ -94,7 +95,12 @@ class Game {
     };
 
     this.search = () => {
-      this.game.world.bringToTop(this.coins);
+      this.coins.forEach(coin => {
+        if (Math.sqrt((coin.x - this.player.x) * (coin.x - this.player.x)
+            + (coin.y - this.player.y) * (coin.y - this.player.y)) < this.state.radiusRadar) {
+          this.game.world.bringToTop(coin);
+        }
+      });
       this.game.time.events.add(Phaser.Timer.SECOND, this.showCoins, this);
     };
 
