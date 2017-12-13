@@ -16,6 +16,24 @@ class PlayerMenuView extends BaseView {
       }, ['menu__relativeBlock']);
     }
     
+    this.singleImg = Block.create('span', {
+    }, ['menu__img', 'menu__img_drill']);
+
+    this.multiImg1 = Block.create('span', {
+    }, ['menu__img', 'menu__img_drill-multi1']);
+
+    this.multiImg2 = Block.create('span', {
+    }, ['menu__img', 'menu__img_drill-multi2']);
+
+    this.profileImg = Block.create('span', {
+    }, ['menu__img', 'menu__img_profile']);
+
+    this.ratingImg = Block.create('span', {
+    }, ['menu__img', 'menu__img_rating']);
+
+    this.logoutImg = Block.create('span', {
+    }, ['menu__img', 'menu__img_logout']);
+
     this.single = Block.create('div', {
     }, ['menu__button'], 'Одиночная игра');
 
@@ -38,11 +56,22 @@ class PlayerMenuView extends BaseView {
 
   render() {
     this
-      .append(this.relativeBlock[0].append(this.single))
-      .append(this.relativeBlock[1].append(this.multi))
-      .append(this.relativeBlock[2].append(this.profile))
-      .append(this.relativeBlock[3].append(this.rating))
-      .append(this.relativeBlock[4].append(this.logout));
+      .append(this.relativeBlock[0]
+        .append(this.single)
+        .append(this.singleImg))
+      .append(this.relativeBlock[1]
+        .append(this.multi)
+        .append(this.multiImg1)
+        .append(this.multiImg2))
+      .append(this.relativeBlock[2]
+        .append(this.profile)
+        .append(this.profileImg))
+      .append(this.relativeBlock[3]
+        .append(this.rating)
+        .append(this.ratingImg))
+      .append(this.relativeBlock[4]
+        .append(this.logout)
+        .append(this.logoutImg));
   }
 
   addListener() {

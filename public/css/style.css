@@ -98,6 +98,53 @@ html, body {
     border-color: #d6820e;
 }
 
+.menu__img {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    right: 8px;
+}
+
+.menu__img_drill {
+    background: url('../sprites/drill.png') 50% 50% no-repeat;
+    background-size: 30px auto;
+    top: 12px;
+}
+
+.menu__img_drill-multi1 {
+    background: url('../sprites/drill.png') 50% 50% no-repeat;
+    background-size: 30px auto;
+    transform: rotate(-12deg);
+    top: 12px;
+    right: 36px;
+}
+
+.menu__img_drill-multi2 {
+    background: url('../sprites/drill.png') 50% 50% no-repeat;
+    background-size: 30px auto;
+    transform: scale(-1, 1) rotate(-12deg);
+    top: 12px;
+    right: 8px;
+}
+
+.menu__img_profile {
+    background: url('../sprites/profile.png') 50% 50% no-repeat;
+    background-size: 30px auto;
+    top: 10px;
+}
+
+.menu__img_rating {
+    background: url('../sprites/rating.png') 50% 50% no-repeat;
+    background-size: 30px auto;
+    top: 10px;
+}
+
+.menu__img_logout {
+    background: url('../sprites/exit.png') 50% 50% no-repeat;
+    background-size: 30px auto;
+    top: 10px;
+}
+
 .error {
     border: 1px solid red;
 }
