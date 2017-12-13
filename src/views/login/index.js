@@ -46,10 +46,10 @@ class LoginView extends BaseView {
     this.content.login.onSubmit((userData) => {
       userService.login(userData)
         .then(() => {
-          router.login();
           router.go('/');
         })
         .catch((err) => {
+          console.log(err)
           switch (+err.status) {
             case 403:
               this.content.login.setErrorMessage('Неверный пароль!');

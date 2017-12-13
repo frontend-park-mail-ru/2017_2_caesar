@@ -68,7 +68,6 @@ class PlayerMenuView extends BaseView {
       router.go('/rating/');
     });
     this.logout.on('click', () => {
-      router.unlogin();
       router.go('/login/');
       userService.logout();
     });

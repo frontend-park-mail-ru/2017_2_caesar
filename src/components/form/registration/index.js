@@ -68,7 +68,7 @@ class RegistrationForm extends Form {
       error.push('EMAIL');
     }
 
-    if (!checkEmail.test(fields.username)) {
+    if (fields.username  < LENGTH_MIN_LOGIN) {
       error.push('USERNAME');
     }
 

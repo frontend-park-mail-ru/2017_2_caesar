@@ -22,12 +22,6 @@ router.register('/singleplayer-offline/', new GameViewOff());
 router.register('/multiplayer/', new GameView());
 
 userService.check()
-  .then((answer) => {
-    if (answer.status === 'authorized') {
-      router.login();
-    } else {
-      router.unlogin();
-    }
-
+  .then(() => {
     router.start();
   });
