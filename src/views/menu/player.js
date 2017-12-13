@@ -9,30 +9,20 @@ class PlayerMenuView extends BaseView {
 
     this.addClasses(['menu']);
 
-    this.single = Block.create('input', {
-      type: 'button',
-      value: 'Singleplayer',
-    }, ['btn', 'btn-default', 'button', 'menu__button']);
+    this.single = Block.create('div', {
+    }, ['menu__button'], 'Одиночная игра');
 
-    this.multi = Block.create('input', {
-      type: 'button',
-      value: 'Multiplayer',
-    }, ['btn', 'btn-default', 'button', 'menu__button']);
+    this.multi = Block.create('div', {
+    }, ['menu__button'], 'Игра по сети');
 
-    this.profile = Block.create('input', {
-      type: 'button',
-      value: 'Профиль',
-    }, ['btn', 'btn-default', 'button', 'menu__button']);
+    this.profile = Block.create('div', {
+    }, ['menu__button'], 'Профиль');
 
-    this.rating = Block.create('input', {
-      type: 'button',
-      value: 'Рейтинг',
-    }, ['btn', 'btn-default', 'button', 'menu__button']);
+    this.rating = Block.create('div', {
+    }, ['menu__button'], 'Рейтинг');
 
-    this.logout = Block.create('input', {
-      type: 'button',
-      value: 'Выйти',
-    }, ['btn', 'btn-default', 'button', 'menu__button']);
+    this.logout = Block.create('div', {
+    }, ['menu__button'], 'Выйти');
 
     this.render();
 
