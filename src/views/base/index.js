@@ -11,10 +11,12 @@ class BaseView extends Block {
   }
 
   show() {
+    document.querySelector('.title').hidden = false;
     this.parent.append(this);
   }
 
   hide() {
+    document.querySelector('.title').hidden = true;
     this.parent.remove(this);
   }
 }

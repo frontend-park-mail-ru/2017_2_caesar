@@ -9,27 +9,25 @@ class AnonymousMenuView extends BaseView {
 
     this.addClasses(['menu']);
 
-    this.header = Block.create('h2', {}, ['menu__header'], 'Меню');
-
     this.single = Block.create('input', {
       type: 'button',
       value: 'Singleplayer',
-    }, ['btn', 'btn-default', 'menu__button']);
+    }, ['btn', 'btn-default', 'button', 'menu__button']);
 
     this.rating = Block.create('input', {
       type: 'button',
       value: 'Рейтинг',
-    }, ['btn', 'btn-default', 'menu__button']);
+    }, ['btn', 'btn-default', 'button', 'menu__button']);
 
     this.signin = Block.create('input', {
       type: 'button',
       value: 'Sign In',
-    }, ['btn', 'btn-default', 'menu__button']);
+    }, ['btn', 'btn-default', 'button', 'menu__button']);
 
     this.signup = Block.create('input', {
       type: 'button',
       value: 'Sign Up',
-    }, ['btn', 'btn-default', 'menu__button']);
+    }, ['btn', 'btn-default', 'button', 'menu__button']);
 
     this.render();
 
@@ -38,7 +36,6 @@ class AnonymousMenuView extends BaseView {
 
   render() {
     this
-      .append(this.header)
       .append(this.single)
       .append(this.rating)
       .append(this.signin)

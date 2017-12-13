@@ -1,11 +1,15 @@
 import AnonymousMenuView from 'Views/menu/anonymous';
 import PlayerMenuView from 'Views/menu/player';
+import Router from 'Modules/router';
 import UserService from 'Services/user-service';
 
 class MenuView {
   constructor() {
     this.player = new PlayerMenuView();
     this.anonymous = new AnonymousMenuView();
+
+    const router = new Router();
+    document.querySelector('.title').addEventListener('click', () => router.go('/'));
 
     this.userService = new UserService();
   }

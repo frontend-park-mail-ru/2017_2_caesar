@@ -1,5 +1,5 @@
 html, body {
-    background: url(../image/shattered-island.gif);
+    background: url(../sprites/BG.png);
     width: 100%;
     height: 100%;
     display: flex;
@@ -8,21 +8,39 @@ html, body {
 }
 
 #block {
-    background: grey;
-    border-radius: 10px;
     width: 480px;
+    position: absolute;
+    top: 160px;
+}
+
+.title {
+    position: absolute;
+    top: 0;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    text-align:  center;
+    color: rgb(152, 98, 47);
+    font-size: 96px;
+}
+
+.button {
+    background-color: rgb(202, 139, 53);
+    color: rgb(152, 98, 47);
+    font-size: 24px;
 }
 
 .form {
     padding: 40px;
 }
 
-.form__header-button {
-    width: 50%;
-    height: 100%;
-}
-
 .form__input {
+    border: none;
+    border-bottom: 2px solid #D99527;
+    font-size: 32px;
+    background: inherit;
+    height: 1em;
     margin-top: 10px;
     margin-bottom: 10px;
 }
@@ -30,7 +48,7 @@ html, body {
 .form__button {
     margin-top: 10px;
     margin-bottom: 20px;
-    width: 40%;
+    width: 50%;
 }
 
 .form__error-message {

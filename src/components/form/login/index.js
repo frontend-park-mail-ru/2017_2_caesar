@@ -21,7 +21,7 @@ class LoginForm extends Form {
 
     this.submit = Block.create('input', {
       type: 'submit',
-    }, ['btn', 'btn-default', 'form__button']);
+    }, ['btn', 'btn-default', 'button', 'form__button']);
 
     this.render();
   }
