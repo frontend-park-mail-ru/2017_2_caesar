@@ -9,6 +9,13 @@ class PlayerMenuView extends BaseView {
 
     this.addClasses(['menu']);
 
+    this.relativeBlock = [];
+
+    for (let i = 0; i < 5; i++) {
+      this.relativeBlock[i] = Block.create('div', {
+      }, ['menu__relativeBlock']);
+    }
+    
     this.single = Block.create('div', {
     }, ['menu__button'], 'Одиночная игра');
 
@@ -31,11 +38,11 @@ class PlayerMenuView extends BaseView {
 
   render() {
     this
-      .append(this.single)
-      .append(this.multi)
-      .append(this.profile)
-      .append(this.rating)
-      .append(this.logout);
+      .append(this.relativeBlock[0].append(this.single))
+      .append(this.relativeBlock[1].append(this.multi))
+      .append(this.relativeBlock[2].append(this.profile))
+      .append(this.relativeBlock[3].append(this.rating))
+      .append(this.relativeBlock[4].append(this.logout));
   }
 
   addListener() {

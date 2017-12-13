@@ -73,20 +73,24 @@ html, body {
     padding: 20px;
 }
 
+.menu__relativeBlock {
+    position: relative;
+    width: 60%;
+    margin-bottom: 20px;
+}
+
+.menu__relativeBlock:last-child {
+    margin-bottom: 0;
+}
+
 .menu__button {
     text-align: center;
     background-color: rgb(202, 139, 53);
     color: rgb(152, 98, 47);
-    width: 60%;
     padding: 5px 0;
-    margin-bottom: 20px;
     font-size: 24px;
     border-radius: 6px;
     border: 3px groove #dd9430;
-}
-
-.menu__button:last-child {
-    margin-bottom: 0;
 }
 
 .menu__button:hover {
