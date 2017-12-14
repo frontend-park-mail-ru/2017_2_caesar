@@ -56,6 +56,10 @@ html, body {
     border: 2px double #808080;
 }
 
+.form__button_send {
+    margin-left: 32%;
+}
+
 .form__button:hover {
     color: #000;
 }
