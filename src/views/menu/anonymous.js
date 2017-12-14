@@ -9,25 +9,30 @@ class AnonymousMenuView extends BaseView {
 
     this.addClasses(['menu']);
 
-    this.single = Block.create('input', {
-      type: 'button',
-      value: 'Singleplayer',
-    }, ['btn', 'btn-default', 'button', 'menu__button']);
+    this.relativeBlock = [];
 
-    this.rating = Block.create('input', {
-      type: 'button',
-      value: 'Рейтинг',
-    }, ['btn', 'btn-default', 'button', 'menu__button']);
+    for (let i = 0; i < 3; i++) {
+      this.relativeBlock[i] = Block.create('div', {
+      }, ['menu__relativeBlock']);
+    }
 
-    this.signin = Block.create('input', {
-      type: 'button',
-      value: 'Sign In',
-    }, ['btn', 'btn-default', 'button', 'menu__button']);
+    this.singleImg = Block.create('span', {
+    }, ['menu__img', 'menu__img_anonymous']);
 
-    this.signup = Block.create('input', {
-      type: 'button',
-      value: 'Sign Up',
-    }, ['btn', 'btn-default', 'button', 'menu__button']);
+    this.signinImg = Block.create('span', {
+    }, ['menu__img', 'menu__img_signin']);
+
+    this.signupImg = Block.create('span', {
+    }, ['menu__img', 'menu__img_signup']);
+
+    this.single = Block.create('div', {
+    }, ['menu__button'], 'Одиночная игра');
+
+    this.signin = Block.create('div', {
+    }, ['menu__button'], 'Войти');
+
+    this.signup = Block.create('div', {
+    }, ['menu__button'], 'Регистрация');
 
     this.render();
 
@@ -36,10 +41,15 @@ class AnonymousMenuView extends BaseView {
 
   render() {
     this
-      .append(this.single)
-      .append(this.rating)
-      .append(this.signin)
-      .append(this.signup);
+      .append(this.relativeBlock[0]
+        .append(this.single)
+        .append(this.singleImg))
+      .append(this.relativeBlock[1]
+        .append(this.signin)
+        .append(this.signinImg))
+      .append(this.relativeBlock[2]
+        .append(this.signup)
+        .append(this.signupImg));
   }
 
   addListener() {
@@ -47,9 +57,6 @@ class AnonymousMenuView extends BaseView {
 
     this.single.on('click', () => {
       router.go('/singleplayer-offline/');
-    });
-    this.rating.on('click', () => {
-      router.go('/rating/');
     });
     this.signin.on('click', () => {
       router.go('/login/');
