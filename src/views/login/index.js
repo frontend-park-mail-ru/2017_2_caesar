@@ -12,10 +12,10 @@ class LoginView extends BaseView {
 
     this.header = Block.create('div', {
     }, ['form__actions']);
-    this.header.login = Block.create('button', {
-    }, ['form__button'], 'Авторизация');
     this.header.registration = Block.create('button', {
     }, ['form__button'], 'Регистрация');
+    this.header.menu = Block.create('button', {
+    }, ['form__button'], 'Меню');
 
     this.content = Block.create('div', {}, []);
     this.content.login = new LoginForm();
@@ -27,8 +27,8 @@ class LoginView extends BaseView {
 
   render() {
     this.header
-      .append(this.header.login)
-      .append(this.header.registration);
+      .append(this.header.registration)
+      .append(this.header.menu);
 
     this.content
       .append(this.content.login);
@@ -44,6 +44,10 @@ class LoginView extends BaseView {
 
     this.header.registration.on('click', () => {
       router.go('/signup/');
+    });
+
+    this.header.menu.on('click', () => {
+      router.go('/');
     });
 
     this.content.login.onSubmit((userData) => {

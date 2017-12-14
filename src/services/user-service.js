@@ -65,12 +65,9 @@ class UserService {
    */
 
   logout() {
-    return Http.get('/api/auth/logout')
-      .then((answer) => {
-        this.loginned = false;
+    this.loginned = false;
 
-        return answer;
-      });
+    return Http.get('/api/auth/logout');
   }
 
   /**

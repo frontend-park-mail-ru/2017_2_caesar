@@ -15,12 +15,13 @@ class MenuView {
   }
 
   show() {
+    console.log(this.userService.isLoginned())
     if (this.userService.isLoginned()) {
       this.current = this.player;
-      this.player.show();
+      this.current.show();
     } else {
       this.current = this.anonymous;
-      this.anonymous.show();
+      this.current.show();
     }
   }
 

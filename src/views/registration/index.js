@@ -14,8 +14,8 @@ class RegistrationView extends BaseView {
     }, ['form__actions']);
     this.header.login = Block.create('button', {
     }, ['form__button'], 'Авторизация');
-    this.header.registration = Block.create('button', {
-    }, ['form__button'], 'Регистрация');
+    this.header.menu = Block.create('button', {
+    }, ['form__button'], 'Меню');
 
     this.content = Block.create('div', {}, []);
     this.content.registration = new RegistrationForm();
@@ -28,7 +28,7 @@ class RegistrationView extends BaseView {
   render() {
     this.header
       .append(this.header.login)
-      .append(this.header.registration);
+      .append(this.header.menu);
 
     this.content
       .append(this.content.registration);
@@ -46,13 +46,16 @@ class RegistrationView extends BaseView {
       router.go('/login/');
     });
 
+    this.header.menu.on('click', () => {
+      router.go('/');
+    });
+
     this.content.registration.onSubmit((userData) => {
       userService.signup(userData)
         .then(() => {
           router.go('/');
         })
         .catch((err) => {
-        console.log(err)
           switch (+err.status) {
             case 409:
               this.content.registration.setErrorMessage('Email уже зарегистрирован!');
