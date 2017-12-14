@@ -6,7 +6,7 @@ class Scoreboard extends Block {
     const element = document.createElement('div');
     super(element);
 
-    this.addClasses(['form']);
+    this.addClasses(['form', 'scoreboard']);
   }
 
   update(users = []) {

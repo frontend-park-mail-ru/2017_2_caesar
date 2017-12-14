@@ -38,9 +38,9 @@ html, body {
 .form__input {
     border: none;
     border-bottom: 2px solid #D99527;
-    font-size: 22px;
+    font-size: 24px;
     background: inherit;
-    height: 1em;
+    height: 48px;
     margin-top: 10px;
     margin-bottom: 10px;
 }
@@ -190,6 +190,11 @@ html, body {
 
 .error {
     border: 1px solid red;
+}
+
+.scoreboard {
+    height: 240px;
+    overflow: auto;
 }
 
 .scoreboard-table {
