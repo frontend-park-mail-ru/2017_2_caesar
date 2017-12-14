@@ -9,30 +9,45 @@ class PlayerMenuView extends BaseView {
 
     this.addClasses(['menu']);
 
-    this.single = Block.create('input', {
-      type: 'button',
-      value: 'Singleplayer',
-    }, ['btn', 'btn-default', 'button', 'menu__button']);
+    this.relativeBlock = [];
 
-    this.multi = Block.create('input', {
-      type: 'button',
-      value: 'Multiplayer',
-    }, ['btn', 'btn-default', 'button', 'menu__button']);
+    for (let i = 0; i < 5; i++) {
+      this.relativeBlock[i] = Block.create('div', {
+      }, ['menu__relativeBlock']);
+    }
+    
+    this.singleImg = Block.create('span', {
+    }, ['menu__img', 'menu__img_drill']);
 
-    this.profile = Block.create('input', {
-      type: 'button',
-      value: 'Профиль',
-    }, ['btn', 'btn-default', 'button', 'menu__button']);
+    this.multiImg1 = Block.create('span', {
+    }, ['menu__img', 'menu__img_drill-multi1']);
 
-    this.rating = Block.create('input', {
-      type: 'button',
-      value: 'Рейтинг',
-    }, ['btn', 'btn-default', 'button', 'menu__button']);
+    this.multiImg2 = Block.create('span', {
+    }, ['menu__img', 'menu__img_drill-multi2']);
 
-    this.logout = Block.create('input', {
-      type: 'button',
-      value: 'Выйти',
-    }, ['btn', 'btn-default', 'button', 'menu__button']);
+    this.profileImg = Block.create('span', {
+    }, ['menu__img', 'menu__img_profile']);
+
+    this.ratingImg = Block.create('span', {
+    }, ['menu__img', 'menu__img_rating']);
+
+    this.logoutImg = Block.create('span', {
+    }, ['menu__img', 'menu__img_logout']);
+
+    this.single = Block.create('div', {
+    }, ['menu__button'], 'Одиночная игра');
+
+    this.multi = Block.create('div', {
+    }, ['menu__button'], 'Игра по сети');
+
+    this.profile = Block.create('div', {
+    }, ['menu__button'], 'Профиль');
+
+    this.rating = Block.create('div', {
+    }, ['menu__button'], 'Рейтинг');
+
+    this.logout = Block.create('div', {
+    }, ['menu__button'], 'Выйти');
 
     this.render();
 
@@ -41,11 +56,22 @@ class PlayerMenuView extends BaseView {
 
   render() {
     this
-      .append(this.single)
-      .append(this.multi)
-      .append(this.profile)
-      .append(this.rating)
-      .append(this.logout);
+      .append(this.relativeBlock[0]
+        .append(this.single)
+        .append(this.singleImg))
+      .append(this.relativeBlock[1]
+        .append(this.multi)
+        .append(this.multiImg1)
+        .append(this.multiImg2))
+      .append(this.relativeBlock[2]
+        .append(this.profile)
+        .append(this.profileImg))
+      .append(this.relativeBlock[3]
+        .append(this.rating)
+        .append(this.ratingImg))
+      .append(this.relativeBlock[4]
+        .append(this.logout)
+        .append(this.logoutImg));
   }
 
   addListener() {

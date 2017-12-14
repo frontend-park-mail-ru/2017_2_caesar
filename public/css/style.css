@@ -25,12 +25,6 @@ html, body {
     font-size: 96px;
 }
 
-.button {
-    background-color: rgb(202, 139, 53);
-    color: rgb(152, 98, 47);
-    font-size: 24px;
-}
-
 .form {
     padding: 40px;
 }
@@ -38,17 +32,36 @@ html, body {
 .form__input {
     border: none;
     border-bottom: 2px solid #D99527;
-    font-size: 32px;
+    font-size: 22px;
     background: inherit;
     height: 1em;
     margin-top: 10px;
     margin-bottom: 10px;
 }
 
+.form__actions {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
 .form__button {
-    margin-top: 10px;
-    margin-bottom: 20px;
-    width: 50%;
+    width: 40%;
+    text-align: center;
+    background-color: #fff;
+    color: #808080;
+    padding: 5px 0;
+    font-size: 18px;
+    border-radius: 8px;
+    border: 2px double #808080;
+}
+
+.form__button_send {
+    margin-left: 32%;
+}
+
+.form__button:hover {
+    color: #000;
 }
 
 .form__error-message {
@@ -68,8 +81,10 @@ html, body {
 }
 
 .menu {
-    margin: 0 auto;
-    width: 80%;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    align-items: center;
 }
 
 .menu__header {
@@ -77,11 +92,94 @@ html, body {
     padding: 20px;
 }
 
-.menu__button {
-    margin-left: 10%;
-    margin-right: 10%;
+.menu__relativeBlock {
+    position: relative;
+    width: 60%;
     margin-bottom: 20px;
-    width: 80%;
+}
+
+.menu__relativeBlock:last-child {
+    margin-bottom: 0;
+}
+
+.menu__button {
+    text-align: center;
+    background-color: rgb(202, 139, 53);
+    color: rgb(152, 98, 47);
+    padding: 5px 0;
+    font-size: 24px;
+    border-radius: 6px;
+    border: 3px groove #dd9430;
+}
+
+.menu__button:hover {
+    background-color: rgba(202, 139, 53, .6);
+    border-color: #d6820e;
+}
+
+.menu__img {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    right: 8px;
+}
+
+.menu__img_drill {
+    background: url('../sprites/drill.png') 50% 50% no-repeat;
+    background-size: 30px auto;
+    top: 12px;
+}
+
+.menu__img_drill-multi1 {
+    background: url('../sprites/drill.png') 50% 50% no-repeat;
+    background-size: 30px auto;
+    transform: rotate(-12deg);
+    top: 12px;
+    right: 36px;
+}
+
+.menu__img_drill-multi2 {
+    background: url('../sprites/drill.png') 50% 50% no-repeat;
+    background-size: 30px auto;
+    transform: scale(-1, 1) rotate(-12deg);
+    top: 12px;
+    right: 8px;
+}
+
+.menu__img_profile {
+    background: url('../sprites/profile.png') 50% 50% no-repeat;
+    background-size: 30px auto;
+    top: 10px;
+}
+
+.menu__img_rating {
+    background: url('../sprites/rating.png') 50% 50% no-repeat;
+    background-size: 30px auto;
+    top: 10px;
+}
+
+.menu__img_signin {
+    background: url('../sprites/signin.png') 50% 50% no-repeat;
+    background-size: 30px auto;
+    top: 10px;
+}
+
+.menu__img_signup {
+    background: url('../sprites/signup.png') 50% 50% no-repeat;
+    background-size: 30px auto;
+    top: 10px;
+}
+
+.menu__img_logout {
+    background: url('../sprites/exit.png') 50% 50% no-repeat;
+    background-size: 30px auto;
+    top: 10px;
+}
+
+.menu__img_anonymous {
+    background: url('../sprites/anonymous.png') 50% 50% no-repeat;
+    background-size: 30px auto;
+    top: 10px;
 }
 
 .error {
