@@ -15,7 +15,6 @@ class MenuView {
   }
 
   show() {
-    console.log(this.userService.isLoginned())
     if (this.userService.isLoginned()) {
       this.current = this.player;
       this.current.show();

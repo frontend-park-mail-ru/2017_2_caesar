@@ -1,4 +1,10 @@
 class State {
+  constructor() {
+    this.coins = 0;
+    this.counterCoins = 0;
+    this.energy = 100;
+  }
+
   init(initData) {
     this.coinHeight = initData.coinHeight;
     this.coinWidth = initData.coinWidth;
@@ -30,7 +36,16 @@ class State {
     this.otherEnergy = initData.otherEnergy;
     this.otherMoney = initData.otherMoney;
 
-    this.radarRadius = 400;
+    this.radarRadius = 640;
+  }
+
+  increaseCoins() {
+    this.coins += 10;
+    this.counterCoins++;
+  }
+
+  decreaseEnergy() {
+    this.energy -= 1;
   }
 }
 
