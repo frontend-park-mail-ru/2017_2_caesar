@@ -3,7 +3,7 @@
  * @module Http
  */
 
-const baseUrl = 'https://tp-2017-2-caesar-backend.herokuapp.com/'; // 'http://localhost:8081';
+const baseUrl = 'https://tp-2017-2-caesar-backend.herokuapp.com'; // 'http://localhost:8081';
 
 class Http {
   /**
