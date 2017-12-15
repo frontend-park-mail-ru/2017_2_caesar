@@ -11,6 +11,8 @@ class UserService {
       return UserService.instance;
     }
 
+    this.loginned = false;
+
     UserService.instance = this;
   }
 
@@ -21,7 +23,11 @@ class UserService {
    */
 
   signup(userData) {
-    return Http.post('/api/auth/signup', userData);
+    return Http.post('/api/auth/signup', userData).then((answer) => {
+      this.loginned = true;
+
+      return answer;
+    });
   }
 
   /**
@@ -31,7 +37,12 @@ class UserService {
    */
 
   login(userData) {
-    return Http.post('/api/auth/login', userData);
+    return Http.post('/api/auth/login', userData)
+      .then((answer) => {
+        this.loginned = true;
+
+        return answer;
+      });
   }
 
   /**
@@ -40,7 +51,12 @@ class UserService {
    */
 
   check() {
-    return Http.get('/api//auth/check');
+    return Http.get('/api//auth/check')
+      .then((answer) => {
+        this.loginned = answer.status === 'authorized';
+
+        return answer;
+      });
   }
 
   /**
@@ -49,6 +65,8 @@ class UserService {
    */
 
   logout() {
+    this.loginned = false;
+
     return Http.get('/api/auth/logout');
   }
 
@@ -68,6 +86,15 @@ class UserService {
 
   loadUsersList() {
     return Http.get('/api/user/rating');
+  }
+
+  /**
+   * Проверка авторизации
+   * @return {boolean}
+   */
+
+  isLoginned() {
+    return this.loginned;
   }
 }
 

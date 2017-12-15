@@ -10,9 +10,12 @@ class LoginView extends BaseView {
 
     this.addClasses(['form']);
 
-    this.header = Block.create('div', {}, []);
-    this.header.login = Block.create('button', {}, ['btn', 'btn-default', 'form__header-button'], 'Авторизация');
-    this.header.registration = Block.create('button', {}, ['btn', 'btn-default', 'form__header-button'], 'Регистрация');
+    this.header = Block.create('div', {
+    }, ['form__actions']);
+    this.header.registration = Block.create('button', {
+    }, ['form__button'], 'Регистрация');
+    this.header.menu = Block.create('button', {
+    }, ['form__button'], 'Меню');
 
     this.content = Block.create('div', {}, []);
     this.content.login = new LoginForm();
@@ -24,8 +27,8 @@ class LoginView extends BaseView {
 
   render() {
     this.header
-      .append(this.header.login)
-      .append(this.header.registration);
+      .append(this.header.registration)
+      .append(this.header.menu);
 
     this.content
       .append(this.content.login);
@@ -43,13 +46,17 @@ class LoginView extends BaseView {
       router.go('/signup/');
     });
 
+    this.header.menu.on('click', () => {
+      router.go('/');
+    });
+
     this.content.login.onSubmit((userData) => {
       userService.login(userData)
         .then(() => {
-          router.login();
           router.go('/');
         })
         .catch((err) => {
+          console.log(err)
           switch (+err.status) {
             case 403:
               this.content.login.setErrorMessage('Неверный пароль!');

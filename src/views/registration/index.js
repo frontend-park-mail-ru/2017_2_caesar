@@ -10,9 +10,12 @@ class RegistrationView extends BaseView {
 
     this.addClasses(['form']);
 
-    this.header = Block.create('div', {}, []);
-    this.header.login = Block.create('button', {}, ['btn', 'btn-default', 'form__header-button'], 'Авторизация');
-    this.header.registration = Block.create('button', {}, ['btn', 'btn-default', 'form__header-button'], 'Регистрация');
+    this.header = Block.create('div', {
+    }, ['form__actions']);
+    this.header.login = Block.create('button', {
+    }, ['form__button'], 'Авторизация');
+    this.header.menu = Block.create('button', {
+    }, ['form__button'], 'Меню');
 
     this.content = Block.create('div', {}, []);
     this.content.registration = new RegistrationForm();
@@ -25,7 +28,7 @@ class RegistrationView extends BaseView {
   render() {
     this.header
       .append(this.header.login)
-      .append(this.header.registration);
+      .append(this.header.menu);
 
     this.content
       .append(this.content.registration);
@@ -43,10 +46,13 @@ class RegistrationView extends BaseView {
       router.go('/login/');
     });
 
+    this.header.menu.on('click', () => {
+      router.go('/');
+    });
+
     this.content.registration.onSubmit((userData) => {
       userService.signup(userData)
         .then(() => {
-          router.login();
           router.go('/');
         })
         .catch((err) => {

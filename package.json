@@ -17,6 +17,7 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.15.4",
+    "extract-text-webpack-plugin": "^3.0.2",
     "phaser": "^2.6.2"
   },
   "devDependencies": {

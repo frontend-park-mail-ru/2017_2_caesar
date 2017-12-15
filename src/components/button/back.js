@@ -5,8 +5,8 @@ class BackButton extends Block {
     const element = document.createElement('div');
     super(element);
 
-    this.addClasses(['btn', 'btn-default']);
-    this.setHTML('<span class="glyphicon glyphicon-chevron-left">');
+    this.addClasses(['form__button']);
+    this.setHTML('Меню');
   }
 }
 

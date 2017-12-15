@@ -34,7 +34,7 @@ class RegistrationForm extends Form {
 
     this.submit = Block.create('input', {
       type: 'submit',
-    }, ['btn', 'btn-default', 'form__button']);
+    }, ['form__button', 'form__button_send']);
 
     this.render();
     this.addListener();
@@ -68,7 +68,7 @@ class RegistrationForm extends Form {
       error.push('EMAIL');
     }
 
-    if (!checkEmail.test(fields.username)) {
+    if (fields.username < LENGTH_MIN_LOGIN) {
       error.push('USERNAME');
     }
 
