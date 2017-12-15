@@ -6,7 +6,7 @@ class Profile extends Block {
     const element = document.createElement('div');
     super(element);
 
-    this.addClasses(['block-form']);
+    this.addClasses(['form']);
   }
 
   update(user) {

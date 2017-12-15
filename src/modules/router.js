@@ -36,12 +36,12 @@ class Router {
   }
 
   onRoute(path) {
-    // if (!this.loginned) {
-    //   if (path !== '/login/' && path !== '/signup/') {
-    //     path = '/login/';
-    //     window.history.pushState({}, '', path);
-    //   }
-    // }
+    if (!this.loginned) {
+      if (path !== '/login/' && path !== '/signup/') {
+        path = '/login/';
+        window.history.pushState({}, '', path);
+      }
+    }
 
     const view = this.getViewByRoute(path);
 

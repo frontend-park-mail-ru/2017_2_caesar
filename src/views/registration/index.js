@@ -8,13 +8,13 @@ class RegistrationView extends BaseView {
   constructor() {
     super('div');
 
-    this.addClasses(['block-form']);
+    this.addClasses(['form']);
 
-    this.header = Block.create('div', {}, ['block-form-header']);
-    this.header.login = Block.create('button', {}, ['btn', 'btn-default', 'block-form-header-button'], 'Авторизация');
-    this.header.registration = Block.create('button', {}, ['btn', 'btn-default', 'block-form-header-button'], 'Регистрация');
+    this.header = Block.create('div', {}, []);
+    this.header.login = Block.create('button', {}, ['btn', 'btn-default', 'form__header-button'], 'Авторизация');
+    this.header.registration = Block.create('button', {}, ['btn', 'btn-default', 'form__header-button'], 'Регистрация');
 
-    this.content = Block.create('div', {}, ['block-form-content']);
+    this.content = Block.create('div', {}, []);
     this.content.registration = new RegistrationForm();
 
     this.render();

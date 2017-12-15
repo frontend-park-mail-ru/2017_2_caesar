@@ -23,8 +23,34 @@ class Game {
     this.mediator = new Mediator();
 
     this.mediator.on('ServerSnap', (data) => {
-      this.state.playerX = data.mapSnap.userPosition[0].x;
-      this.state.playerY = data.mapSnap.userPosition[0].y;
+      // console.log(data);
+      this.state.playerX = data.firstUser.positionPartSnap.position.x;
+      this.state.playerY = data.firstUser.positionPartSnap.position.y;
+
+      this.state.money = data.firstUser.mechanicPartSnap.money;
+      this.state.energy = data.firstUser.mechanicPartSnap.energy;
+
+      if (data.mapSnap.destroyedTiles[0] !== null) {
+        for (let i = 0; i < data.mapSnap.destroyedTiles.length; i++) {
+          this.free = this.creator.createFree(data.mapSnap.destroyedTiles[i].x,
+            data.mapSnap.destroyedTiles[i].y);
+          this.game.physics.arcade.overlap(this.free, this.platforms, (free, platform) => {
+            free.kill();
+            platform.kill();
+          });
+        }
+      }
+      if (data.mapSnap.destroyedTiles[0] !== null) {
+        for (let i = 0; i < data.mapSnap.destroyedBonus.length; i++) {
+          this.free = this.creator.createFree(data.mapSnap.destroyedBonus[i].x,
+            data.mapSnap.destroyedBonus[i].y);
+          this.game.physics.arcade.overlap(this.free, this.coins, (free, coin) => {
+            console.log(coin);
+            free.kill();
+            coin.kill();
+          });
+        }
+      }
     });
 
     this.state = new State();
@@ -58,7 +84,7 @@ class Game {
 
     this.coins = this.creator.createCoins(this.state.countOfBonuses);
     this.platforms = this.creator.createPlatforms();
-    this.player = this.creator.createPlayer(this.state.playerX, this.state.playerY);
+    this.player = this.creator.createPlayer(this.state.playerX, this.state.playerY, true);
 
     this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
@@ -69,7 +95,12 @@ class Game {
     };
 
     this.search = () => {
-      this.game.world.bringToTop(this.coins);
+      this.coins.forEach(coin => {
+        if (Math.sqrt((coin.x - this.player.x) * (coin.x - this.player.x)
+            + (coin.y - this.player.y) * (coin.y - this.player.y)) < this.state.radiusRadar) {
+          this.game.world.bringToTop(coin);
+        }
+      });
       this.game.time.events.add(Phaser.Timer.SECOND, this.showCoins, this);
     };
 
@@ -80,55 +111,42 @@ class Game {
   }
 
   update() {
-    this.player.centerX = this.state.playerX;
-    this.player.centerY = this.state.playerY;
+    this.player.x = this.state.playerX;
+    this.player.y = this.state.playerY;
 
     this.info.update(this.state.money, this.state.energy);
 
+    const sendData = {
+      mouse: {
+        x: 0,
+        y: 0,
+      },
+      moveTo: {
+        keyDown: 'NOTHING',
+      },
+      isDrill: false,
+      isJump: false,
+      isMove: false,
+      frameTime: 50,
+    };
     if (this.cursors.left.isDown) {
-      this.ws.send('ClientSnap', {
-        mouse: {
-          x: 0,
-          y: 0,
-        },
-        move: {
-          keyDown: 'LEFT',
-        },
-        isDrill: false,
-        isBonus: false,
-        frameTime: 50,
-      });
+      sendData.isMove = true;
+      sendData.moveTo.keyDown = 'LEFT';
+      this.ws.send('ClientSnap', sendData);
       this.player.animations.play('left');
     } else if (this.cursors.right.isDown) {
-      this.ws.send('ClientSnap', {
-        mouse: {
-          x: 0,
-          y: 0,
-        },
-        move: {
-          keyDown: 'RIGHT',
-        },
-        isDrill: false,
-        isBonus: false,
-        frameTime: 50,
-      });
+      sendData.isMove = true;
+      sendData.moveTo.keyDown = 'RIGHT';
+      this.ws.send('ClientSnap', sendData);
       this.player.animations.play('right');
-    } else if (this.cursors.up.isDown) {
-      this.ws.send('ClientSnap', {
-        mouse: {
-          x: 0,
-          y: 0,
-        },
-        move: {
-          keyDown: 'UP',
-        },
-        isDrill: false,
-        isBonus: false,
-        frameTime: 50,
-      });
     } else {
       this.player.animations.stop();
       this.player.frame = 4;
+    }
+
+    if (this.cursors.up.isDown) {
+      sendData.isJump = true;
+      this.ws.send('ClientSnap', sendData);
     }
   }
 

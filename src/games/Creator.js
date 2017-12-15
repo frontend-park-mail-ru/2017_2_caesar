@@ -27,16 +27,28 @@ class Creator {
     this.bg.width = this.state.worldWidth;
     this.bg.height = this.state.worldHeight;
 
-    this.free = this.game.add.sprite(0, this.state.positionGround, 'free');
-    this.free.width = this.game.world.width;
-    this.free.height = this.game.world.height - this.state.positionGround;
+    this.frees = this.game.add.sprite(0, this.state.positionGround, 'free');
+    this.frees.width = this.game.world.width;
+    this.frees.height = this.game.world.height - this.state.positionGround;
   }
 
-  createPlayer(x, y) {
+  createFree(x, y) {
+    this.free = this.game.add.sprite(x, y, 'free');
+    this.free.width = this.state.groundWidth;
+    this.free.height = this.state.groundHeight;
+    this.game.physics.arcade.enable(this.free);
+    this.free.body.collideWorldBounds = true;
+
+    return this.free;
+  }
+
+  createPlayer(x, y, flag) {
     this.player = this.game.add.sprite(x + this.state.playerWidth / 2, y - this.state.playerHeight / 2, 'dude');
     this.player.width = this.state.playerWidth;
     this.player.height = this.state.playerHeight;
-    this.game.camera.follow(this.player);
+    if (flag) {
+      this.game.camera.follow(this.player);
+    }
     this.game.physics.arcade.enable(this.player);
 
     this.player.body.collideWorldBounds = true;
@@ -48,14 +60,14 @@ class Creator {
   }
 
   createCoins() {
-    this.coins = this.game.add.group();
+    this.coins = [];
     for (let i = 0; i < this.state.countOfBonuses; i++) {
-      this.coin = this.game.add.sprite(this.state.bonusPosition[i].x + this.state.coinWidth / 2,
-        this.state.bonusPosition[i].y - this.state.coinHeight / 2, 'coin');
+      this.coin = this.game.add.sprite(this.state.bonusPosition[i].x,
+        this.state.bonusPosition[i].y, 'coin');
       this.coin.width = this.state.coinWidth;
       this.coin.height = this.state.coinHeight;
       this.game.physics.arcade.enable(this.coin);
-      this.coins.add(this.coin);
+      this.coins.push(this.coin);
     }
 
     return this.coins;
@@ -71,22 +83,24 @@ class Creator {
           this.ground = this.platforms.create(i, j, 'ground-top') :
           this.ground = this.platforms.create(i, j, 'ground');
 
+        this.game.physics.arcade.enable(this.ground);
         this.ground.width = this.state.groundWidth;
         this.ground.height = this.state.groundHeight;
         this.ground.body.immovable = true;
         this.ground.inputEnabled = true;
         this.ground.input.useHandCursor = true;
-        this.ground.events.onInputDown.add((sprite, event) => {
+        this.ground.events.onInputDown.add((sprite) => {
           this.ws.send('ClientSnap', {
             mouse: {
-              x: event.x,
-              y: event.y,
+              x: sprite.world.x,
+              y: sprite.world.y,
             },
-            move: {
+            moveTo: {
               keyDown: 'NOTHING',
             },
             isDrill: true,
-            isBonus: false,
+            isJump: false,
+            isMove: false,
             frameTime: 50,
           });
         }, this);

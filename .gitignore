@@ -3,3 +3,4 @@ node_modules
 /public/dist/
 /public/index.pug
 .eslintignore
+npm-debug.log

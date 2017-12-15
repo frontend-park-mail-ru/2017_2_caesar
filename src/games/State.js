@@ -20,12 +20,17 @@ class State {
 
     this.positionGround = initData.positionGround;
     this.bonusPosition = initData.bonusPosition;
-  }
 
-  change(state) {
-    for (const key in state) {
-      this[key] = state[key];
-    }
+    this.userId = initData.userId;
+    this.radiusRadar = initData.radiusRadar;
+
+    this.otherPlayerX = initData.playerX;
+    this.otherPlayerY = initData.playerY;
+
+    this.otherEnergy = initData.otherEnergy;
+    this.otherMoney = initData.otherMoney;
+
+    this.radarRadius = 400;
   }
 }
 

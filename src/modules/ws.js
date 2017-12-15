@@ -1,6 +1,6 @@
 import Mediator from 'Modules/mediator';
 
-const baseUrl = 'ws://localhost:8081/game';
+const baseUrl = 'wss://tp-2017-2-caesar-backend.herokuapp.com/game';
 
 class Ws {
   constructor() {
@@ -10,24 +10,16 @@ class Ws {
 
     this.mediator = new Mediator();
 
-    this.data = {};
-
     Ws.instance = this;
   }
 
-  connect() {
+  connect(callback) {
     this.ws = new WebSocket(baseUrl);
+
+    this.ws.onopen = callback;
 
     this.ws.onmessage = (message) => {
       const data = JSON.parse(message.data);
-
-      if (data.mapSnap && this.data.mapSnap && this.data.mapSnap.destroyedTiles[0] !== data.mapSnap.destroyedTiles[0]) {
-        console.log('on: ');
-        console.log(data.mapSnap ? data.mapSnap.destroyedTiles : '');
-
-        this.data = data;
-      }
-
       this.mediator.emit(data.class, data);
     };
 
@@ -35,9 +27,7 @@ class Ws {
   }
 
   send(type, payload) {
-    console.log('send: ');
-    console.log(type);
-    console.log(payload);
+    // console.log(type, payload);
 
     this.ws.send(JSON.stringify(Object.assign({}, {
       class: type,
