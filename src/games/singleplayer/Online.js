@@ -99,6 +99,7 @@ class Game {
         if (Math.sqrt((coin.x - this.player.x) * (coin.x - this.player.x)
             + (coin.y - this.player.y) * (coin.y - this.player.y)) < this.state.radiusRadar) {
           this.game.world.bringToTop(coin);
+          console.log(coin);
         }
       });
       this.game.time.events.add(Phaser.Timer.SECOND, this.showCoins, this);
