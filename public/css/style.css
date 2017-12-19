@@ -223,12 +223,12 @@ canvas {
     top: 25%;
     right: 0;
     left: 0;
-    padding: 20px 50px 20px 50px;
+    padding: 50px;
     display: flex;
     background-color: rgba(217, 217, 217, 0.8);
     justify-content: space-between;
     flex-wrap: wrap;
-    width: 400px;
+    width: 700px;
 }
 
 .shop__upgrade-text {
@@ -237,8 +237,25 @@ canvas {
     text-align: center;
 }
 
+.shop__drill {
+    display: inline-block;
+    width: 100px;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+.shop__drill-img {
+    background: url('../img/drill.jpg') 50% 50% no-repeat;
+    background-size: 128px auto;
+    width: 128px;
+    height: 128px;
+}
+
 .shop__battery {
-    margin-right: 100px;
+    display: inline-block;
+    width: 100px;
+    margin-left: 50px;
+    margin-right: 50px;
 }
 
 .shop__battery-img {
@@ -249,7 +266,10 @@ canvas {
 }
 
 .shop__radar {
-    margin-bottom: 50px;
+    display: inline-block;
+    width: 100px;
+    margin-left: 50px;
+    margin-right: 50px;
 }
 
 .shop__radar-img {

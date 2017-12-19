@@ -95,7 +95,7 @@ class Game {
     };
 
     this.search = () => {
-      this.coins.forEach(coin => {
+      this.coins.forEach((coin) => {
         if (Math.sqrt((coin.x - this.player.x) * (coin.x - this.player.x)
             + (coin.y - this.player.y) * (coin.y - this.player.y)) < this.state.radiusRadar) {
           this.game.world.bringToTop(coin);
@@ -149,6 +149,10 @@ class Game {
       sendData.isJump = true;
       this.ws.send('ClientSnap', sendData);
     }
+  }
+
+  stop() {
+    this.game.paused = true;
   }
 
   destructor() {

@@ -8,12 +8,6 @@ class GameView {
     this.ws = new Ws();
     this.mediator = new Mediator();
 
-    this.data = {
-      drill: false,
-      energy: false,
-      radiusRadar: false,
-    };
-
     this.ws.connect(() => {
       console.log('connect opened');
       this.ws.send('JoinGame', {
@@ -23,14 +17,28 @@ class GameView {
 
     this.shop = new Shop();
 
+    this.shop.drill.on('click', () => {
+      this.ws.send('Upgrade', {
+        drill: true,
+        energy: false,
+        radiusRadar: false,
+      });
+    });
+
     this.shop.battery.on('click', () => {
-      this.data.energy = true;
-      this.ws.send('Upgrade', this.data);
+      this.ws.send('Upgrade', {
+        drill: false,
+        energy: true,
+        radiusRadar: false,
+      });
     });
 
     this.shop.radar.on('click', () => {
-      this.data.radiusRadar = true;
-      this.ws.send('Upgrade', this.data);
+      this.ws.send('Upgrade', {
+        drill: false,
+        energy: false,
+        radiusRadar: true,
+      });
     });
 
     this.shop.button.on('click', () => {
@@ -39,14 +47,15 @@ class GameView {
 
     // this.shop.show();
 
-    this.mediator.on('Upgrade.Response', (data) => {
+    this.mediator.on('Upgrade$Response', (data) => {
       if (data.successfully === true) {
         this.init.energy = data.energy;
         this.init.radiusRadar = data.radiusRadar;
       }
     });
 
-    this.mediator.on('StartNewDay.Response', () => {
+    this.mediator.on('StartNewDay$Response', () => {
+      this.game.destructor();
       this.game = new Online(this.init);
     });
 
@@ -58,7 +67,7 @@ class GameView {
 
     this.mediator.on('FinishDay$Request', () => {
       this.shop.show();
-      this.game.destructor();
+      this.game.stop();
     });
   }
 
