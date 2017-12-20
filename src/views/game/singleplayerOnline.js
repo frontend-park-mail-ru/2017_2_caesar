@@ -5,6 +5,8 @@ import Mediator from 'Modules/mediator';
 
 class GameView {
   show() {
+    document.getElementById('game').hidden = false;
+
     this.ws = new Ws();
     this.mediator = new Mediator();
 
@@ -14,6 +16,8 @@ class GameView {
         typeOfGame: 'single',
       });
     });
+
+    this.play = false;
 
     this.shop = new Shop();
 
@@ -45,7 +49,7 @@ class GameView {
       this.ws.send('StartNewDay', {});
     });
 
-    // this.shop.show();
+    this.shop.visible = false;
 
     this.mediator.on('Upgrade$Response', (data) => {
       if (data.successfully === true) {
@@ -55,19 +59,24 @@ class GameView {
     });
 
     this.mediator.on('StartNewDay$Response', () => {
+      this.shop.hide();
+      this.shop.visible = false;
       this.game.destructor();
       this.game = new Online(this.init);
     });
 
     this.mediator.on('InitGameSinglePlayer$Response', (data) => {
-      this.ws.userId = data.userId;
-      this.init = data;
-      this.game = new Online(this.init);
+      if (!this.play) {
+        this.ws.userId = data.userId;
+        this.init = data;
+        this.game = new Online(this.init);
+        this.play = true;
+      }
     });
 
     this.mediator.on('FinishDay$Request', () => {
       this.shop.show();
-      this.game.stop();
+      this.shop.visible = true;
     });
   }
 
@@ -75,6 +84,16 @@ class GameView {
     this.ws.send('FinishGame$Request', {
       userId: this.ws.userId,
     });
+
+    if (this.shop.visible) {
+      this.shop.hide();
+    }
+
+    document.getElementById('game').hidden = true;
+
+    this.play = false;
+
+    this.mediator.offAll();
 
     this.game.destructor();
   }

@@ -112,7 +112,11 @@ class Game {
 
     this.info = new Info(this.game, this.state.money, this.state.energy);
 
-    console.log(this.player);
+    this.player.animations.stop();
+    this.player.frame = 4;
+
+    this.otherPlayer.animations.stop();
+    this.otherPlayer.frame = 4;
   }
 
   update() {
@@ -162,6 +166,8 @@ class Game {
     window.removeEventListener('keydown', this.exit);
 
     window.onresize = null;
+
+    this.mediator.offType('ServerSnap');
 
     this.game.destroy();
   }
