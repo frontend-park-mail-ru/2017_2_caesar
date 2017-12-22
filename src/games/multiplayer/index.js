@@ -40,6 +40,11 @@ class Game {
 
       if (data.mapSnap.destroyedTiles[0] !== null) {
         for (let i = 0; i < data.mapSnap.destroyedTiles.length; i++) {
+          const textEnergy = this.game.add.text(data.mapSnap.destroyedTiles[i].x,
+            data.mapSnap.destroyedTiles[i].y, '-1', this.styleText);
+          this.game.time.events.add(Phaser.Timer.SECOND, () => {
+            textEnergy.kill();
+          }, this);
           this.free = this.creator.createFree(data.mapSnap.destroyedTiles[i].x,
             data.mapSnap.destroyedTiles[i].y);
           this.game.physics.arcade.overlap(this.free, this.platforms, (free, platform) => {
@@ -50,6 +55,11 @@ class Game {
       }
       if (data.mapSnap.destroyedTiles[0] !== null) {
         for (let i = 0; i < data.mapSnap.destroyedBonus.length; i++) {
+          const textCoin = this.game.add.text(data.mapSnap.destroyedBonus[i].x,
+            data.mapSnap.destroyedBonus[i].y, '+10', this.styleText);
+          this.game.time.events.add(Phaser.Timer.SECOND, () => {
+            textCoin.kill();
+          }, this);
           this.free = this.creator.createFree(data.mapSnap.destroyedBonus[i].x,
             data.mapSnap.destroyedBonus[i].y);
           this.game.physics.arcade.overlap(this.free, this.coins, (free, coin) => {
@@ -85,6 +95,8 @@ class Game {
   }
 
   create() {
+    this.styleText = { font: 'bold 32px Arial', fill: '#fff', boundsAlignH: 'center', boundsAlignV: 'middle' };
+
     this.game.world.setBounds(0, 0, this.state.worldWidth, this.state.worldHeight);
 
     this.creator.createBg();
@@ -160,10 +172,10 @@ class Game {
         x: coin.x,
         y: coin.y,
       };
-      this.textCoin = this.game.add.text(coin.x,
+      const textCoin = this.game.add.text(coin.x,
         coin.y, '+10', this.styleText);
       this.game.time.events.add(Phaser.Timer.SECOND, () => {
-        this.textCoin.kill();
+        textCoin.kill();
       }, this);
       this.ws.send('ClientSnap', sendData);
     });

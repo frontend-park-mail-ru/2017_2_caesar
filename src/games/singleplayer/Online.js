@@ -31,10 +31,10 @@ class Game {
 
       if (data.mapSnap.destroyedTiles[0] !== null) {
         for (let i = 0; i < data.mapSnap.destroyedTiles.length; i++) {
-          this.textEnergy = this.game.add.text(data.mapSnap.destroyedTiles[i].x,
+          const textEnergy = this.game.add.text(data.mapSnap.destroyedTiles[i].x,
             data.mapSnap.destroyedTiles[i].y, '-1', this.styleText);
           this.game.time.events.add(Phaser.Timer.SECOND, () => {
-            this.textEnergy.kill();
+            textEnergy.kill();
           }, this);
           this.free = this.creator.createFree(data.mapSnap.destroyedTiles[i].x,
             data.mapSnap.destroyedTiles[i].y);
@@ -46,10 +46,10 @@ class Game {
       }
       if (data.mapSnap.destroyedBonus[0] !== null) {
         for (let i = 0; i < data.mapSnap.destroyedBonus.length; i++) {
-          this.textCoin = this.game.add.text(data.mapSnap.destroyedBonus[i].x,
+          const textCoin = this.game.add.text(data.mapSnap.destroyedBonus[i].x,
             data.mapSnap.destroyedBonus[i].y, '+10', this.styleText);
           this.game.time.events.add(Phaser.Timer.SECOND, () => {
-            this.textCoin.kill();
+            textCoin.kill();
           }, this);
           this.free = this.creator.createFree(data.mapSnap.destroyedBonus[i].x,
             data.mapSnap.destroyedBonus[i].y);
@@ -109,7 +109,6 @@ class Game {
         if (Math.sqrt((coin.x - this.player.x) * (coin.x - this.player.x)
             + (coin.y - this.player.y) * (coin.y - this.player.y)) < this.state.radiusRadar) {
           this.game.world.bringToTop(coin);
-          console.log(coin);
         }
       });
       this.game.time.events.add(Phaser.Timer.SECOND, this.showCoins, this);
@@ -153,10 +152,10 @@ class Game {
         x: coin.x,
         y: coin.y,
       };
-      this.textCoin = this.game.add.text(coin.x,
+      const textCoin = this.game.add.text(coin.x,
         coin.y, '+10', this.styleText);
       this.game.time.events.add(Phaser.Timer.SECOND, () => {
-        this.textCoin.kill();
+        textCoin.kill();
       }, this);
       this.ws.send('ClientSnap', sendData);
     });
