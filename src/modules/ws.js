@@ -1,6 +1,6 @@
 import Mediator from 'Modules/mediator';
 
-const baseUrl = 'wss://tp-2017-2-caesar-backend.herokuapp.com/game';
+const baseUrl = /* 'wss://tp-2017-2-caesar-backend.herokuapp.com/game'; */ 'ws://localhost:8081/game';
 
 class Ws {
   constructor() {
