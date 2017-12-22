@@ -60,7 +60,7 @@ class RegistrationForm extends Form {
   checkFields() {
     const fields = this.getFields(['email', 'username', 'password', 'passwordRepeat']);
 
-    const checkEmail = /^\w+@\w+\.\w{2,4}$/i;
+    const checkEmail = /^\w+@\w+\.\w*\.?\w{2,4}$/i;
 
     let error = [];
 
@@ -109,7 +109,7 @@ class RegistrationForm extends Form {
   }
 
   addListener() {
-    const r = /^\w+@\w+\.\w{2,4}$/i;
+    const r = /^\w+@\w+\.\w*\.?\w{2,4}$/i;
 
     this.email.on('input', () => {
       if (!r.test(this.email.element.value)) {

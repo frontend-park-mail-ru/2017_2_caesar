@@ -85,10 +85,9 @@ class Game {
     this.game.load.image('ground', 'sprites/ground.png');
     this.game.load.image('ground-top', 'sprites/ground-top.png');
     this.game.load.spritesheet('dude', 'sprites/dude.png', 32, 48);
-    // this.game.load.image('dude', 'sprites/dude.png');
     this.game.load.image('coin', 'sprites/coin.png');
     this.game.load.image('energy', 'sprites/energy.png');
-    this.game.load.image('home', 'sprites/home.png');
+    this.game.load.image('background', 'sprites/background.png');
     this.game.load.image('menu', 'sprites/menu.png');
   }
 
@@ -173,7 +172,7 @@ class Game {
     this.iconEnergy.height = TEXT_ENERGY_ICON_HEIGHT;
     this.iconEnergy.fixedToCamera = true;
 
-    this.menu = this.game.add.sprite(window.innerWidth / 2 - MENU_WIDTH / 2, window.innerHeight / 2 - MENU_HEIGHT / 2, 'menu');
+    this.menu = this.game.add.sprite(window.innerWidth / 2 - MENU_WIDTH / 2, window.innerHeight / 2 - MENU_HEIGHT / 2, 'background');
     this.menu.width = MENU_WIDTH;
     this.menu.height = MENU_HEIGHT;
     this.menu.inputEnabled = true;
@@ -209,7 +208,7 @@ class Game {
       this.reset.y = window.innerHeight / 2 + 80;
     };
 
-    this.menuButton = this.game.add.sprite(COINS_ICON_X, COINS_ICON_Y, 'home');
+    this.menuButton = this.game.add.sprite(COINS_ICON_X, COINS_ICON_Y, 'menu');
     this.menuButton.width = ICON_WIDTH;
     this.menuButton.height = ICON_HEIGHT;
     this.menuButton.inputEnabled = true;
@@ -272,12 +271,9 @@ class Game {
   }
 
   update() {
-    if (this.state.counterCoins === COINS) {
-      this.showMenuReset();
-    }
-
-    if (this.state.energy === 0) {
-      this.showMenuReset();
+    if (this.state.counterCoins === COINS || this.state.energy === 0) {
+      const router = new Router();
+      router.go('/');
     }
 
     this.textEnergy.setText(this.state.energy);

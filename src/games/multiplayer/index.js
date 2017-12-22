@@ -103,7 +103,13 @@ class Game {
     };
 
     this.search = () => {
-      this.game.world.bringToTop(this.coins);
+      this.coins.forEach((coin) => {
+        if (Math.sqrt((coin.x - this.player.x) * (coin.x - this.player.x)
+            + (coin.y - this.player.y) * (coin.y - this.player.y)) < this.state.radiusRadar) {
+          this.game.world.bringToTop(coin);
+          console.log(coin);
+        }
+      });
       this.game.time.events.add(Phaser.Timer.SECOND, this.showCoins, this);
     };
 
@@ -139,8 +145,29 @@ class Game {
       isDrill: false,
       isJump: false,
       isMove: false,
+      isBonus: false,
+      bonus: {
+        x: 0,
+        y: 0,
+      },
       frameTime: 50,
     };
+
+    this.game.physics.arcade.overlap(this.player, this.coins, (player, coin) => {
+      coin.kill();
+      sendData.isBonus = true;
+      sendData.bonus = {
+        x: coin.x,
+        y: coin.y,
+      };
+      this.textCoin = this.game.add.text(coin.x,
+        coin.y, '+10', this.styleText);
+      this.game.time.events.add(Phaser.Timer.SECOND, () => {
+        this.textCoin.kill();
+      }, this);
+      this.ws.send('ClientSnap', sendData);
+    });
+
     if (this.cursors.left.isDown) {
       sendData.isMove = true;
       sendData.moveTo.keyDown = 'LEFT';

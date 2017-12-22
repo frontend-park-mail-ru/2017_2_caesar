@@ -54,7 +54,6 @@ class Game {
           this.free = this.creator.createFree(data.mapSnap.destroyedBonus[i].x,
             data.mapSnap.destroyedBonus[i].y);
           this.game.physics.arcade.overlap(this.free, this.coins, (free, coin) => {
-            console.log(coin);
             free.kill();
             coin.kill();
           });
@@ -139,8 +138,29 @@ class Game {
       isDrill: false,
       isJump: false,
       isMove: false,
+      isBonus: false,
+      bonus: {
+        x: 0,
+        y: 0,
+      },
       frameTime: 50,
     };
+
+    this.game.physics.arcade.overlap(this.player, this.coins, (player, coin) => {
+      coin.kill();
+      sendData.isBonus = true;
+      sendData.bonus = {
+        x: coin.x,
+        y: coin.y,
+      };
+      this.textCoin = this.game.add.text(coin.x,
+        coin.y, '+10', this.styleText);
+      this.game.time.events.add(Phaser.Timer.SECOND, () => {
+        this.textCoin.kill();
+      }, this);
+      this.ws.send('ClientSnap', sendData);
+    });
+
     if (this.cursors.left.isDown) {
       sendData.isMove = true;
       sendData.moveTo.keyDown = 'LEFT';

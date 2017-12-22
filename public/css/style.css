@@ -13,6 +13,9 @@ html, body {
     font-family: my;
 }
 
+.text {
+    font-family: my;
+}
 #block {
     width: 480px;
     position: absolute;
