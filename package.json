@@ -16,9 +16,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "css-loader": "^0.28.7",
     "express": "^4.15.4",
     "extract-text-webpack-plugin": "^3.0.2",
-    "phaser": "^2.6.2"
+    "phaser": "^2.6.2",
+    "style-loader": "^0.19.1"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",

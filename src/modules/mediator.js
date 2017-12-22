@@ -32,6 +32,14 @@ class Mediator {
     }
   }
 
+  offType(type) {
+    this.listeners[type] = [];
+  }
+
+  offAll() {
+    this.listeners = {};
+  }
+
   emit(type, data) {
     const sliceChar = `${type.slice(0, type.indexOf(':'))}:*`;
 

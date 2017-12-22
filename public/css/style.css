@@ -13,6 +13,9 @@ html, body {
     font-family: my;
 }
 
+.text {
+    font-family: my;
+}
 #block {
     width: 480px;
     position: absolute;
@@ -214,4 +217,89 @@ canvas {
     position: absolute;
     top: 0;
     left: 0;
+}
+
+.shop {
+    position: fixed;
+    z-index: 100;
+    margin: auto;
+    top: 25%;
+    right: 0;
+    left: 0;
+    padding: 50px;
+    display: flex;
+    background-color: rgba(217, 217, 217, 0.8);
+    justify-content: space-between;
+    flex-wrap: wrap;
+    width: 700px;
+}
+
+.shop__upgrade-text {
+    color: #6d6759;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.shop__drill {
+    display: inline-block;
+    width: 100px;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+.shop__drill-img {
+    background: url('../img/drill.jpg') 50% 50% no-repeat;
+    background-size: 128px auto;
+    width: 128px;
+    height: 128px;
+}
+
+.shop__battery {
+    display: inline-block;
+    width: 100px;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+.shop__battery-img {
+    background: url('../img/battery.jpg') 50% 50% no-repeat;
+    background-size: 128px auto;
+    width: 128px;
+    height: 128px;
+}
+
+.shop__radar {
+    display: inline-block;
+    width: 100px;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+.shop__radar-img {
+    background: url('../img/radar.jpg') 50% 50% no-repeat;
+    background-size: 128px auto;
+    width: 128px;
+    height: 128px;
+}
+
+.action {
+    border: 1px solid #654321;
+    cursor: pointer;
+    display: inline-block;
+    outline: none;
+    text-decoration: none;
+    transition: .2s background-color ease-in-out;
+    background-color: #ffc966;
+    color: #777d8c;
+    box-shadow: 0 0 1px #bfbfbf;
+    border-radius: 4px;
+    height: 24px;
+    line-height: normal;
+    padding: 5px 10px 3px 10px;
+    margin: auto;
+}
+
+.action:hover {
+    border-color: #c07c00;
+    color: #BF841A;
 }

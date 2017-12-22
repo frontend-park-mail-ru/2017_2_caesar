@@ -6,9 +6,7 @@ import UserService from 'Services/user-service';
 
 class LoginView extends BaseView {
   constructor() {
-    super('div');
-
-    this.addClasses(['form']);
+    super('div', ['form']);
 
     this.header = Block.create('div', {
     }, ['form__actions']);
@@ -56,7 +54,6 @@ class LoginView extends BaseView {
           router.go('/');
         })
         .catch((err) => {
-          console.log(err)
           switch (+err.status) {
             case 403:
               this.content.login.setErrorMessage('Неверный пароль!');

@@ -23,7 +23,6 @@ class Game {
     this.mediator = new Mediator();
 
     this.mediator.on('ServerSnap', (data) => {
-      // console.log(data);
       this.state.playerX = data.firstUser.positionPartSnap.position.x;
       this.state.playerY = data.firstUser.positionPartSnap.position.y;
 
@@ -32,6 +31,11 @@ class Game {
 
       if (data.mapSnap.destroyedTiles[0] !== null) {
         for (let i = 0; i < data.mapSnap.destroyedTiles.length; i++) {
+          this.textEnergy = this.game.add.text(data.mapSnap.destroyedTiles[i].x,
+            data.mapSnap.destroyedTiles[i].y, '-1', this.styleText);
+          this.game.time.events.add(Phaser.Timer.SECOND, () => {
+            this.textEnergy.kill();
+          }, this);
           this.free = this.creator.createFree(data.mapSnap.destroyedTiles[i].x,
             data.mapSnap.destroyedTiles[i].y);
           this.game.physics.arcade.overlap(this.free, this.platforms, (free, platform) => {
@@ -40,12 +44,16 @@ class Game {
           });
         }
       }
-      if (data.mapSnap.destroyedTiles[0] !== null) {
+      if (data.mapSnap.destroyedBonus[0] !== null) {
         for (let i = 0; i < data.mapSnap.destroyedBonus.length; i++) {
+          this.textCoin = this.game.add.text(data.mapSnap.destroyedBonus[i].x,
+            data.mapSnap.destroyedBonus[i].y, '+10', this.styleText);
+          this.game.time.events.add(Phaser.Timer.SECOND, () => {
+            this.textCoin.kill();
+          }, this);
           this.free = this.creator.createFree(data.mapSnap.destroyedBonus[i].x,
             data.mapSnap.destroyedBonus[i].y);
           this.game.physics.arcade.overlap(this.free, this.coins, (free, coin) => {
-            console.log(coin);
             free.kill();
             coin.kill();
           });
@@ -78,6 +86,8 @@ class Game {
   }
 
   create() {
+    this.styleText = { font: 'bold 32px Arial', fill: '#fff', boundsAlignH: 'center', boundsAlignV: 'middle' };
+
     this.game.world.setBounds(0, 0, this.state.worldWidth, this.state.worldHeight);
 
     this.creator.createBg();
@@ -95,10 +105,11 @@ class Game {
     };
 
     this.search = () => {
-      this.coins.forEach(coin => {
+      this.coins.forEach((coin) => {
         if (Math.sqrt((coin.x - this.player.x) * (coin.x - this.player.x)
             + (coin.y - this.player.y) * (coin.y - this.player.y)) < this.state.radiusRadar) {
           this.game.world.bringToTop(coin);
+          console.log(coin);
         }
       });
       this.game.time.events.add(Phaser.Timer.SECOND, this.showCoins, this);
@@ -127,8 +138,29 @@ class Game {
       isDrill: false,
       isJump: false,
       isMove: false,
+      isBonus: false,
+      bonus: {
+        x: 0,
+        y: 0,
+      },
       frameTime: 50,
     };
+
+    this.game.physics.arcade.overlap(this.player, this.coins, (player, coin) => {
+      coin.kill();
+      sendData.isBonus = true;
+      sendData.bonus = {
+        x: coin.x,
+        y: coin.y,
+      };
+      this.textCoin = this.game.add.text(coin.x,
+        coin.y, '+10', this.styleText);
+      this.game.time.events.add(Phaser.Timer.SECOND, () => {
+        this.textCoin.kill();
+      }, this);
+      this.ws.send('ClientSnap', sendData);
+    });
+
     if (this.cursors.left.isDown) {
       sendData.isMove = true;
       sendData.moveTo.keyDown = 'LEFT';
@@ -152,6 +184,8 @@ class Game {
 
   destructor() {
     window.removeEventListener('keydown', this.exit);
+
+    this.mediator.offType('ServerSnap');
 
     window.onresize = null;
 
