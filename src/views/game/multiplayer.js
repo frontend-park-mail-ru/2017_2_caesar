@@ -4,20 +4,7 @@ import Ws from 'Modules/ws';
 import Mediator from 'Modules/mediator';
 
 class GameView {
-  show() {
-    document.getElementById('game').hidden = false;
-
-    this.ws = new Ws();
-    this.mediator = new Mediator();
-
-    this.ws.connect(() => {
-      document.getElementById('wait').hidden = false;
-
-      this.ws.send('JoinGame', {
-        typeOfGame: 'multi',
-      });
-    });
-
+  constructor() {
     this.shop = new Shop();
 
     this.shop.drill.on('click', () => {
@@ -47,6 +34,21 @@ class GameView {
     this.shop.button.on('click', () => {
       this.ws.send('StartNewDay', {});
     });
+  }
+
+  show() {
+    document.getElementById('game').hidden = false;
+
+    this.ws = new Ws();
+    this.mediator = new Mediator();
+
+    this.ws.connect(() => {
+      document.getElementById('wait').hidden = false;
+
+      this.ws.send('JoinGame', {
+        typeOfGame: 'multi',
+      });
+    });
 
     this.shop.visible = false;
 
@@ -54,6 +56,8 @@ class GameView {
       if (data.successfully === true) {
         this.init.energy = data.energy;
         this.init.radiusRadar = data.radiusRadar;
+        this.game.state.money = data.money;
+        this.shop.update(data.money);
       }
     });
 
@@ -73,6 +77,7 @@ class GameView {
 
     this.mediator.on('FinishDay$Request', () => {
       this.shop.show();
+      this.shop.update(this.game.state.money);
       this.shop.visible = true;
     });
   }

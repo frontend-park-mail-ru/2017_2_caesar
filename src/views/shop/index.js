@@ -20,9 +20,15 @@ class Shop extends Base {
     this.radar.img = Block.create('div', {}, ['shop__radar-img']);
     this.radar.sum = Block.create('div', {}, [], '10');
 
+    this.money = Block.create('div', {}, ['shop__money-text'], '');
+
     this.button = Block.create('div', {}, ['action'], 'Новый день');
 
     this.render();
+  }
+
+  update(money) {
+    this.money.setHTML(`Осталось денег: ${money}`);
   }
 
   render() {
@@ -45,6 +51,7 @@ class Shop extends Base {
       .append(this.drill)
       .append(this.battery)
       .append(this.radar)
+      .append(this.money)
       .append(this.button);
   }
 }
