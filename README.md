@@ -1,11 +1,16 @@
 # 2017_2_caesar
 
-## Ссылка на игру
+## Играть
 
 [**Diggy!**](https://tp-2017-2-caesar.herokuapp.com/)  
 
+## API
+
+Репозиторий c реализацией API игры: https://github.com/java-park-mail-ru/CaesarTeam-09-2017
+
 ## Описание
-Diggy - самая крутая игра
+Diggy - бродилка(2D)
+Цель: добыча полезных ископаемых
 
 ## Команда
 
