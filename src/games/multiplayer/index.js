@@ -140,7 +140,8 @@ class Game {
   update() {
     this.player.x = this.state.playerX;
     this.player.y = this.state.playerY;
-
+    this.player.bringToTop();
+    this.otherPlayer.bringToTop();
     this.otherPlayer.x = this.state.otherPlayerX;
     this.otherPlayer.y = this.state.otherPlayerY;
 

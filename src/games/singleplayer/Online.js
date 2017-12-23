@@ -123,7 +123,7 @@ class Game {
   update() {
     this.player.x = this.state.playerX;
     this.player.y = this.state.playerY;
-
+    this.player.bringToTop();
     this.info.update(this.state.money, this.state.energy);
 
     const sendData = {
