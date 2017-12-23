@@ -61,7 +61,8 @@ class GameView {
       }
     });
 
-    this.mediator.on('StartNewDay$Response', () => {
+    this.mediator.on('StartNewDay$Response', (data) => {
+      this.init.bonusPosition = data.bonusPosition;
       this.shop.hide();
       this.shop.visible = false;
       this.game.destructor();
